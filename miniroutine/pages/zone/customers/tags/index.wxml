@@ -1,0 +1,29 @@
+<navigation title="标签" back bindback="back"/>
+<view class="bg-white common-padding">
+  <view class="flex flex-row text-xl text-balck align-center text-bold common-border-bottom-shadow" style="padding: 0 0 32rpx 0; box-sizing: border-box;">
+    <view class="cu-avatar lg round margin-right" style="background-image: url({{ userInfo.HeadPortraitUrl }})"></view>
+    {{ userInfo.Name }}
+  </view>
+  <view class="margin-top flex flex-row align-center">
+    <view class="text-black text-lg text-bold margin-right">手动标签</view>
+    <view class="text-gray text-sm">最多添加10个标签</view>
+  </view>
+  <view class="margin-top">
+    <button wx:if="{{ level }}" class="cu-btn shadow round bg-green erys-index__groups-items __butn-position">{{ level }}</button>
+    <button hidden="{{ item.hidden }}" wx:for="{{ labels }}" wx:key="index" class="cu-btn shadow round erys-index__groups-items __butn-position"><icon bindtap="removeSelected" data-field="{{ item.SysNo }}" data-index="{{ index }}" class="cuIcon-roundclose __close text-gray"/>{{ item.LableName }}</button>
+  </view>
+  <form bindsubmit="formSubmit" class="margin-top-xl">
+    <view class="__text-align-row" style="align-items: center;justify-content: space-between;">
+      <input name="text" class="text-sm text-shadow text-orange" placeholder="点我添加自定义标签" bindfocus="showButton" value="{{ text }}"></input>
+      <button hidden="{{ show }}" class="cu-btn round bg-blue" form-type="submit">确定</button>
+    </view>
+  </form>
+</view>
+<view class="bg-white margin-top common-padding">
+  <view class="text-bold text-lg text-black margin-bottom">意向等级</view>
+  <button wx:for="{{ levelGroup }}" wx:key="index" class="cu-btn shadow round {{ selected == index && 'bg-green'}} erys-index__groups-items __butn-position" data-index="{{ index }}" bindtap="chooseLevel">{{ item }}</button>
+</view>
+<view class="common-padding erys-footer__items bg-white margin-top">
+    <button class="common-button erys-button__footer" bind:tap='save'>保存</button>
+  </view>
+

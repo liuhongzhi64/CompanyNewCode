@@ -1,0 +1,34 @@
+<navigation title="更多留言" back bindback="back"/>
+<view class="common-padding">
+  <view class="erys-index__comment-box common-border-bottom-shadow" wx:for="{{ comments }}" wx:key="index">
+    <view class="cu-avatar round" style="background-image: url('{{ item.avatar }}')"></view>
+    <view class="erys-index__comment-content-box" style="width: {{ screenWidth - 85 }}px">
+      <view class="erys-index__comment-content-title" style="color: #888888; font-weight: bold;">
+        {{ item.name }}
+        <view class="bg-white no-border __comment-btn-font" data-index="{{ index }}" bindtap="likeCurComment">
+          <image class="__comment-img" src="{{ item.PointRatioStatus == 1 ? '../../static/icon/icon_likegood_fill_1.png' : '../../static/icon/icon_likegood_2.png' }}"></image>
+          {{ item.PointRatio }}
+        </view>
+      </view>
+      <view class="__text-line">
+        <text space="nbsp" style="word-break:break-all;">{{ item.Content }}</text>
+      </view>
+    </view>
+  </view>
+  <view class="flex flex-row justifu-center align-center common-padding" wx:if="{{ loadingmore }}">
+    <view class="erys-home-button__loading">
+      <image class="animation" src="../../static/icon/loading.png"></image>
+      <view class="text-gray text-lg margin-left">正在加载....</view>
+    </view>
+  </view>
+  <view style="height: 150rpx;"></view>
+</view>
+<view class="bg-white shadow padding-sm __position-box" style="bottom: {{ bottomHeight }}px;">
+  <form bindsubmit="formSubmit">
+    <view class="__text-align-row" style="align-items: center;justify-content: space-between;">
+      <!-- <input name="text" class="text-sm text-shadow text-black basis-xl" placeholder="点这里马上给我留言" bindfocus="showButton" value="{{ text }}" bindblur="loseFocus" adjust-position="{{ false }}" maxlength="30"></input> -->
+      <textarea name="text" class="text-sm text-shadow text-black basis-xl" placeholder="点这里马上给我留言" bindfocus="showButton" style="height: 100rpx;" value="{{ text }}" bindblur="loseFocus" adjust-position="{{ false }}" maxlength="100"></textarea>
+      <button hidden="{{ show }}" class="cu-btn round bg-blue" form-type="submit">确定</button>
+    </view>
+  </form>
+</view>

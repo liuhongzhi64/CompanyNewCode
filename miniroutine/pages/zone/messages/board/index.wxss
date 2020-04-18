@@ -1,0 +1,99 @@
+/* pages/zone/messages/board/index.wxss */
+page {
+  background: #E6E6E6;
+}
+.erys-home-button__loading {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.erys-home-button__loading>image {
+  width: 20px;
+  height: 20px;
+}
+.animation {
+  animation: ratateLoading 1s linear infinite;
+  -webkit-animation: ratateLoading 1s linear infinite;
+}
+@keyframes ratateLoading {
+  from {
+    transform: rotate(0deg)
+  }
+  to {
+    transform: rotate(360deg)
+  }
+}
+@-webkit-keyframes ratateLoading {
+  from {
+    transform: rotate(0deg)
+  }
+  to {
+    transform: rotate(360deg)
+  }
+}
+.__bg-sound {
+  width: 100%;
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  top: 132rpx;
+  left: 0;
+}
+.speak-test-box {
+  width: 200rpx;
+  height: 200rpx;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+.wave-speak {
+  width: 100rpx;
+  height: 100rpx;
+}
+.inner-box {
+  width: 100rpx;
+  height: 100rpx;
+  overflow: hidden;
+}
+.danger-bg {
+  background: black;
+  opacity: 0.75;
+  width: 100%;
+  height: 100%;
+  border-radius: 16rpx;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.bottom-line {
+  font-size: 24rpx;
+  font-weight: lighter;
+  position: absolute;
+  bottom: 0;
+  color: rgba(220,220,220,1);
+}
+.__items-pic {
+  width: 40rpx;
+  height: 40rpx;
+}
+.__flex {
+  align-items: flex-start !important;
+}
+.__items {
+  padding: 10rpx 0 10rpx 0;
+  box-sizing: border-box;
+}
+.__items-text {
+  color: #707070;
+}
+.__btn {
+  width: 169.5rpx;
+  height: 104rpx;
+  border: 0;
+}

@@ -1,0 +1,29 @@
+.personal-edit-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 36rpx;
+  
+}
+.personal-edit-font {
+  font-size: 32rpx;
+  font-weight: 500;
+  color: #303133;
+}
+.edit-input {
+  width: 100%;
+}
+.edit-input-outer {
+  width: 100%;
+  height: 55rpx;
+  border-bottom: 1px solid #107FE4;
+}
+.submitBtn {
+  background:#396AFC;
+  width:670rpx;
+  height:80rpx;
+  font-size: 30rpx;
+  color: #FFFFFF;
+  margin-top: 60rpx;
+}

@@ -1,0 +1,26 @@
+<view class="cu-btn erys-index-box__ common-box-shadow bg-white" wx:if="{{ showIndex }}">
+  <view
+    wx:if="{{ showBackTop }}"
+    class="erys-index__index-items text-xxl {{ ( !showHome && !showMessage ) && 'erys-index___radius' }}"
+    hover-class="bg-gray erys-index__top-radius"
+    style="border-bottom: 1px solid #E6E6E6"
+    bindtap="backTop">
+    <icon class="cuIcon-top" style="margin-top: -4px;"></icon>
+  </view>
+  <view
+    wx:if="{{ showHome }}"
+    class="erys-index__index-items text-xxl {{ showBackTop || 'erys-index__top-radius' }} {{ showMessage || 'erys-index___radius' }}" 
+    style="border-bottom: 1px solid #E6E6E6" 
+    hover-class="bg-gray {{ showBackTop || 'erys-index__top-radius'}} {{ showMessage || 'erys-index__radius' }}" 
+    bindtap="backHome">
+    <icon class="cuIcon-home" style="margin-top: -4px;"></icon>
+  </view>
+  <view
+    wx:if="{{ showMessage }}" 
+    class="erys-index__index-items text-xxl erys-index__badge-init {{ ( !showBackTop && !showHome ) && 'erys-index__top-radius' }}" 
+    hover-class="bg-gray {{ ( !showBackTop && !showHome ) && 'erys-index__top-radius' }} erys-index__radius" 
+    bindtap="sendMessage">
+    <icon class="cuIcon-mark" style="margin-top: -4px;"></icon>
+    <view class="erys-index__spot-badge" wx:if="{{ badge > 0 }}"></view>
+  </view>
+</view>

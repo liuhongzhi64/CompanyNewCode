@@ -1,0 +1,44 @@
+/* pages/history/index.wxss */
+.__title {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+.erys-home-button__loading {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.erys-home-button__loading>image {
+  width: 20px;
+  height: 20px;
+}
+.animation {
+  animation: ratateLoading 1s linear infinite;
+  -webkit-animation: ratateLoading 1s linear infinite;
+}
+@keyframes ratateLoading {
+  from {
+    transform: rotate(0deg)
+  }
+  to {
+    transform: rotate(360deg)
+  }
+}
+@-webkit-keyframes ratateLoading {
+  from {
+    transform: rotate(0deg)
+  }
+  to {
+    transform: rotate(360deg)
+  }
+}
+.__margin-top {
+  margin-top: 8rpx;
+}
+.__margin-right {
+  margin-right: 4rpx;
+} 

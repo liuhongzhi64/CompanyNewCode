@@ -1,0 +1,9 @@
+<navigation title="添加跟进" back bindback="back"/>
+<view class="common-padding">
+  <view class="text-black text-xl">填写跟进</view>
+  <textarea class="erys-text-area__box text-black text-df margin-top" placeholder-class="text-gray text-df" placeholder="点我马上进行跟进" value="{{ text }}" bindinput="input" maxlength="200"></textarea>
+  <view class="text-right text-sm text-gray">{{ text.length }}/200字</view>
+  <view class="common-padding erys-footer__items bg-white margin-top">
+    <button class="common-button erys-button__footer" bind:tap='save'>保存</button>
+  </view>
+</view>

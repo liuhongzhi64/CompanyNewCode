@@ -1,0 +1,20 @@
+<navigation title="消息" back bindback="back"/>
+<view wx:if="{{ messageList.length == 0 }}" class="text-center text-gray margin-top">未找到数据</view>
+<view class="cu-list menu-avatar">
+	<view class="cu-item {{ modalName == index ? 'move-cur' : '' }}" wx:for="{{ messageList }}" wx:key="index" bindtouchstart="ListTouchStart" bindtouchmove="ListTouchMove" bindtouchend="ListTouchEnd" data-target="{{ index }}" bindtap="navigateToBoard">
+		<view class="cu-avatar round lg" style="background-image: url('{{ item.userProfile.avatar }}')"></view>
+		<view class="content">
+			<view class="text-grey">{{ item.userProfile.nick }}</view>
+			<view class="text-gray text-sm">
+				<text class="text-red"></text>{{ item.userProfile.selfSignature }}</view>
+		</view>
+		<view class="action">
+			<view class="text-grey text-xs">{{ item.lastMessage.lastTime }}</view>
+			<view class="cu-tag round bg-grey sm">{{ item.unreadCount }}</view>
+		</view>
+		<view class="move">
+			<!-- <view class="bg-grey" data-index="{{ index }}" catchtap="addBlock">黑名单</view> -->
+			<view class="bg-red" data-index="{{ index }}" catchtap="deleteConversation">删除</view>
+		</view>
+	</view>
+</view>

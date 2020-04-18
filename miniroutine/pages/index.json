@@ -1,0 +1,16 @@
+{
+  "usingComponents": {
+    "navigation": "miniprograms-navigation-bar",
+    "home": "../components/home-bar/home",
+    "cardA": "../components/cards/cardA",
+    "cardB": "../components/cards/cardB",
+    "bg-loading": "../components/bg-transform/bg-loading",
+    "index": "../components/index/index",
+    "image-modal": "../components/modal/image-modal",
+    "actionsheet": "../components/modal/actionsheet",
+    "halfaction": "../components/modal/half-screen-dialog",
+    "mover": "../components/mover/mover"
+  },
+  "enablePullDownRefresh": true,
+  "backgroundTextStyle": "dark"
+}

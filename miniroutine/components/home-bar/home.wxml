@@ -1,0 +1,18 @@
+<view style="margin-left: 10px;">
+  <button class="cu-btn round bg-white" style="margin: 0; padding: 0;" open-type="getUserInfo" bindgetuserinfo="getSysUserInfo">
+    <view class="{{ ext-class }} erys-home-button" style="background: {{ background }}; border: 1px solid {{ border }}; color: {{ color }}; font-size: {{ fontSize * 2 }}rpx; width: {{ menuRect.width * 2 }}rpx; height: {{ menuRect.height * 2 }}rpx; border-radius: {{ menuRect.height * 2 }}rpx;">
+      <view class="erys-home-button__inner-box">
+        <view class="erys-home-button__avatar-box">
+          <image src="{{ avatar }}"></image>
+        </view>
+        <view class="erys-home-button__text-box" style="width: {{ buttonInnerTextBox * 2 }}rpx;">
+          <text hidden="{{ hideText }}">{{ title }}</text>
+          <view class="erys-home-button__loading" hidden="{{ !hideText }}">
+            <image class="{{ animation }}" src="../../static/icon/loading.png"></image>
+          </view>
+        </view>
+      </view>
+    </view>
+    <view hidden="{{ !badge }}" class="erys-home-button__badge"></view>
+  </button>
+</view>

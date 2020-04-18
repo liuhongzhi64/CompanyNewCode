@@ -1,0 +1,34 @@
+<view class="erys-card-a__outer-box" bindtap="checkImage">
+  <image src="{{ avatar }}" class="erys-card-a__image-size"></image>
+  <view class="erys-card-a__relative-text-box">
+    <image src="../../static/icon/bg-card-temp.png" class="erys-card-a__bg-img"></image>
+    <view class="erys-card-a__text erys-card-a__float-box">
+      <view class="__title-box common-color text-cut text-black text-sm">
+        <!-- <icon class="iconfont icon-gongsi"></icon> -->
+        {{ topTitle || '新推名片' }}
+      </view>
+      <view class="__main-content-box">
+        <view class="__name text-cut text-black">
+          {{ mainTitle || '新推名片' }}
+        </view>
+        <view class="__position text-black">
+          {{ positionTitle || '新零售，用心推' }}
+        </view>
+      </view>
+      <view class="erys-footer__content-box">
+        <view class="__items" wx:if="{{ phone }}">
+          <view class="text-gray" style="width: 280rpx;  font-size: 22rpx; margin-top: 4rpx;">{{ phone || '' }}</view>
+          <image src="../../static/icon/icon-gray-phone.png" style="width: 30rpx; height: 30rpx;"></image>
+        </view>
+        <view class="__items" wx:if="{{ email }}">
+          <view style="width: 280rpx; font-size: 22rpx; margin-top: 4rpx;" class="text-cut text-gray">{{ email || '' }}</view>
+          <image src="../../static/icon/icon-gray-email.png" style="width: 30rpx; height: 30rpx; margin-top: 3rpx;"></image>
+        </view>
+        <view class="__items" wx:if="{{ address != 0 }}">
+          <view class="text-gray text-right" style="width: 280rpx; font-size: 22rpx; margin-top: 4rpx;">{{ address || '' }}</view>
+          <image src="../../static/icon/icon-south.png" style="margin-top: 5rpx; width: 30rpx; height: 30rpx;"></image>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

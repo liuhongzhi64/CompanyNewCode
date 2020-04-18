@@ -1,0 +1,37 @@
+<navigation back="{{ true }}" bindback="back" title="{{ query.title }}"></navigation>
+<view wx:if="{{ listData.length == 0 }}" class="text-gray flex justify-center align-center" style="width: 100%; height: 600rpx;">未找到数据</view>
+<scroll-view scroll-y style="height: {{ screenHeight - 132 }}rpx;" class="common-padding-left-right">
+  <view class="bg-white radius">
+    <view class="common-padding-top-bottom common-border-bottom-shadow" hover-class="bg-gray" wx:for="{{ listData }}" wx:key="index" bindtap="showInfo" data-index="{{ index }}">
+      <view class="__title">
+        <view class="cu-avatar lg round" style="background-image: url({{ item.HeadPortraitUrl }})"></view>
+        <view class="basis-xl">
+          <view class="flex flex-row justify-between align-center">
+            <view class="text-lg text-black">{{ item.Name || '佚名' }}</view>
+            <view class="text-sm">上次 {{ item.InDateStr }}</view>
+          </view>
+          <view class="flex flex-row justify-start align-center __margin-top">
+            <view wx:if="{{ item.IndustryTypeName }}" class="bg-green round text-sm margin-right" style="font-size: 20rpx; padding: 8rpx; box-sizing: border-box;">{{ item.IndustryTypeName || '' }}</view>
+            <view class="text-sm">{{ item.CompanyName || '' }}</view>
+          </view>
+         <view class="flex flex-row justify-between align-center">
+           <view class="text-sm __margin-top">{{ item.PositionName || '' }}</view>
+           <view class="text-sm">总浏览{{ item.VisitCount || 0 }}次</view>
+         </view>
+          <!-- <view class="text-lg text-black">{{ item.Name || '' }}</view>
+          <view class="text-sm">{{ item.PositionName || '' }}</view>
+          <view class="text-sm">{{ item.CompanyName || '' }}</view> -->
+        </view>
+      </view>
+      <!-- <view class="__title __margin-top text-right">
+        <view class="text-sm">总浏览{{ item.VisitCount }}次</view>
+      </view> -->
+    </view>
+  </view>
+  <view class="flex flex-row justifu-center align-center common-padding" wx:if="{{ loadingmore }}">
+    <view class="erys-home-button__loading">
+      <image class="animation" src="../../static/icon/loading.png"></image>
+      <view class="text-gray text-lg margin-left">正在加载....</view>
+    </view>
+  </view>
+</scroll-view>

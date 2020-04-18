@@ -1,0 +1,30 @@
+@import "../../edit/profile/pic.wxss";
+.erys__bg-danger {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: black;
+  opacity: 0.65;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.erys__bg-danger-box {
+  position: relative;
+}
+.erys__bg-btn {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 9;
+}
+.__opacity {
+  opacity: 0.65;
+}

@@ -1,0 +1,25 @@
+<view class="cu-modal {{ showImageModal && 'show' }}" catchtouchmove="_cancleMove">
+  <view class="cu-dialog">
+    <view class="bg-img" style="background-image: url({{ src }});height:200px;">
+      <view class="cu-bar justify-end text-white">
+        <view class="action" bindtap="hideModal">
+          <text class="cuIcon-close "></text>
+        </view>
+      </view>
+    </view>
+    <view class="cu-chat">
+        <view class="cu-item">
+          <view class="cu-avatar round" style="background-image:url({{ avatar }});"></view>
+          <view class="main">
+            <view class="content bg-green shadow">
+              <text>{{ text }}</text>
+            </view>
+          </view>
+        </view>
+        <view class="cu-bar common-border-top">
+          <view class="action margin-0 flex-sub  solid-left" style="border-right: 1px solid #f0f0f0;"  bindtap="hideModal">还是算了</view>
+           <view class="action margin-0 flex-sub  solid-left" bindtap="send">发送消息</view>
+        </view>
+      </view>
+  </view>
+</view>

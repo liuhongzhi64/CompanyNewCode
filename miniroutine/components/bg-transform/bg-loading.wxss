@@ -1,0 +1,18 @@
+.erys-index__bg-loading {
+  margin: 0;
+  padding: 0;
+  font-family: "montserrat";
+  background-image: linear-gradient(125deg,#E4FFCD,#6DD5FA,#2980B9,#E4FFCD);  background-size: 400%;
+  animation: bganimation 5s infinite;
+}
+@keyframes bganimation {
+  0%{
+    background-position: 0% 50%;
+  }
+  50%{
+    background-position: 100% 50%;
+  }
+  100%{
+    background-position: 0% 50%;
+  }
+}

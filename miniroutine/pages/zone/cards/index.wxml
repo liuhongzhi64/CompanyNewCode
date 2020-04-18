@@ -1,0 +1,38 @@
+<navigation back bindback="back" searchBar catchsearch="search"/>
+<view class="bg-gray">
+  <view class="padding-xl">
+    <view wx:if="{{ cards.length == 0 }}" class="text-gray text-center margin-top">未找到数据</view>
+    <view class="mini-size-card" wx:for="{{ cards }}" wx:key="index" data-index="{{ index }}" bindtap="detailtap">
+      <view class="min-size-inner-group">
+        <view class="calling-card-wrap">
+          <view class="calling-card-avatar" bindtap="click">
+            <image src="{{ item.HeadPortraitUrl }}"></image>
+          </view>
+          <view class="calling-simple-text">
+            <view class="title-box">
+              <text>{{ item.Name || item.WX }}</text>
+            </view>
+            <text class="second-title">{{ item.PositionName || '' }}</text>
+            <text class="second-title">{{ item.CompanyName || '' }}</text>
+          </view>
+        </view>
+        <view class="mini-size-bottom-btn">
+          <view class="bottom-btn" style="border-right: 1px solid #EBEBEB;" catchtap="callmeMaybe" data-phone="{{ item.Telephone }}">
+            <image style="width: 40rpx; height: 40rpx;" src="../../../static/icon/phone_fill.png"></image>
+            <text>拨打电话</text>
+          </view>
+          <view class="bottom-btn" style="border-left: 1px solid #EBEBEB;" catchtap="sendMessage" data-id="C2C{{ item.UserSysNo }}" data-no="{{ item.UserSysNo }}">
+            <image src="../../../static/icon/message.png"></image>
+            <text>发送消息</text>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>
+<view class="flex flex-row justifu-center align-center common-padding" wx:if="{{ loadingmore }}">
+  <view class="erys-home-button__loading">
+    <image class="animation" src="../../../static/icon/loading.png"></image>
+    <view class="text-gray text-lg margin-left">正在加载....</view>
+  </view>
+</view>

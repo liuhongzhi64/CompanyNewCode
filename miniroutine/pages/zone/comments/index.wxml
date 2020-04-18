@@ -1,0 +1,43 @@
+<navigation title="留言管理" back bindback="back"/>
+<view class="text-black flex flex-row justify-between align-center common-padding common-border-top common-border-top">
+  朋友对我的评价
+  <view class="flex flex-row jusitfy-center align-center">
+    <view class="common-padding-left-right">{{ title || '全部' }} {{ listData.length }} 条</view>
+    <view class="common-padding-left-right common-border-left text-blue" style="text-decoration: underline;" bindtap="choose">筛选</view>
+  </view>
+  <!-- <button class="cu-btn round" bindtap="choose">筛选</button> -->
+</view>
+<view class="common-padding">
+<!-- <actionsheet bindactiontap="selectedItem" show="{{showActionsheet1}}" actions="{{groups}}" title="筛选"/> -->
+  <scroll-view scroll-y style="height: {{ screenHeight - 422 }}rpx;" bindscrolltolower="renchBottom">
+    <view wx:if="{{ listData.length == 0 }}" class="text-gray text-center margin-top">未找到数据</view>
+    <view class="common-padding-top-bottom common-border-bottom-shadow" wx:for="{{ listData }}" wx:key="index">
+      <view class="flex flex-row justify-start align-center">
+        <view class="cu-avatar shadow lg round" style="background-image: url({{ item.HeadPortraitUrl }})"></view>
+        <view class="common-padding-left-right __text-title">
+          <view class="text-bold text-black text-lg">{{ item.Name }}</view>
+          <view class="text-gray text-df">{{ item.CompanyName }}</view>
+        </view>
+      </view>
+      <view class="text-df text-back margin-top">
+        <text space="nbsp" style="word-break:break-all;">{{ item.Content }}</text>
+      </view>
+      <view class="flex flex-row justify-end align-end margin-top">
+        <!-- <view class="text-df text-gray">编号：{{ item.SysNo }}</view> -->
+        <view class="flex flex-row">
+          <view data-index="{{ index }}" class="text-blue text-lg" style="text-decoration: underline;" bindtap="setStatus">{{ item.Status == 0 ? '未审核' : '' }}</view>
+          <view data-index="{{ index }}" class="text-blue text-lg margin-left" style="text-decoration: underline;" bindtap="deleteData">删除</view>
+        </view>
+      </view>
+    </view>
+    <view class="flex flex-row justifu-center align-center common-padding" wx:if="{{ loadingmore }}">
+      <view class="erys-home-button__loading">
+        <image class="animation" src="../../../static/icon/loading.png"></image>
+        <view class="text-gray text-lg margin-left">正在加载....</view>
+      </view>
+    </view>
+  </scroll-view>
+  <view class="bg-white">
+    <button class="cu-btn bg-blue text-xl" style="width: 100%; height: 100rpx;" open-type="share">邀请好友留言</button>
+  </view>
+</view>

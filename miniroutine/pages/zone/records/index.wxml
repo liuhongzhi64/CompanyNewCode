@@ -1,0 +1,59 @@
+<navigation title="访客记录" back bindback="back"/>
+<!-- <tips content="完善资料让潜在客户更了解你，立即完善" link customLink="" url="../callingInfo/baseInfo"/> -->
+<view class="check-box-container">
+  <view class="check-box-inner">
+    <view class="item-single-box {{ index == selected && 'selected-font' }}" hover-class="item-hover-style" wx:for="{{ checkBox }}" wx:key="{{ index }}" bindtap="selectedClick" data-index="{{ index }}">
+      <view class="item-inner-box">
+        <view class="item-header">
+          <text class="front-title">{{ item.text }}</text>
+          <!-- <image wx:if="{{ index == selected }}" src="../../../assets/images/right-sanjiao.png"></image> -->
+        </view>
+        <text class="footer-text margin-top-sm">{{ item.count }}</text>
+      </view>
+    </view>
+  </view>
+</view>
+<view class="main-content">
+  <view class="content-header">
+    <view wx:for="{{ headerBox }}" wx:key="{{ index }}" data-index="{{ index }}" class="header-text" style="width: 250rpx;" bindtap="headerClick" hover-class="item-hover-style">
+      <view class="header-inner-box {{ index == headerSelected && 'header-selected' }}">
+        <text>{{ item.text }}</text>
+      </view>
+    </view>
+  </view>
+  <view class="content-card-list common-padding">
+    <view wx:if="{{ complate && userGroup.length == 0 }}" style="width: 100%;margin-top: 180rpx;display: flex; flex-direction: column; justify-content: cneter; align-items: center;">
+    <!-- <image src="https://www.xintui.xin:8058/wx/icon/blankData.png" mode="widthFix" style="width: 70%;"></image> -->
+      <view class="text-gray text-center text-df">未找到数据</view>
+  </view>
+    <!-- <mid-card wx:for="{{ userGroup }}" wx:key="{{ index }}" check="0" data-index="{{ index }}" imageUrl="{{ item.HeadPortraitUrl }}" title="{{ item.Name }}" footerTitle="{{ item.InDateStr }}" bunbleText="{{ item.IndustryTypeName }}" midText="{{ item.CompanyName }}" botText="{{ item.VisitCount ? '浏览' + item.VisitCount + '次' : '' }}" catchboxClickBar="boxClick"/> -->
+    <view wx:if="{{ complate }}" class="common-padding-top-bottom common-border-bottom-shadow" hover-class="bg-gray" wx:for="{{ userGroup }}" wx:key="index" bindtap="boxClick" data-index="{{ index }}">
+      <view class="__title">
+        <view class="cu-avatar lg round" style="background-image: url({{ item.HeadPortraitUrl }})"></view>
+        <view class="basis-xl">
+          <view class="flex flex-row justify-between align-center">
+            <view class="text-lg text-black">{{ item.Name || '' }}</view>
+            <view class="text-sm">上次 {{ item.InDateStr }}</view>
+          </view>
+          <view class="flex flex-row justify-start align-center __margin-top">
+            <view wx:if="{{ item.IndustryTypeName }}" class="bg-green round text-sm margin-right" style="font-size: 20rpx; padding: 8rpx; box-sizing: border-box;">{{ item.IndustryTypeName || '' }}</view>
+            <view class="text-sm">{{ item.CompanyName || '' }}</view>
+          </view>
+         <view class="flex flex-row justify-between align-center">
+           <view class="text-sm __margin-top">{{ item.PositionName || '' }}</view>
+           <view class="text-sm">{{ item.VisitCount && '总浏览' + item.VisitCount + '次'  }}</view>
+         </view>
+          <!-- <view class="text-lg text-black">{{ item.Name || '' }}</view>
+          <view class="text-sm">{{ item.PositionName || '' }}</view>
+          <view class="text-sm">{{ item.CompanyName || '' }}</view> -->
+        </view>
+      </view>
+      <!-- <view class="__title __margin-top text-right">
+        <view class="text-sm">总浏览{{ item.VisitCount }}次</view>
+      </view> -->
+    </view>
+    <!-- <view class="more" bindtap="more" wx:if="{{ more }}">
+      <text>加载更多</text>
+    </view>-->
+  </view>
+</view>

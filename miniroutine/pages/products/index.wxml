@@ -1,0 +1,19 @@
+<navigation title="更多商品" back bindback="back"/>
+<view class="common-padding">
+  <view class="erys-index__button-groups">
+    <view class="erys-inddex__product" style="background: white;" bindtap="goodsDetails" wx:for="{{ products }}" wx:key="index" data-index="{{ item.SysNo }}">
+      <view class="common-radius padding-xl radius bg-img shadow bg-gray" style="background-image: url('{{ item.DefaultImage }}');width: 322rpx;height: 250rpx;"></view>
+      <view class="erys-product__text">
+        <view style="margin-bottom: 26rpx;">{{ item.ProductName }}</view>
+        <view class="text-price text-red">{{ item.RetailPrice }}</view>
+      </view>
+    </view>
+  </view>
+</view>
+<view class="flex flex-row justifu-center align-center common-padding" wx:if="{{ loadingmore }}">
+  <view class="erys-home-button__loading">
+    <image class="animation" src="../../static/icon/loading.png"></image>
+    <view class="text-gray text-lg margin-left">正在加载....</view>
+  </view>
+</view>
+

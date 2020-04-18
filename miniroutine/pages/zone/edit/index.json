@@ -1,0 +1,7 @@
+{
+  "usingComponents": {
+    "navigation": "miniprograms-navigation-bar",
+    "cardA": "../../../components/cards/cardA",
+    "cardB": "../../../components/cards/cardB"
+  }
+}

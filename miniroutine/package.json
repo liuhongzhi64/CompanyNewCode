@@ -1,0 +1,17 @@
+{
+  "name": "miniprogram-2",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "dependencies": {
+    "cos-wx-sdk-v5": "^0.7.9",
+    "miniprograms-navigation-bar": "^2.0.2",
+    "tim-wx-sdk": "^2.4.2",
+    "fundcharts": "^0.9.5"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}

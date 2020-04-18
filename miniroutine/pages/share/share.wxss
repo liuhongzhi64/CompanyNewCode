@@ -1,0 +1,62 @@
+/* pages/share/share.wxss */
+.erys-share__rotate-box {
+  width: 100%;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  /* animation: shareRorate 1s linear initial; */
+}
+.erys-share__qr-img-box {
+  width: 600rpx;
+  height: 600rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.erys-share__qr-image {
+  width: 500rpx;
+  height: 500rpx;
+  position: relative;
+}
+.erys-share__text {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+}
+/* @keyframes shareRorate {
+  from {
+    transform: rotate(0deg)
+  }
+  to {
+    transform: rotate(180deg)
+  }
+}
+
+@-webkit-keyframes shareRotate {
+  from {
+    transform: rotate(0deg)
+  }
+  to {
+    transform: rotate(180deg)
+  }
+} */
+.__position-avatar {
+  position: absolute;
+  width: 500rpx;
+  height: 500rpx;
+  top: 0;
+  left: 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+.__position-avatar>image {
+  width: 220rpx;
+  height: 220rpx;
+  border-radius: 50%;
+}

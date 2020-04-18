@@ -1,0 +1,38 @@
+/* pages/zone/manage/index.wxss */
+.basis-myself {
+  flex-basis: 70%;
+}
+.erys-home-button__loading {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.erys-home-button__loading>image {
+  width: 20px;
+  height: 20px;
+}
+.animation {
+  animation: ratateLoading 1s linear infinite;
+  -webkit-animation: ratateLoading 1s linear infinite;
+}
+@keyframes ratateLoading {
+  from {
+    transform: rotate(0deg)
+  }
+  to {
+    transform: rotate(360deg)
+  }
+}
+@-webkit-keyframes ratateLoading {
+  from {
+    transform: rotate(0deg)
+  }
+  to {
+    transform: rotate(360deg)
+  }
+}
+.border-bot {
+  color: #39b54a;
+}

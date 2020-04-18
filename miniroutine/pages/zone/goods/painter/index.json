@@ -1,0 +1,7 @@
+{
+  "usingComponents": {
+    "navigation": "miniprograms-navigation-bar",
+    "painter": "../../../../components/painter/painter",
+    "bg-loading": "../../../../components/bg-transform/bg-loading"
+  }
+}

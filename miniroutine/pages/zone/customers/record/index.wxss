@@ -1,0 +1,13 @@
+/* pages/zone/customers/record/index.wxss */
+.erys-text-area__box {
+  width: 100%;
+  height: 400rpx;
+}
+.erys-footer__items {
+  width: 100%;
+  height: 160rpx;
+}
+.erys-button__footer {
+  background: #3a5cfa;
+  color: white;
+}

@@ -1,0 +1,70 @@
+<navigation back title="我的照片" bindback="back"></navigation>
+<actionsheet show="{{ showAction }}" actions="{{ groups }}" title="选择照片" bindactiontap="chooseImage"/>
+<view wx:if="{{ show }}">
+  <view class="back-bg"></view>
+  <view class="fff-box">
+    <view class="info-box">
+      <image style="width: 650rpx" mode="widthFix" src="https://www.xintui.xin:8058/wx/icon/946bb9eaf67a26af4ed85b1de65e92b.png"></image>
+      <view class="inner-box-1">
+        <form bindsubmit="formSubmit">
+          <view class="inner-input-box">
+            姓名：
+            <input style="width: 240rpx;font-size: 24rpx;font-weight: lighter;" placeholder="请填写您的真实姓名" placeholder-style="font-size: 22rpx;" name="username" value="{{ form.username }}" maxlength="6"></input>
+          </view>
+          <view class="inner-input-box">
+            电话：
+            <input style="width: 240rpx;font-size: 24rpx;font-weight: lighter;" placeholder="请填写您的电话号码" placeholder-style="font-size: 22rpx;" name="userTelephone" value="{{ form.userTelephone }}" type="number" maxlength="11"></input>
+          </view>
+          <button class="bg-button-1 common-button margin-top" hover-class="bg-button-hover" form-type="submit">立即申请</button>
+            <!-- <view class="line">
+              <view class="mid-line"></view>
+              <text class="tips-text">其他申请方式</text>
+            </view> -->
+          <image src="../../../../static/icon/dadasdasdasdasdasda.png" class="margin-top margin-bottom" style="width: 350rpx; height: 20rpx;"></image>
+          <button class="bg-button-1 common-button" style="margin-top: 0;" hover-class="bg-button-hover" hover-class="bg-button-hover" bindtap="callmeMaybe">联系热线</button>
+          <!-- <view class="text-center margin-top-sm" hover-class="bg-button-hover" bindtap="callmeMaybe">联系热线</view> -->
+        </form>
+      </view>
+    </view>
+    <image style="width: 60rpx; height: 60rpx;" src="../../../../static/icon/cancle_pure.png" bindtap="cancleSalerToast"></image>
+  </view>
+</view>
+<view class="common-padding bg-white">
+  <view class="text-shadow text-xl text-black common-weight" data-index="{{ index }}">添加照片</view>
+  <view class="text-shadow text-sm text-grey margin-top">添加体现业务能力的照片，可提升咨询量</view>
+  <view class="text-shadow text-sm text-orange margin-top">tips: 所有操作要保存后才能生效哦</view>
+</view>
+<view class="bg-gray __padding">
+  <block wx:for="{{ picList }}" wx:key="index">
+    <view class="text-gray text-shadow margin-bottom __padding-item bg-white" wx:if="{{ !item.deleted }}">
+      <view class="text-center text-lg" bindtap="actiontapClick" data-index="{{ index }}">
+        <icon class="cuIcon-add text-blue text-xl"></icon>
+        添加更多图片
+      </view>
+      <view class="text-right erys-pic__items common-padding-top-bottom">
+        <view class="cuIcon-fold margin-right text-black" wx:if="{{ index != 0 }}" data-index="{{ index }}" bindtap="upperPosition">上移</view>
+        <view class="cuIcon-unfold margin-right text-black" wx:if="{{ index != picList.length - 1 }}" data-index="{{ index }}" bindtap="lowerPosition">下移</view>
+        <view class="cuIcon-close text-black" data-index="{{ index }}" bindtap="deleteIndexImage">删除</view>
+      </view>
+      <view class="bg-white">
+        <image src="{{ item.Url }}" mode="widthFix" class="common-pic-widthfixed" bindload="loadImage" binderror="loadImage"></image>
+      </view>
+      <view class="margin-top">
+        <input class="text-orange text-sm" placeholder="点击添加照片描述,限20字" placeholder-class="text-gray text-sm" maxlength="20" value="{{ item.Description }}" data-index="{{ index }}" bindinput="inputDescription"></input>
+      </view>
+    </view>
+  </block>
+  <view class="padding-sm text-gray text-shadow bg-white">
+    <view class="text-lg flex flex-row align-center justify-center" bindtap="actiontapClick" data-index="-1">
+      <icon class="cuIcon-add text-blue text-xl" style="margin-top: -4rpx; margin-right: 6rpx;"></icon>
+        添加更多图片
+    </view>
+  </view>
+</view>
+<view class="common-padding bg-gray">
+  <view class="text-shadow text-sm text-red" bindtap="showRegister" wx:if="{{ imageAvalible == 0 }}">点我申请更多图片数量</view>
+</view>
+<view class="bg-white shadow padding-xl">
+  <button class="cu-btn bg-blue text-xl" style="width: 100%; height: 100rpx;" bindtap="submit">保存</button>
+</view>
+

@@ -1,0 +1,40 @@
+.erys-painter__img {
+  width: 74rpx;
+  height: 114rpx;
+}
+.erys-painter__border {
+  border: 1px solid #f0f0f0;
+}
+.erys-painter__image-items {
+  width: 2250rpx;
+  height: auto;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  overflow: hidden;
+  transition: all  .25s  ease-in;
+  justify-content: center;
+}
+.__items {
+  width: 750rpx;
+  height: auto;
+}
+.erys-painter__inner-box {
+  width: 100%;
+  height: auto;
+}
+.erys-painter__text-title {
+  height: 96rpx;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+.erys-painter__margin-top-sm {
+  margin-top: 10rpx;
+}
+.erys-painter__img-end {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: flex-end;
+}

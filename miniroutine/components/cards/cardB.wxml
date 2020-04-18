@@ -1,0 +1,23 @@
+<view class="erys-card-b__container" bindtap="checkImage">
+  <image src="{{ avatar }}" mode="widthFix" ></image>
+  <view class="padding-sm erys-card-b__border">
+    <view class="flex flex-row justify-start align-end">
+      <view class="text-white text-bold text-xl margin-right text-cut" style="max-width: 300rpx;">{{ mainTitle || '新推名片' }}</view>
+      <view class="text-white text-sm text-cut" style="max-width: 260rpx">{{ positionTitle || '新零售，用心推' }}</view>
+    </view>
+    <view wx:if="{{ phone || email }}" class="flex flex-row justify-between align-center" style="width: 580rpx;margin-top: 8rpx;">
+      <view wx:if="{{ phone }}" class="flex flex-row justify-center align-center">
+        <image src="../../static/icon/phone-fff.png" style="width: 26rpx; height: 26rpx; margin-right: 6rpx;"></image>
+        <view class="text-white text-sm">{{ phone || '' }}</view>
+      </view>
+      <view wx:if="{{ email }}" class="flex flex-row justify-center align-center">
+        <image src="../../static/icon/email-fff.png" style="width: 24rpx; height: 24rpx; margin-top: 3rpx; margin-right: 6rpx;"></image>
+        <view style="width: 280rpx;" class="text-cut text-white text-sm">{{ email || '' }}</view>
+      </view>
+    </view>
+    <view wx:if="{{ address != 0 }}" class="flex flex-row justify-center align-start" style="margin-top: 10rpx;">
+      <image src="../../static/icon/location-fff.png" style="margin-top: 5rpx; width: 26rpx; height: 26rpx; margin-right: 6rpx;"></image>
+      <view class="text-white text-left text-sm">{{ address || '' }}</view>
+    </view>
+  </view>
+</view>

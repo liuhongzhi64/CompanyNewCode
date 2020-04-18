@@ -1,0 +1,10 @@
+<movable-area class="move-drap-wrap" style=" width: {{ positionTab.width - 60 }}px; height: {{ positionTab.height - 120 }}px; top: 68px;left: {{ positionTab.left + 2 }}px;">
+  <movable-view class="move-drap-group-view" direction="all" style="left: 668rpx; top: 822rpx; z-index: 456;" catchtap="questServer">
+    <view class="drap-items">
+      <image class="item-img" src="{{ imageSrc }}"></image>
+    </view>
+  <view class="drap-items-btn">
+    <text>{{ title }}</text>
+  </view>
+  </movable-view>
+</movable-area>

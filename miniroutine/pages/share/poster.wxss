@@ -1,0 +1,8 @@
+.erys-footer__items {
+  width: 100%;
+  height: 160rpx;
+}
+.erys-button__footer {
+  background: #3a5cfa;
+  color: white;
+}

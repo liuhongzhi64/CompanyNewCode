@@ -1,0 +1,1 @@
+<view class="erys-index__bg-loading" style="width: {{ width}}px; height: {{ height }}px;" wx:if="{{ showLoading }}"></view>

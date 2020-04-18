@@ -1,0 +1,141 @@
+/* pages/zone/AiCheck/AiCheck.wxss */
+page {
+  padding: 0rpx;
+  background: #e6f4ff;
+}
+.main-content {
+  width: 100%;
+}
+.bg-danger {
+  position: fixed;
+  width: 100%;
+  top: 0;
+  left: 0;
+}
+.content-box {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  top: 210rpx;
+}
+.inner-box {
+  width: 615rpx;
+  height: 915rpx;
+  border-radius: 20rpx;
+  background: #FFF;
+  z-index: 100;
+  margin-bottom: 200rpx;
+}
+.inner-style {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 80rpx 0 80rpx 0;
+  box-sizing: border-box;
+}
+.inner-box-title {
+  color: #5a9afb;
+  font-size: 42rpx;
+  font-weight: 500;
+  margin-bottom: 110rpx;
+}
+.inner-input-box {
+  width: 457rpx;
+  height: 74rpx;
+  border: 2rpx solid #5a9afb;
+  border-radius: 8rpx;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  margin-bottom: 20rpx;
+  padding: 0 20rpx 0 20rpx;
+  box-sizing: border-box;
+}
+.inner-input-title {
+  font-size: 32rpx;
+  color: black;
+  font-weight: 500;
+  letter-spacing: 5rpx;
+  text-align: center;
+  vertical-align: center;
+}
+.input-style {
+  width: 280rpx;
+  font-size: 28rpx;
+}
+.bg-button {
+  width: 457rpx;
+  height: 80rpx;
+  border-radius: 80rpx;
+  color: #FFF;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  font-size: 32rpx;
+  letter-spacing: 4rpx;
+  background: linear-gradient(90deg,#07cfff 0%,#12a6fc 100%);
+}
+.bg-button-hover {
+  background: #12a6fc;
+}
+.tips-text {
+  display: block;
+  padding: 0 5rpx 0 5rpx;
+  box-sizing: border-box;
+  background: #FFF;
+  color: #07cfff;
+  font-size: 22rpx;
+  letter-spacing: 2rpx;
+  font-weight: lighter;
+  position: absolute;
+  top: 0;
+}
+.line {
+  width: 457rpx;
+  height: 34rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  margin-top: 40rpx;
+  margin-bottom: 20rpx;
+}
+.mid-line {
+  width: 100%;
+  height: 4rpx;
+  background: #12a6fc;
+}
+.__bg-danger {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background: rgba(0, 0, 0, 0.6);
+  z-index: 999;
+}
+.__inner-box {
+  width: 620rpx;
+  height: 640rpx;
+  background-size: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+}
+.__inner-img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 620rpx;
+  height: 640rpx;
+}

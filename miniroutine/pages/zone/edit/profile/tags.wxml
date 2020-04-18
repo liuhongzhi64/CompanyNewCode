@@ -1,0 +1,41 @@
+<navigation back title="我的标签" bindback="back"></navigation>
+<view class="bg-gray">
+  <view class="bg-white common-padding">
+    <view class="text-xl common-weight text-shadow text-black margin-right __text-align-row">
+      我的标签
+      <view class="text-shadow text-gray text-sm margin-left">最多添加10个标签</view>
+    </view>
+    <view class="btn-group common-padding-top-bottom">
+      <button wx:if="{{ !item.deleted }}" class="cu-btn shadow round erys-index__groups-items __butn-position" wx:for="{{ labels }}" wx:key="index"><icon bindtap="removeSelected" data-field="{{ item.SysNo }}" data-index="{{ index }}" class="cuIcon-roundclose __close text-gray"/>{{ item.LableName }}</button>
+    </view>
+    <form bindsubmit="formSubmit" >
+      <view class="__text-align-row" style="align-items: center;justify-content: space-between;">
+        <input name="text" class="text-sm text-shadow text-orange" placeholder="点我添加自定义标签" bindfocus="showButton" value="{{ text }}"></input>
+        <button hidden="{{ show }}" class="cu-btn round bg-blue" form-type="submit">确定</button>
+      </view>
+    </form>
+  </view>
+  <view class="bg-white common-padding margin-top">
+    <view class="text-xl common-weight text-shadow text-black">参考标签</view>
+    <view class="btn-group common-padding-top-bottom">
+      <view class="text-lg text-gray text-shadow">常用标签：
+        <button class="cu-btn shadow round erys-index__groups-items {{ item.selected && 'bg-blue'}}" wx:for="{{ normal }}" wx:key="index" data-rank="normal" data-index="{{ index }}" bindtap="choose">{{ item.text }}</button>
+      </view>
+      <view class="text-lg text-gray text-shadow">个人能力：
+        <button class="cu-btn shadow round erys-index__groups-items {{ item.selected && 'bg-blue'}}" wx:for="{{ personal }}" wx:key="index" data-rank="personal" data-index="{{ index }}" bindtap="choose">{{ item.text }}</button>
+      </view>
+      <view class="text-lg text-gray text-shadow">语言能力：
+        <button class="cu-btn shadow round erys-index__groups-items {{ item.selected && 'bg-blue'}}" wx:for="{{ language }}" wx:key="index" data-rank="language" data-index="{{ index }}" bindtap="choose">{{ item.text }}</button>
+      </view>
+      <view class="text-lg text-gray text-shadow">综合能力：
+        <button class="cu-btn shadow round erys-index__groups-items {{ item.selected && 'bg-blue'}}" wx:for="{{ allround }}" wx:key="index" data-rank="allround" data-index="{{ index }}" bindtap="choose">{{ item.text }}</button>
+      </view>
+      <view class="text-lg text-gray text-shadow">办公软件：
+        <button class="cu-btn shadow round erys-index__groups-items {{ item.selected && 'bg-blue'}}" wx:for="{{ apps }}" wx:key="index" data-rank="apps" data-index="{{ index }}" bindtap="choose">{{ item.text }}</button>
+      </view>
+    </view>
+  </view>
+  <view class="bg-white padding-xl">
+    <button class="cu-btn bg-blue text-xl" style="width: 100%; height: 100rpx;" bindtap="save">保存</button>
+  </view>
+</view>

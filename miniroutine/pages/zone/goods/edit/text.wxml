@@ -1,0 +1,23 @@
+<navigation title="添加商品文案" back bindback="back"/>
+<view class="bg-gray common-border-top">
+  <view class="text-gray text-shadow margin-bottom __padding-item bg-white margin-bottom" wx:for="{{ listData }}" wx:key="index">
+    <view class="text-right erys-pic__items common-padding-top-bottom">
+      <view class="cuIcon-fold margin-right text-black" wx:if="{{ index != 0 }}" data-index="{{ index }}" bindtap="upperPosition">上移</view>
+      <view class="cuIcon-unfold margin-right text-black" wx:if="{{ index != picList.length - 1 }}" data-index="{{ index }}" bindtap="lowerPosition">下移</view>
+      <view class="cuIcon-close text-black" data-index="{{ index }}" bindtap="deleteIndexImage">删除</view>
+    </view>
+    <view class="bg-red erys__bg-danger-box">
+      <image src="{{ item.path }}" mode="widthFix" class="common-pic-widthfixed" bindload="loadImage" binderror="loadImage"></image>
+      <view class="erys__bg-danger"></view>
+      <view class="erys__bg-btn">
+        <button class="cu-btn round __opacity" data-target="{{ index }}" catchtap="chooseImage">更换图片</button>
+      </view>
+    </view>
+    <view class="margin-top">
+      <input class="text-black text-df" placeholder="点击添加照片描述,限20字" placeholder-class="text-gray text-df" maxlength="20" value="{{ item.description }}" data-index="{{ index }}" bindinput="inputDescription"></input>
+    </view>
+  </view>
+</view>
+<view class="common-padding bg-white margin-top">
+  <button class="bg-blue" bindtap="save">保存</button>
+</view>

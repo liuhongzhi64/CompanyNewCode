@@ -1,0 +1,6 @@
+{
+  "usingComponents": {
+    "navigation": "miniprograms-navigation-bar",
+    "drag": "../../../../components/drag/index"
+  }
+}

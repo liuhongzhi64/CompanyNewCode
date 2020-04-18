@@ -1,0 +1,22 @@
+<view class="item-wrap {{ ext-class }}" style="height: {{ itemWrapHeight }}px;">
+	<view
+		class="item {{cur == index ? 'cur':''}} {{curZ == index ? 'zIndex':''}} {{itemTransition && index !== cur ? 'itemTransition':''}} {{item.fixed ? 'fixed' : ''}}"
+		wx:for="{{list}}"
+		wx:key="id"
+		data-key="{{item.sortKey}}"
+		data-index="{{index}}"
+		style="transform: translate3d({{index === cur ? tranX + 'px' : item.tranX}}, {{index === cur ? tranY + 'px' : item.tranY}}, 0);width: {{100 / columns}}%"
+		bindtap="itemClick"
+		bind:longpress="longPress"
+		catch:touchmove="{{dragging?'touchMove':''}}"
+		catch:touchend="{{dragging?'touchEnd':''}}">
+    <view class="info">
+      <view class="info__item">
+        <image mode="aspectFill" class="image" src="{{ item.data.path }}"></image>
+        <icon catchtap="removeSelected" data-index="{{ item.sortKey }}" class="cuIcon-roundclosefill __close text-gray"/>
+        <!-- <image src="../../static/icon/delete_red.png" style="width: 30rpx; height: 30rpx;" catchtap="removeSelected" data-index="{{ item.sortKey }}" class="__close"></image> -->
+      </view>
+    </view>
+    <slot></slot>
+	</view>
+</view>

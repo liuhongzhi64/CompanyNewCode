@@ -1,0 +1,52 @@
+{
+  "pages": [
+    "pages/index",
+    "pages/zone/comments/index",
+    
+    "pages/zone/radar/check",
+    "pages/zone/edit/profile/pic",
+    "pages/zone/edit/profile/index",
+    "pages/zone/messages/board/index",
+    "pages/zone/goods/painter/index",
+    "pages/history/index",
+    "pages/share/poster",
+    "pages/zone/manage/index",
+    "pages/zone/radar/index",
+    "pages/zone/radar/detail",
+    "pages/zone/customers/index",
+    "pages/zone/customers/tags/index",
+    "pages/zone/customers/record/index",
+    "pages/zone/customers/info/index",
+    
+    "pages/zone/goods/index",
+    "pages/zone/goods/edit/index",
+    "pages/zone/messages/index",
+    "pages/zone/goods/details/index",
+    "pages/products/index",
+    "pages/zone/index",
+    "pages/zone/edit/profile/tags",
+    "pages/zone/cards/index",
+    "pages/zone/edit/profile/company",
+    "pages/zone/edit/profile/video",
+    "pages/zone/edit/index",
+    "pages/share/share",
+    "pages/copper/copper",
+    "pages/words/index",
+    "pages/zone/goods/edit/text",
+    "pages/zone/customers/info/details",
+    "pages/zone/records/index"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#fff",
+    "navigationBarTitleText": "WeChat",
+    "navigationBarTextStyle": "black",
+    "navigationStyle": "custom"
+  },
+  "permission": {
+    "scope.userLocation": {
+      "desc": "你的位置信息将用于小程序位置接口的效果展示"
+    }
+  },
+  "sitemapLocation": "sitemap.json"
+}

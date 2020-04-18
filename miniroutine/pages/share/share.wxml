@@ -1,0 +1,20 @@
+<navigation back="{{ true }}" bindback="back"></navigation>
+<view class="erys-share__rotate-box" animation="{{ _animation }}">
+  <view class="erys-share__text" style="font-size: 36rpx;margin-bottom: 70rpx;margin-top: 35rpx;">
+    <view style="margin-bottom: 24rpx;">{{ details.position || '新零售，用心推' }}</view>
+    <view>{{ details.company || '新推名片' }}</view>
+  </view>
+  <view class="erys-share__qr-img-box bg-white" bindtap="preview">
+    <view class="cu-avatar round erys-share__qr-image bg-white">
+      <image src="{{ imagePath }}" style="width: 500rpx; height: 500rpx; border-radius: 50%;"></image>
+      <!-- <view class="__position-avatar">
+        <image src="{{ details.avatar }}"></image>
+      </view> -->
+    </view>
+  </view>
+  <view class="erys-share__text" style="font-size: 26rpx; margin-bottom: 35rpx;margin-top: 70rpx;">
+    <view style="margin-bottom: 24rpx;">{{ details.name }}</view>
+    <view class="cu-avatar lg radius shadow-blur" style="background-image: url({{ details.avatar || 'https://www.xintui.xin:8058/xintui/28/headImage/2abb34b9-4.png' }})"></view>
+  </view>
+</view>
+<painter customStyle='position: fixed; left: -9999rpx;' palette="{{template}}" bind:imgOK="onImgOK" widthPixels="1000"/>

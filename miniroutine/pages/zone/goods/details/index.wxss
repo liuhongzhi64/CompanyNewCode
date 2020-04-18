@@ -1,0 +1,72 @@
+.erys-card__box {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+.erys-product__text {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+}
+.__fixed {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+}
+.current-personal-data {
+  width: 100%;
+  height: 98rpx;
+  border-top: 1px solid #E1E1DF;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  background: #FFF;
+}
+.operation-btn {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.operation-btn>image {
+  width: 44rpx;
+  height: 44rpx;
+}
+.operation-btn>text {
+  font-size: 20rpx;
+  font-weight: 500;
+  margin-top: 7rpx;
+  text-decoration: underline;
+}
+.data-flex-box {
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+}
+.swiper-container {
+  width: 100%;
+  position: relative;
+}
+.indicator-number-dots {
+  position: absolute;
+  padding: 6rpx 32rpx;
+  font-size: 24rpx;
+  color: #FFFFFF;
+  text-align: center;
+  border-radius: 20rpx;
+}
+.bg-selected-dots {
+  background: #3A6AFC;
+  color: #FFFFFF;
+}
+.bg-unselected-dots {
+  background: #EBEBEB;
+  color: black;
+}
+.goods-banner>image {
+  width: 100%;
+}

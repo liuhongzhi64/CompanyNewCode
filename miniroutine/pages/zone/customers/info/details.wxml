@@ -1,0 +1,74 @@
+<navigation title="详细" back bindback="back"/>
+<view class="cu-list menu">
+  <view class="cu-item" style="padding: 30rpx 30rpx 30rpx 30rpx;">
+		<view class="content">
+			<text class="text-grey">头像</text>
+		</view>
+		<view class="action">
+			<view class="cu-avatar round lg" style="background-image:url({{ userInfo.HeadPortraitUrl }});"></view>
+		</view>
+	</view>
+  <view class="cu-item">
+		<view class="content">
+			<text class="text-green"></text>
+			<text class="text-grey">姓名</text>
+		</view>
+		<view class="action">
+			<text class="text-grey text-sm">{{ userInfo.Name }}</text>
+		</view>
+	</view>
+  <view class="cu-item">
+		<view class="content">
+			<text class="text-green"></text>
+			<text class="text-grey">公司</text>
+		</view>
+		<view class="action">
+			<text class="text-grey text-sm">{{ userInfo.CompanyName || '暂无' }}</text>
+		</view>
+	</view>
+  <view class="cu-item">
+		<view class="content">
+			<text class="text-green"></text>
+			<text class="text-grey">职位</text>
+		</view>
+		<view class="action">
+			<text class="text-grey text-sm">{{ userInfo.PositionName || '暂无' }}</text>
+		</view>
+	</view>
+  <view class="cu-item">
+		<view class="content">
+			<text class="text-green"></text>
+			<text class="text-grey">行业</text>
+		</view>
+		<view class="action">
+			<text class="text-grey text-sm">{{ userInfo.IndustryTypeName || '暂无' }}</text>
+		</view>
+	</view>
+  <view class="cu-item">
+		<view class="content">
+			<text class="text-green"></text>
+			<text class="text-grey">电话</text>
+		</view>
+		<view class="action">
+			<text class="text-grey text-sm" bindtap="call">{{ userInfo.Phone || '暂无' }}</text>
+		</view>
+	</view>
+  <view class="cu-item">
+		<view class="content">
+			<text class="text-green"></text>
+			<text class="text-grey">意向等级</text>
+		</view>
+		<view class="action">
+			<text class="text-grey text-sm">{{ userInfo.LevelName || '暂无' }}</text>
+		</view>
+	</view>
+  <view class="cu-item">
+		<view class="content">
+			<text class="text-green"></text>
+			<text class="text-grey">添加时间</text>
+		</view>
+		<view class="action">
+			<text class="text-grey text-sm">{{ userInfo.InDateStr || '暂无' }}</text>
+		</view>
+	</view>
+</view>

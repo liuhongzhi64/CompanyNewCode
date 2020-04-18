@@ -1,0 +1,6 @@
+/* pages/zone/edit/profile/company.wxss */
+.erys-edit__btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

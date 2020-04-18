@@ -1,0 +1,41 @@
+<navigation title="申请开通" back bindback="back"/>
+<view class="__bg-danger" wx:if="{{ hadComplate || !hadSend }}">
+  <view class="__inner-box" style="background-image: url('https://www.xintui.xin:8058/wx/icon/20200107163853.png')">
+    <!-- <image src="https://www.xintui.xin:8058/wx/icon/20200107163853.png" class="__inner-img"></image> -->
+    <view class="text-black text-lg text-center">申请已提交，等待审核</view>
+    <view class="bg-button" style="margin-bottom: 60rpx; margin-top: 80rpx;" hover-class="bg-button-hover" bindtap="callme">联系推荐人</view>
+  </view>
+</view>
+<view class="main-content">
+  <image class="bg-danger" mode="widthFix" src="https://www.xintui.xin:8058/wx/icon/6b12b637dcfe429de77e41bffdc5c4a.png"></image>
+  <view class="content-box">
+    <view class="inner-box inner-style" wx:if="{{ !hadSend }}">
+      <image src="https://www.xintui.xin:8058/wx/icon/3a6cfa_gou.png" style="width: 150rpx; height: 150rpx; margin-bottom: 20rpx;"></image>
+      <text class="inner-box-title">已经提交过申请</text>
+      <view class="bg-button" hover-class="bg-button-hover" bindtap="callme">联系推荐人</view>
+    </view>
+    <view class="inner-box inner-style" wx:if="{{ hadSend }}">
+      <text class="inner-box-title">申请开通AI雷达</text>
+      <view class="inner-input-box">
+      姓名：
+        <input placeholder="请填写您的真实姓名" class="input-style" value="{{ username }}" bindinput="inputUserName" maxlength="6"></input>
+      </view>
+      <view class="inner-input-box">
+      电话：
+        <input placeholder="请填写您的电话号码" class="input-style" value="{{ userTelphone }}" bindinput="inputUserTelphone" maxlength="11" type="number"></input>
+      </view>
+      <view class="inner-input-box">
+      推荐人：
+        <input placeholder="请填写推荐人电话" class="input-style" value="{{ recommandTelphone }}" bindinput="inputCommandTelphone" maxlength="11" type="number"></input>
+      </view>
+      <!-- <view class="bg-button" hover-class="bg-button-hover" bindtap="commit">立即申请</view> -->
+      <button disabled="{{ sendRequest }}" class="bg-button" hover-class="bg-button-hover" bindtap="commit">立即申请</button>
+      <!-- <view class="line">
+        <view class="mid-line"></view>
+        <text class="tips-text">其他申请方式</text>
+      </view> -->
+      <image src="../../../static/icon/dadasdasdasdasdasda.png" class="margin-top margin-bottom" style="width: 456rpx; height: 25rpx;"></image>
+      <view class="bg-button" hover-class="bg-button-hover" bindtap="callme">联系热线</view>
+    </view>
+  </view>
+</view>

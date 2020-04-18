@@ -1,0 +1,45 @@
+<navigation title="客户管理" back bindback="back"/>
+<view class="flex flex-row justify-between align-center bg-white common-padding shadow">
+  <view class="text-gray text-df">共{{ listData.length }}位客户</view>
+  <view class="flex flex-row justify-content align-center">
+    <picker mode="date" value="{{date}}" start="2015-09-01" bindchange="bindDateChange">
+      <view class="text-grey text-df cuIcon-order" bindtap="chooseByTime">{{ date || '时间' }}</view>
+    </picker>
+    <view class="text-grey text-df margin-left cuIcon-searchlist" bindtap="chooseByLevel">{{ level == 0 ? '筛选' : level }}</view>
+  </view>
+</view>
+<scroll-view scroll-y class="common-padding" style="height: {{ screenHeight - 246 }}rpx;" bindscrolltolower="loadmore">
+  <view wx:if="{{ complate && listData == 0 }}" class="text-gray text-center margin-top text-sm">未找到数据</view>
+  <view wx:if="{{ complate }}" class="bg-white shadow padding-sm radius margin-bottom" wx:for="{{ listData }}" wx:key="index">
+    <view class="flex flex-row basis-xs">
+      <view class="cu-avatar round lg" style="background-image: url({{ item.HeadPortraitUrl }})" bindtap="navigateToDetail" data-index="{{ index }}"></view>
+      <view class="basis-xl margin-left">
+        <view class="flex-row flex justify-between align-center">
+          <view class="text-black text-bold text-lg">{{ item.Name }}</view>
+          <button class="cu-btn bg-blue" data-index="{{ index }}" bindtap="navigateToRecords">跟进</button>
+        </view>
+        <view class="flex flex-row">
+          <view class="text-gray text-sm">{{ item.IndustryTypeName || '' }}</view>
+          <view class="text-gray text-sm common-padding-left-right common-border-left margin-left">{{ item.PositionName || '' }}</view>
+        </view>
+      </view>
+    </view>
+    <view class="margin-top common-border-bottom-shadow">
+      <button wx:if="{{ item.LevelName }}" class="cu-btn round margin-right-xs margin-bottom-xs bg-green">{{ item.LevelName }}</button>
+      <button class="cu-btn round margin-right-xs margin-bottom-xs" wx:for="{{ item.currentUserLabel }}" wx:for-item="btn" wx:key="dest">{{ btn.LableName }}</button>
+    </view>
+    <view class="flex flex-row justify-between align-center margin-top-sm">
+      <view class="basis-xs text-grey text-df" data-index="{{ index }}" bindtap="navigateToTags">修改标签</view>
+      <view class="basis-xl flex flex-row justify-end">
+        <view class="text-grey text-df" data-index="{{ index }}" bindtap="call">拨打电话</view>
+        <view class="text-grey text-df margin-left" data-index="{{ index }}" bindtap="sendMessage">发送消息</view>
+      </view>
+    </view>
+  </view>
+  <view class="flex flex-row justifu-center align-center common-padding" wx:if="{{ loadingmore }}">
+    <view class="erys-home-button__loading">
+      <image class="animation" src="../../../static/icon/loading.png"></image>
+      <view class="text-gray text-lg margin-left">正在加载....</view>
+    </view>
+  </view>
+</scroll-view>

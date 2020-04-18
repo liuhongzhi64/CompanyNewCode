@@ -1,0 +1,29 @@
+<navigation back="{{ true }}" bindback="back" title="名片海报"></navigation>
+<painter customStyle='position: fixed; left: -9999rpx;' palette="{{template}}" bind:imgOK="onImgOK" widthPixels="1000"/>
+<view class="common-padding">
+  <view class="text-left flex flex-row justify-start align-center">
+    <view class="cuIcon-refresh text-gray margin-right" bindtap="reset">重做</view>
+    <view class="cuIcon-pic text-gray" bindtap="choosePic">换图</view>
+  </view>
+  <view class="flex justify-center margin-top">
+    <image src="{{ item.avatar }}" style="width: 504rpx;" mode="widthFix"></image>
+  </view>
+  <view class="flex flex-row justify-center align-center">
+    <view class="margin-top flex flex-row justify-center align-center" style="width: 504rpx;">
+      <view class="flex-twice">
+        <input placeholder="标题，8个字" value="{{ item.name }}" bindinput="inputTitle"></input>
+        <input class="margin-top" placeholder="内容，10个字" value="{{ item.companyName }}" bindinput="inputDesc"></input>
+      </view>
+      <view class="flex-sub justify-end flex align-end" style="flex-direction: column;">
+        <image src="{{ item.qrImage }}" style="width: 130rpx; height: 130rpx;"></image>
+        <view class="text-gray" style="font-size: 20rpx; margin-top: 4rpx;">长按识别小程序码</view>
+      </view>
+    </view>
+  </view>
+  <view class="common-padding erys-footer__items margin-top-xl">
+
+
+  
+    <button disabled="{{ disabled }}" class="common-button erys-button__footer" bind:tap='saveImage'>保存</button>
+  </view>
+</view>

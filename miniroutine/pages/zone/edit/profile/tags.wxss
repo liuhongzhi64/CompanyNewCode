@@ -1,0 +1,16 @@
+/* pages/zone/edit/profile/tags.wxss */
+.__text-align-row {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: flex-end;
+}
+.__butn-position {
+  position: relative;
+}
+.__close {
+  position: absolute;
+  right: -6rpx;
+  top: -24rpx;
+  font-size: 32rpx;
+}

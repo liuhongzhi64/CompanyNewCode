@@ -1,0 +1,80 @@
+<navigation title="商品详情" back bindback="back"/>
+<!-- <bg-loading showLoading="{{ loading }}"/> -->
+<view style="margin-bottom: {{ (uniqueKey == info.MerchantSysNo) && 144 }}rpx;" wx:if="{{ !loading }}">
+  <!-- <swiper class="card-swiper {{ dotStyle?'square-dot':'round-dot' }} common-border-bottom-shadow" indicator-dots="true" circular="true"
+ autoplay="true" interval="5000" duration="500" bindchange="cardSwiper" indicator-color="#8799a3"
+ indicator-active-color="#0081ff">
+    <swiper-item wx:for="{{ swipers }}" wx:key="index" class="{{ cardCur==index?'cur':'' }}">
+      <view class="swiper-item bg-gray shadow bg-red" bindtap="previewSwiper">
+        <image src="{{ item }}" mode="aspectFill"></image>
+      </view>
+    </swiper-item>
+  </swiper> -->
+  <view class="swiper-container">
+    <swiper autoplay style="height: {{ autoHeight }}px;" bindchange="cardSwiper" indicator-dots indicator-color="#3A6CFA" indicator-active-color="#FFFFFF">
+      <swiper-item wx:for="{{ swipers }}" wx:key="index" style="display: flex; align-items: center;">
+        <!-- <video wx:if="{{ item.type == 'video' }}" src="{{ item.image }}" style="width: 100%; height: 100%;" bindplay="playVideo" bindpause="playVideo"></video> -->
+        <image mode="widthFix" style="width: 100%;" src="{{ item }}" bindload="autoHeight"></image>
+        </swiper-item>
+    </swiper>
+  </view>
+  <view class="common-padding common-border-bottom-shadow">
+    <view class="erys-card__box">
+      <view class="text-xl text-black">{{ info.ProductName }}</view>
+      <button class="cu-btn bg-white cu-tag" open-type="getUserInfo" bindgetuserinfo="share">
+        <!-- <view class="cuIcon-forwardfill text-blue" style="font-size: 36rpx;"></view> -->
+        <image src="../../../../static/icon/share.png" mode="widthFix" style="width: 36rpx; height: 36rpx;"></image>
+      </button>
+    </view>
+    <view class="margin-top erys-product__text">
+      <view class="text-gray text-sm">型号：{{ info.SKUModel }}</view>
+      <view class="text-gray text-sm margin-left">材质：{{ info.Material }}</view>
+    </view>
+    <view class="text-red text-price text-xl margin-top">{{ info.RetailPrice }}</view>
+  </view>
+  <view class="common-padding common-border-bottom-shadow">
+    <view class="text-black text-lg text-bold">商品卖点</view>
+    <view class="text-black text-lg margin-top" style="letter-spacing: 1px;">
+      {{ info.Description }}
+    </view>
+  </view>
+  <view class="common-padding common-border-bottom-shadow" wx:if="{{ video }}">
+    <view class="text-black text-lg text-bold">商品视频</view>
+    <view class="margin-top">
+      <video src="{{ video }}" style="width: 100%;" class="radius" bindloadedmetadata="loadImage"></video>
+    </view>
+  </view>
+  <view class="common-padding common-border-bottom-shadow">
+    <view class="text-black text-lg text-bold">商品图文</view>
+    <view class="margin-top">
+      <view wx:for="{{ images }}" wx:key="index">
+        <image src="{{ item.path }}" mode="widthFix" style="width: 100%;" data-index="{{ index }}" bindtap="previewDetails"></image>
+        <view class="padding-sm text-black" wx:if="{{ item.desc }}">{{ item.desc }}</view>
+      </view>
+    </view>
+  </view>
+</view>
+
+<!-- <view wx:if="{{ (uniqueKey == info.MerchantSysNo) && ( !loading ) }}" class="__fixed padding-xl common-border-top bg-white flex flex-row justify-around align-center">
+  <view class="cuIcon-edit text-gray" style="font-size: 32rpx;" bindtap="navigateToEdit">编辑</view>
+  <view wx:if="{{ info.ProductStatus == 10 }}" class="cuIcon-share text-gray" style="font-size: 32rpx;" bindtap="share">分享</view> -->
+  <view class="current-personal-data" wx:if="{{ (uniqueKey == info.MerchantSysNo) && ( !loading ) }}">
+    <view class="data-flex-box">
+      <view class="operation-btn" bindtap="navigateToEdit">
+        <image src="../../../../static/icon/edit_3a6cfa.png"></image>
+        <text style="color: #606266">编辑</text>
+      </view>
+      <!-- <view class="operation-btn" bindtap="offSale" wx:if="{{ type == 1 }}">
+        <image src="../../../../assets/icon/off_sale.png"></image>
+        <text style="color: #606266" >下架</text>
+      </view>
+      <view class="operation-btn" bindtap="upSale" wx:if="{{ type == 2 }}">
+        <image src="../../../../assets/icon/up_sale.png"></image>
+        <text style="color: #606266">上架</text>
+      </view> -->
+      <view class="operation-btn" bindtap="share" wx:if="{{ info.ProductStatus == 10 }}">
+        <image src="../../../../static/icon/share.png"></image>
+        <text style="color: #606266">分享</text>
+      </view>
+    </view>
+</view>

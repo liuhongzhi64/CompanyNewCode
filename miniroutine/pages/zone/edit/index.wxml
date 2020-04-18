@@ -1,0 +1,91 @@
+<navigation back title="编辑" bindback="back"></navigation>
+<swiper class="card-swiper {{ dotStyle?'square-dot':'round-dot' }} common-border-bottom-shadow" indicator-dots="true" circular="true" autoplay="{{ false }}" interval="5000" duration="500" bindchange="cardSwiper" indicator-color="#8799a3"
+ indicator-active-color="#0081ff" style="height: {{ swiperHeight }}rpx;transition: all  300ms  ease-in">
+  <swiper-item>
+    <view class="padding-sm">
+      <view class="__flex padding-sm shadow bg-white" style="width: 100%;border-radius: 10rpx;">
+        <view class="__card-b-container __position shadow bg-white">
+          <image class="__avatar" src="{{ avatar }}" mode="widthFix"></image>
+          <view class="__text-box">
+            <image class="__bg" src="../../../static/icon/bg-card-temp.png"></image>
+            <view class="__text-posiiton">
+              <view class="__company text-black text-sm text-cut text-right" style="max-width: 220rpx;">{{ myInfo.CompanyName || "" }}</view>
+              <view class="__name text-black text-left">
+                <view class="text-lg text-cut text-black text-bold" style="width: 220rpx;">{{ myInfo.Name || myInfo.WX }}</view>
+                <view class="text-sm text-cut text-black">{{ myInfo.PositionName || "" }}</view>
+              </view>
+              <view class="flex flex-row justify-end align-center margin-top-sm" wx:if="{{ myInfo.Telephone }}">
+                <view class="text-gray text-sm">{{ myInfo.Telephone }}</view>
+                <image src="../../../static/icon/icon-gray-phone.png" style="width: 28rpx; height: 28rpx; margin-left: 6rpx;"></image>
+              </view>
+              <view class="flex flex-row justify-end align-center margin-top-sm" wx:if="{{ myInfo.Email }}">
+                <view class="text-gray text-sm text-cut" style="max-width: 230rpx;">{{ myInfo.Email }}</view>
+                <image src="../../../static/icon/icon-gray-email.png" style="width: 28rpx; height: 28rpx; margin-left: 6rpx;"></image>
+              </view>
+              <view wx:if="{{ address != 0 }}" class="flex flex-row justify-end align-center margin-top-sm">
+                <view class="text-gray text-sm text-cut" style="max-width: 260rpx;">{{ address }}</view>
+                <image src="../../../static/icon/icon-south.png" style="width: 28rpx; height: 28rpx; margin-left: 6rpx;"></image>
+              </view>
+            </view>
+          </view>
+        </view>
+         <view class="flex flex-row justify-between align-center margin-top" style="width: 100%;">
+          <view class="flex flex-row justify-between align-center">
+            <checkbox class="round" data-current="1" checked="{{ myInfo.TemplateSysNo == 1 }}" bindtap="setTemplateBySwiper"></checkbox>
+            <view class="text-lg text-blue margin-left-sm {{ myInfo.TemplateSysNo == 1 ? 'text-blue' : 'text-gray' }}">{{ myInfo.TemplateSysNo == 1 ? '使用中' : '未使用' }}</view>
+          </view>
+          <view class="round bg-grey __box-desc text-white">
+            商务版
+          </view>
+        </view>
+      </view>
+    </view>
+  </swiper-item>
+  <swiper-item>
+    <view class="padding-sm">
+      <view class="__flex padding-sm shadow bg-white" style="border-radius: 10rpx;">
+        <view class=".__card-a-container">
+          <image src="{{ avatar }}" mode="widthFix" style="border-top-left-radius: 12rpx;border-top-right-radius: 12rpx;"></image>
+          <view class="__footer text-white padding-sm">
+            <view class="flex flex-row justify-start align-end">
+              <view class="text-lg text-bold">{{ myInfo.Name || myInfo.WX }}</view>
+              <view wx:if="{{ myInfo.PositionName}}" class="text-sm margin-left">{{ myInfo.PositionName}}</view>
+            </view>
+            <view class="flex flex-row justify-between align-center" style="margin-top: 10rpx;width: 100%;">
+              <view wx:if="{{ myInfo.Telephone }}" class="flex flex-row justify-start align-center">
+                <image src="../../../static/icon/phone-fff.png" style="width: 24rpx; height: 24rpx;"></image>
+                <view class="text-sm text-cut" style="margin-left: 4rpx;">{{ myInfo.Telephone }}</view>
+              </view>
+              <view wx:if="{{ myInfo.Email }}" class="flex flex-row justify-start align-center">
+                <image src="../../../static/icon/email-fff.png" style="width: 24rpx; height: 24rpx;"></image>
+                <view class="text-sm text-cut" style="margin-left: 4rpx; max-width: 200rpx;">{{ myInfo.Email }}</view>
+              </view>
+            </view>
+            <view wx:if="{{ address != 0 }}" class="flex flex-row justify-start align-start" style="margin-top: 10rpx;">
+              <image src="../../../static/icon/location-fff.png" style="width: 24rpx; height: 24rpx; margin-top: 4rpx;"></image>
+              <view class="text-sm text-cut" style="margin-left: 4rpx; max-width: 380rpx;">{{ address }}</view>
+            </view>
+          </view>
+        </view>
+        <view class="flex flex-row justify-between align-center margin-top" style="width: 100%;">
+          <view class="flex flex-row justify-between align-center">
+            <checkbox class="round" data-current="2" checked="{{ myInfo.TemplateSysNo == 2 }}" bindtap="setTemplateBySwiper"></checkbox>
+            <view class="text-lg {{ myInfo.TemplateSysNo == 2 ? 'text-blue' : 'text-gray' }} margin-left-sm">{{ myInfo.TemplateSysNo == 2 ? '使用中' : '未使用' }}</view>
+          </view>
+          <view class="round bg-grey __box-desc text-white">
+            经典款
+          </view>
+        </view>
+      </view>
+    </view>
+  </swiper-item>
+</swiper>
+<view class="cu-list menu card-menu margin-top">
+  <view class="cu-item arrow" style="padding: 0;" wx:for="{{ customItems }}" wx:key="index">
+    <navigator class="content" hover-class="none" url="{{ item.url }}" open-type="navigate">
+      <text class="cuIcon-{{ item.icon }} text-orange"></text>
+      <text class="text-grey">{{ item.name }}</text>
+    </navigator>
+  </view>
+</view>
+

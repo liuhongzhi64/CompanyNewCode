@@ -1,0 +1,86 @@
+/**app.wxss**/
+@import "colorui/main.wxss";
+@import "colorui/icon.wxss";
+@import "./static/iconfont.wxss";
+page {
+  background: white;
+}
+.container {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding: 200rpx 0;
+  box-sizing: border-box;
+}
+.common-line-hide {
+   overflow: hidden;
+  text-overflow: ellipsis;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  letter-spacing: 1px;
+}
+.common-color {
+  color: #1A1C22;
+}
+.common-background-index {
+  background:linear-gradient(180deg,rgb(243, 237, 237) 0%,rgba(255,252,252,1) 100%);
+}
+.common-box-shadow {
+  box-shadow: 5rpx 5rpx 16rpx 5rpx rgba(26, 42, 85,  0.12);
+}
+.common-border {
+  border: 1px solid #f0f0f0;
+}
+.common-button {
+  margin: 0;
+  padding: 0;
+  border: none;
+  background: none;
+}
+.common-padding {
+  padding: 36rpx 36rpx 36rpx 36rpx;
+  box-sizing: border-box;
+}
+.erys-index__groups-items {
+  margin-right: 16rpx;
+  margin-bottom: 16rpx;
+}
+.common-padding-left-right{
+  padding: 0rpx 36rpx 0rpx 36rpx;
+  box-sizing: border-box;
+}
+.common-padding-top-bottom {
+  padding: 36rpx 0 36rpx 0;
+  box-sizing: border-box;
+}
+.common-padding-bottom {
+  padding: 0 0 36rpx 0;
+  box-sizing: border-box;
+}
+.common-radius {
+  border-radius: 12rpx;
+}
+.common-border-top {
+  border-bottom: 1px solid #f0f0f0;
+}
+.common-border-top {
+  border-top: 1px solid #f0f0f0;
+}
+.common-weight {
+  font-weight: bold;
+}
+.common-pic-widthfixed {
+  width: 100%;
+  height: auto;
+}
+.common-border-bottom-shadow {
+  border-bottom: 1px solid #f0f0f0;
+}
+.common-border-left {
+  border-left: 1px solid #f0f0f0;
+}
+.common-bg-color {
+  background: #f0f0f0;
+}

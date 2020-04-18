@@ -1,0 +1,4 @@
+/* pages/zone/goods/edit/index.wxss */
+.erys-item__box {
+  width: calc(100%/3);
+}

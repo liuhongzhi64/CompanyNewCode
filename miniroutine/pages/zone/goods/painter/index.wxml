@@ -1,0 +1,98 @@
+<navigation title="海报分享" back bindback="back"/>
+<!-- <bg-loading showLoading="{{ loading }}"/> -->
+<painter customStyle='position: fixed; left: -9999rpx;' palette="{{template}}" bind:imgOK="onImgOK" widthPixels="1000"/>
+<view class="padding-xl" wx:if="{{ !loading }}">
+  <view class="text-gray text-lg">选择海报</view>
+  <view class="flex flex-row justify-around align-center margin-top">
+    <view class="padding-sm {{ curIndex == 0 && 'erys-painter__border' }}" data-index="0" bindtap="switchtap">
+      <image src="../../../../static/icon/liner.jpg" class="erys-painter__img"></image>
+    </view>
+    <view class="padding-sm {{ curIndex == 1 && 'erys-painter__border' }}" data-index="1" bindtap="switchtap">
+      <image src="../../../../static/icon/fixed-box.jpg" class="erys-painter__img"></image>
+    </view>
+    <view class="padding-sm {{ curIndex == 2 && 'erys-painter__border' }}" data-index="2" bindtap="switchtap">
+      <image src="../../../../static/icon/column.jpg" class="erys-painter__img"></image>
+    </view>
+  </view>
+</view>
+<swiper class="margin-bottom" style="height: {{ swiperHeight }}px;" bindchange="switchTabSwiper" current="{{ curIndex }}">
+  <swiper-item>
+    <view class="__items common-padding-left-right margin-bottom">
+      <view class="erys-painter__inner-box erys-painter__border padding-xl">
+        <view class="flex flex-row justify-start align-center">
+          <view class="cu-avatar round lg" style="background-image: url({{ item.avatar }})"></view>
+          <view class="common-padding-left-right erys-painter__text-title">
+            <view class="text-black text-bold text-lg">{{ item.name }}  给你推荐</view>
+          </view>
+        </view>
+        <view class="erys-painter__border margin-top">
+          <image src="{{ item.image }}" mode="widthFix" style="width: 100%;"></image>
+          <view class="margin-top-sm">
+            <view class="text-center text-black text-lg text-bold">{{ item.productName }}</view>
+            <view class="text-center text-black text-df margin-top-sm">材质: {{ item.productQuality }}</view>
+            <view class="text-center text-black text-df erys-painter__margin-top-sm">型号: {{ item.productModel }}</view>
+            <view class="text-center text-red text-xl text-price text-bold margin-top-sm">{{ item.productPrice }}</view>
+          </view>
+        </view>
+        <view class="margin-top flex flex-row justify-start align-end">
+          <image src="{{ item.qrImage }}" mode="widthFix" style="width: 168rpx;height: 168rpx;"></image>
+          <view class="margin-left-sm">
+            <view class="text-sm text-gray">查看商品详情</view>
+            <view class="text-sm text-gray">长按图片识别小程序码</view>
+          </view>
+        </view>
+      </view>
+    </view>
+  </swiper-item>
+  <swiper-item>
+    <view class="__items common-padding-left-right margin-bottom">
+      <view class="erys-painter__inner-box erys-painter__border padding-xl">
+        <view class="flex flex-row justify-start align-center">
+          <view class="cu-avatar round lg" style="background-image: url({{ item.avatar }})"></view>
+          <view class="common-padding-left-right erys-painter__text-title">
+            <view class="text-black text-bold text-lg">{{ item.name }}  给你推荐</view>
+            <view class="text-gray tet-shadow text-df">{{ item.companyName }}</view>
+          </view>
+        </view>
+        <image class="margin-top" src="{{ item.image }}" mode="widthFix" style="width: 100%;"></image>
+        <view class="margin-top-sm flex flex-row jsutify-between align-center">
+          <view class="basis-lg">
+            <view class="text-black text-bold text-lg">{{ item.productName }}</view>
+            <view class="text-black text-df margin-top-sm">材质: {{ item.productQuality }}</view>
+            <view class="text-black text-df erys-painter__margin-top-sm">型号: {{ item.productModel }}</view>
+            <view class="text-red text-xl text-price text-bold margin-top-sm">{{ item.productPrice }}</view>
+          </view>
+          <view class="basis-sm erys-painter__img-end">
+            <image src="{{ item.qrImage }}" mode="widthFix" style="width: 168rpx;height: 168rpx;"></image>
+            <view class="text-sm text-gray">长按识别小程序码</view>
+          </view>
+        </view>
+      </view>
+    </view>
+  </swiper-item>
+  <swiper-item>
+    <view class="__items common-padding-left-right margin-bottom">
+      <view class="erys-painter__inner-box erys-painter__border padding-xl">
+        <view class="erys-painter__border margin-top">
+          <image src="{{ item.image }}" mode="widthFix" style="width: 100%;"></image>
+          <view class="margin-top-sm">
+            <view class="text-center text-black text-lg text-bold">{{ item.productName }}</view>
+            <view class="text-center text-black text-df margin-top-sm">材质: {{ item.productQuality }}</view>
+            <view class="text-center text-black text-df erys-painter__margin-top-sm">型号: {{ item.productModel }}</view>
+            <view class="text-center text-red text-xl text-price text-bold margin-top-sm">{{ item.productPrice }}</view>
+          </view>
+        </view>
+        <view class="margin-top flex flex-row justify-start align-end">
+          <image src="{{ item.qrImage }}" mode="widthFix" style="width: 168rpx;height: 168rpx;"></image>
+          <view class="margin-left-sm">
+            <view class="text-sm text-gray">查看商品详情</view>
+            <view class="text-sm text-gray">长按图片识别小程序码</view>
+          </view>
+        </view>
+      </view>
+    </view>
+  </swiper-item>
+</swiper>
+<view class="padding-xl margin-top" wx:if="{{ !loading }}">
+  <button class="bg-blue" bindtap="saveImage">生成图片</button>
+</view>

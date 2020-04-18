@@ -1,0 +1,94 @@
+<navigation title="{{ conversation.userProfile.nick }}" back bindback="back"/>
+<view class="grid col-5 bg-white shadow">
+  <view class="__items" bindtap="redirectToIndex">
+    <view class="text-center">
+      <image src="../../../../static/icon/board-card.png" style="width: 45rpx; height: 45rpx;"></image>
+    </view>
+    <view class="text-sm __items-text text-center" style="margin-top: -5rpx;">返回名片</view>
+  </view>
+  <view class="__items" bindtap="call">
+    <view class="text-center">
+      <image src="../../../../static/icon/board-phone.png" class="__items-pic"></image>
+    </view>
+    <view class="text-sm __items-text text-center">拨打电话</view>
+  </view>
+  <view class="__items" bindtap="copyWechat">
+    <view class="text-center">
+      <image src="../../../../static/icon/board-wechat.png" class="__items-pic"></image>
+    </view>
+    <view class="text-sm __items-text text-center">添加微信</view>
+  </view>
+  <button class="cu-btn flex bg-white __items" style="flex-direction: column; justify-content: flex-start; align-items: center; height: 114rpx; padding: 10rpx 0 10rpx 0; width: 150rpx;" open-type="getPhoneNumber" bindgetphonenumber="saveToConcact">
+  <view class="text-center">
+    <image src="../../../../static/icon/board-change.png" style="width: 45rpx; height: 45rpx; margin-top: -2rpx;"></image>
+  </view>
+    <view class="text-sm __items-text text-center" style="height: 32rpx; margin-top: 5rpx; font-size: 24rpx;">交换电话</view>
+  </button>
+  <view class="__items" bindtap="showDetail">
+    <view class="text-center">
+      <image src="../../../../static/icon/transfer-customer.png" class="__items-pic"></image>
+    </view>
+    <view class="text-sm __items-text text-center">{{ alreadyBeCustomer ? "删除客户" : "转为客户" }}</view>
+  </view>
+</view>
+<scroll-view class="cu-chat" scroll-y style="height: {{ scrollHeight }}rpx" bindscrolltoupper="loadmore" scroll-into-view="view-{{ scrollBottom }}">
+  <view class="flex flex-row justifu-center align-center common-padding" wx:if="{{ loadingmore }}">
+    <view class="erys-home-button__loading">
+      <image class="animation" src="../../static/icon/loading.png"></image>
+      <view class="text-gray text-lg margin-left">正在加载....</view>
+    </view>
+  </view>
+	<view wx:for="{{ messageList }}" wx:key="index" class="cu-item {{ item.flow == 'in' ? '' : 'self' }}" id="view-{{ index }}">
+    <view wx:if="{{ item.flow == 'in' }}" bindtap="showDetail" class="cu-avatar radius" style="background-image:url({{ item.avatar }});"></view>
+		  <view wx:if="{{ item.type == 'TIMTextElem' }}" class="main">
+			  <view class="content {{ item.flow == 'in' ? 'bg-white' : 'bg-green' }}">
+				  <text>{{ item.payload.text }}</text>
+			  </view>
+		  </view>
+      <view wx:if="{{ item.type == 'TIMImageElem' }}" class="main" bindtap="preview" data-image="{{ item.payload.imageInfoArray[0].url }}">
+        <image src="{{ item.payload.imageInfoArray[0].url }}" class="radius" mode="widthFix"></image>
+      </view>
+      <view wx:if="{{ item.type == 'TIMSoundElem' }}" class="main">
+        <view wx:if="{{ item.flow == 'out' }}" class="action text-bold text-grey">
+          {{ item.payload.second }}"
+        </view>
+        <view class="content {{ item.flow == 'in' ? 'bg-white' : 'bg-green' }}" data-sound="{{ item.payload.url }}" bindtap="playSound" data-index="{{ index }}">
+          <text class="cuIcon-{{ currentIndex == index ? 'stop' : 'sound' }} text-xxl {{ item.flow == 'in' ? 'padding-left-xl' : 'padding-right-xl' }}"></text>
+        </view>
+        <view wx:if="{{ item.flow == 'in' }}" class="action text-bold text-grey">
+          {{ item.payload.second }}"
+        </view>
+      </view>
+		  <view wx:if="{{ item.flow != 'in' }}" class="cu-avatar radius" style="background-image:url({{ item.avatar }});"></view>
+		<view class="date">
+      <!-- {{ index == messageList.length - 1 && sending }} -->
+      <image wx:if="{{ index == messageList.length - 1 && sending }}" class="animation" src="../../../../static/icon/loading.png" style="width: 30rpx; height: 30rpx;"></image>
+    </view>
+	</view>
+</scroll-view>
+<view class="cu-bar foot input" style="bottom: {{InputBottom}}px;">
+	<view class="action" bindtap="setMsgType">
+		<text class="cuIcon-{{ msgType ? 'keyboard' : 'sound' }} text-grey"></text>
+	</view>
+  <button wx:if="{{ msgType }}" class="cu-btn {{ longPress ? 'bg-gray' : 'bg-white' }} common-border" style="width: 400rpx;" bindlongtap="longPress" bindtouchend="touchend">按住说话</button>
+	<input wx:else class="solid-bottom bg-gray radius"  adjust-position="{{ false }}" focus="{{ true }}" maxlength="300" cursor-spacing="10" maxlength="50" bindfocus="InputFocus" bindblur="InputBlur" value="{{ inputText }}" bindinput="inputText" bindconfirm="send" confirm-type="done"></input>
+	<view class="action" bindtap="chooseImage">
+		<text class="cuIcon-roundadd text-grey"></text>
+	</view>
+	<button wx:if="{{ inputText }}" class="cu-btn bg-green shadow" bindtap="send">发送</button>
+  <picker wx:else mode="selector" range="{{ normals }}" value="{{ currentIndex }}" bindchange="pickNormalText">
+    <button class="cu-btn bg-green shadow" style="font-size: 20rpx;" bindtap="showNormalText">常用语</button>
+  </picker>
+</view>
+<view class="__bg-sound" style="height: {{ scrollHeight }}rpx;" wx:if="{{ longPress }}">
+  <view class="speak-test-box">
+    <view class="danger-bg">
+      <view class="inner-box">
+        <image src="../../../../static/icon/speak-white.png" class="wave-speak"></image>
+      </view>
+    </view>
+  </view>
+</view>
+
+
+

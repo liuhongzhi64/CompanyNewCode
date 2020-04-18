@@ -1,0 +1,6 @@
+{
+  "usingComponents": {
+    "navigation": "miniprograms-navigation-bar",
+    "image-cropper": "../../components/image-copper/image-cropper"
+  }
+}

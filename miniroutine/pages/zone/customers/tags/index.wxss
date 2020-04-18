@@ -1,0 +1,13 @@
+/* pages/zone/customers/tags/index.wxss */
+@import "../../edit/profile/tags.wxss";
+page {
+  background: #f0f0f0;
+}
+.erys-footer__items {
+  width: 100%;
+  height: 160rpx;
+}
+.erys-button__footer {
+  background: #3a5cfa;
+  color: white;
+}

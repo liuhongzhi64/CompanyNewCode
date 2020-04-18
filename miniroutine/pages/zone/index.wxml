@@ -1,0 +1,61 @@
+<navigation title="个人中心" back bindback="back"/>
+<view wx:if="{{ salerToast }}">
+  <view class="back-bg"></view>
+  <view class="fff-box">
+    <view class="info-box">
+      <image style="width: 550rpx" mode="widthFix" src="https://www.xintui.xin:8058/wx/icon/4c1f4f1f85c417b8a4a91a937f15ecc.png"></image>
+      <view class="inner-box">
+        <text style="font-size: 30rpx; font-weight: bold;margin-bottom: 20rpx;">开启旅程</text>
+        <text style="font-size: 24rpx; color: #808080; font-weight: 500;margin-bottom: 30rpx;">申请成为管理员，更多惊喜等你发现！</text>
+        <view class="bg-button" hover-class="bg-button-hover" bindtap="becomeSaler">
+          马上开启
+        </view>
+      </view>
+    </view>
+    <image style="width: 60rpx; height: 60rpx;z-index: 202;" src="../../static/icon/cancle_pure.png" bindtap="cancleSalerToast"></image>
+  </view>
+</view>
+<view class="bg-gray">
+  <view class="erys-zone__groups">
+    <view class="padding-xl">
+      <view class="padding-sm erys-zone__title-box shadow bg-white radius">
+        <view class="cu-avatar xl round" style="background-image: url('{{ avatar }}');margin-right: 20px;"></view>
+        <view class="text-black text-shadow text-xl" style="font-weight: bold; letter-spacing: 2px;">{{ myInfo.Name || myInfo.WX }}</view>
+      </view>
+    </view>
+  </view>
+  <view class="cu-list grid col-{{ gridCol }} no-border shadow bg-white">
+    <view class="cu-item" wx:for="{{ cuIconList }}" wx:key="index" data-index="{{ index }}" bindtap="clicktap">
+      <view class="cuIcon-{{item.cuIcon}} text-black text-shadow">
+        <view class="cu-tag badge" wx:if="{{ item.badge > 0 }}">
+          <block wx:if="{{ item.badge != 1 }}"></block>
+        </view>
+      </view>
+      <text>{{item.name}}</text>
+    </view>
+  </view>
+  <view class="padding-xl">
+    <!--部分记录-->
+    <view class="__title">
+      <view class="text-black text-shadow">浏览记录</view>
+      <view class="text-gray text-shadow" bindtap="historymore">更多</view>
+    </view>
+    <view class="bg-white radius shadow margin-top">
+      <view class="padding-xl common-border-bottom-shadow" hover-class="bg-gray" wx:for="{{ historyItems }}" wx:key="index" bindtap="showInfo" data-index="{{ index }}">
+        <view class="__title">
+          <view class="cu-avatar lg round" style="background-image: url({{ item.HeadPortraitUrl }})"></view>
+          <view class="text-right">
+            <view class="text-lg text-black text-shadow">{{ item.Name }}</view>
+            <view class="text-sm text-shadow">{{ item.PositionName || "" }}</view>
+            <view class="text-sm text-shadow">{{ item.CompanyName || "" }}</view>
+          </view>
+        </view>
+        <view class="__title margin-top">
+          <view class="text-sm text-shadow">上次 {{ item.VisitTime }}</view>
+          <view class="text-sm text-shadow">总浏览{{ item.VisitCount }}次</view>
+        </view>
+      </view>
+    </view>
+    <view class="text-center text-orange text-shadow text-sm padding-xl">开通雷达，高效获客，快速成交！</view>
+  </view>
+</view>

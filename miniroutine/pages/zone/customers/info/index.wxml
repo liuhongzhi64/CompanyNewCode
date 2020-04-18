@@ -1,0 +1,105 @@
+<navigation title="客户详情" back bindback="back"/>
+<view class="cu-modal bottom-modal {{ modalName=='bottomModal'?'show':'' }}">
+	<view class="cu-dialog">
+		<view class="cu-bar bg-white">
+			<view class="action text-green" bindtap="hideModal">取消</view>
+			<view class="action text-blue" bindtap="searchByDate">确定</view>
+		</view>
+		<view class="padding-xl flex flex-row justify-around align-center">
+			<picker mode="date" value="{{ startdate }}" start="2019-01-01" end="{{ defaultEndTime }}" bindchange="bindDateChange1">
+        <button class="cu-btn radius cuIcon-search bg-blue">{{ startdate || '开始时间' }}</button>
+      </picker>
+      <picker mode="date" value="{{ enddate }}" start="{{ startdate }}" end="{{ defaultEndTime }}" bindchange="bindDateChange2">
+        <button class="cu-btn radius cuIcon-search bg-blue">{{ enddate || '结束时间' }}</button>
+      </picker>
+		</view>
+	</view>
+</view>
+<view class="bg-white common-padding">
+  <view class="flex flex-row justify-between align-center">
+    <view class="cu-avatar round lg" style="background-image: url({{ userInfo.HeadPortraitUrl }})" bindtap="deleteSomeone"></view>
+    <view class="basis-xl">
+      <view class="flex flex-row justify-between align-center">
+        <view class="text-black text-lg text-bold">{{ userInfo.Name }}</view>
+        <view class="text-grey text-df" bindtap="navigateToInfo">查看信息</view>
+      </view>
+      <view wx:if="{{ userInfo.InDateStr }}" class="text-grey text-sm margin-top-xs">{{ userInfo.InDateStr + '添加为客户' }}</view>
+    </view>
+  </view>
+</view>
+<scroll-view scroll-x class="bg-white nav margin-top-sm">
+	<view class="flex text-center common-padding-left-right">
+		<view class="cu-item flex-sub {{ index==TabCur?'text-orange cur':'' }}" wx:for="{{ tabItems }}" wx:key="index" bindtap="tabSelect" data-id="{{ index }}">
+			{{ item }}
+		</view>
+	</view>
+</scroll-view>
+<swiper class="margin-top-sm" style="height: {{ screenHeight - 594 }}rpx;" bindchange="switchTab" current="{{ currentSwiperItem }}">
+  <swiper-item>
+    <view class="erys-tab__item-box common-padding-left-right">
+      <view class="flex flex-row justify-between align-center">
+        <button class="cu-btn radius cuIcon-search bg-blue" bindtap="showModal">时间搜索</button>
+        <view class="text-gray text-df">共浏览{{ historyCount }}次</view>
+      </view>
+      <scroll-view class="margin-top-sm bg-white" scroll-y style="height: {{ screenHeight - 678 }}rpx" bindscrolltolower="loadmore1">
+        <view wx:if="{{ complate && historyList == 0 }}" class="text-gray text-center margin-top text-sm">未找到数据</view>
+        <view class="cu-timeline radius" wx:for="{{ historyList }}" wx:key="index">
+          <view class="cu-time basis-xl" style="width: 200rpx;">{{ item.currentDate }}</view>
+          <view class="cu-item">
+            <view class="content">
+              <text class="text-orange text-shadow">{{ item.currentTime }}</text>
+              <text wx:if="{{ item.Phone == 0 && item.TimeSysNo == 0 }}">{{ item.Description }}</text>
+              <text wx:if="{{ item.TimeSysNo > 1 }}" catchtap="productDetail" data-proId="{{ item.TimeSysNo }}">{{ item.pre }} <text class="text-blue">{{ item.phoneNumber }}</text>{{ item.suf }}</text>
+              <text wx:if="{{ item.Phone >= 1 }}" catchtap="callIt" data-phone="{{ item.phoneNumber }}">{{ item.pre }} <text class="text-blue">{{ item.phoneNumber }}</text>{{ item.suf }}</text>
+            </view>
+          </view>
+        </view>
+        <view class="flex flex-row justifu-center align-center common-padding" wx:if="{{ loadingmore1 }}">
+          <view class="erys-home-button__loading">
+            <image class="animation" src="../../../../static/icon/loading.png"></image>
+            <view class="text-gray text-lg margin-left">正在加载....</view>
+          </view>
+        </view>
+      </scroll-view>
+    </view>
+  </swiper-item>
+  <swiper-item>
+    <view class="erys-tab__item-box">
+      <scroll-view class="bg-white common-padding-left-right" scroll-y style="height: {{ screenHeight - 594 }}rpx">
+        <view>
+          <view class="text-lg text-bold text-black margin-top">兴趣占比</view>
+          <view class="flex flex-row justify-center align-center">
+            <canvas canvas-id="piechart" class="margin-top-sm" style="width: {{ defaultLineWidth -100 }}px; height: {{ defaultLineHeight }}px;"></canvas>
+            <view style="width: 100px; height: {{ defaultLineHeight }}px;" class="common-padding-top-bottom">
+              <view class="text-center text-shadow margin-top-xs" style="color: {{ colors[index] }};" wx:for="{{ pieDatas }}" wx:key="index">
+                <view class="cuIcon-ellipse text-sm">{{  pieItems[index] }} {{ pieDatas[index] }}</view>
+              </view>
+            </view>
+          </view>
+          </view>
+        <view>
+          <view class="text-lg text-bold text-black margin-top">客户活跃度</view>
+          <canvas canvas-id="linechart" class="margin-top-sm" style="width: {{ defaultLineWidth }}px; height: {{ defaultLineHeight }}px;" bindtouchstart="linechartTouchstart" bindtouchmove="linechartTouchmove"></canvas>
+        </view>
+      </scroll-view>
+    </view>
+  </swiper-item>
+  <swiper-item>
+    <view class="erys-tab__item-box">
+      <scroll-view class="bg-white" scroll-y style="height: {{ screenHeight - 594 }}rpx">
+        <view wx:if="{{ complate && records == 0 }}" class="text-gray text-center margin-top text-sm">未找到数据</view>
+        <view class="cu-timeline radius" wx:for="{{ records }}" wx:key="index">
+          <view class="cu-time" style="width: 200rpx;">{{ item.currentDate }}</view>
+          <view class="cu-item">
+            <view class="content">
+              <text class="text-orange">{{ item.currentTime }}</text>  {{ item.Description }}
+            </view>
+          </view>
+        </view>
+      </scroll-view>
+    </view>
+  </swiper-item>
+</swiper>
+<view class="common-padding erys-footer__items bg-white common-border-top">
+  <button class="common-button erys-button__footer bg-blue" bind:tap='sendMessage'>发送消息</button>
+</view>

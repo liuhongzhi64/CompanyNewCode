@@ -1,0 +1,102 @@
+<navigation searchBar back bindback="back" catchsearch="search"/>
+<!-- <bg-loading showLoading="{{ loading }}"/> -->
+<view wx:if="{{ show }}">
+  <view class="back-bg"></view>
+  <view class="fff-box">
+    <view class="info-box">
+      <image style="width: 650rpx" mode="widthFix" src="https://www.xintui.xin:8058/wx/icon/946bb9eaf67a26af4ed85b1de65e92b.png"></image>
+      <view class="inner-box-1">
+        <form bindsubmit="formSubmit">
+          <view class="inner-input-box">
+            姓名：
+            <input style="width: 240rpx;font-size: 24rpx;font-weight: lighter;" placeholder="请填写您的真实姓名" placeholder-style="font-size: 22rpx;" name="username" value="{{ form.username }}" maxlength="6"></input>
+          </view>
+          <view class="inner-input-box">
+            电话：
+            <input style="width: 240rpx;font-size: 24rpx;font-weight: lighter;" placeholder="请填写您的电话号码" placeholder-style="font-size: 22rpx;" name="userTelephone" value="{{ form.userTelephone }}" type="number" maxlength="11"></input>
+          </view>
+          <button class="bg-button-1 common-button margin-top" hover-class="bg-button-hover" form-type="submit">立即申请</button>
+            <!-- <view class="line">
+              <view class="mid-line"></view>
+              <text class="tips-text">其他申请方式</text>
+            </view> -->
+          <view class="text-center margin-top-sm" hover-class="bg-button-hover" bindtap="callmeMaybe">联系热线</view>
+        </form>
+      </view>
+    </view>
+    <image style="width: 60rpx; height: 60rpx;" src="../../../static/icon/cancle_pure.png" bindtap="cancleSalerToast"></image>
+  </view>
+</view>
+<view class="erys-tab__top common-border-bottom-shadow common-padding-left-right">
+  <view class="text-shadow text-lg erys-tab__text-row">
+    <button class="cu-btn round" bindtap="manage">管理</button>
+    <view class="text-shadow text-lg text-gray margin-left">(共{{ products.length - deleted.length }}件商品)</view>
+  </view>
+  <button wx:if="{{ !setting }}" class="cu-btn round" bindtap="initOffSale">{{ saling == 10 ? '下架商品' : '上架商品'}}</button>
+  <button wx:if="{{ setting }}" class="cu-btn round" bindtap="submit">确定</button>
+</view>
+<scroll-view scroll-y class="common-padding-left-right" style="height: {{ screenHeight - 384 }}rpx" bindscrolltolower="loadmore">
+  <view wx:if="{{ complate && products.length == 0 }}" class="text-center text-gray text-shadow text-sm margin-top">未找到数据</view>
+  <checkbox-group wx:if="{{ complate }}" bindchange="checkboxChange">
+    <view hidden="{{ item.hidden }}" class="erys-tab__items common-padding-top-bottom common-border-bottom-shadow" wx:for="{{ products }}" wx:key="index">
+      <view class="erys-tab__back-items">
+        <checkbox class="round {{ item.checked.checked?'checked':'' }}" value="{{ item.SysNo }}" checked="{{ item.checked }}"></checkbox>
+        <view class="text-balck text-shadow text-sm flex justify-start align-center">
+          优先级
+          <input placeholder="输入排序数值" data-index="{{ item.SysNo }}" value="{{ item.Priority }}" class="text-sm erys-tab__input radius text-center" bindinput="setRank" confirm-type="done"></input>
+        </view>
+      </view>
+      <view class="common-padding-top-bottom erys-tab__text-row erys-tab__box {{ setting && 'erys-tab__animation' }}">
+        <view class="common-radius radius bg-gray bg-img __position" style="background-image: url('{{ item.DefaultImage }}');width: 180rpx;height: 180rpx;" data-index="{{ index }}" bindtap="navigateToDetails">
+          <!-- <image wx:if="{{ item.IsDisplayWebsite == 1 }}" src="../../../static/icon/icon-set-top.png" class="erys-tab__img"></image> -->
+          <view class="__delta" wx:if="{{ item.IsDisplayWebsite == 1 }}"></view>
+          <view class="text-white text-center __title-align" wx:if="{{ item.IsDisplayWebsite == 1 }}">首页</view>
+        </view>
+        <view class="margin-left erys-tab__text-padding">
+          <view class="flex flex-row justify-between align-center" style="width: 100%;">
+            <view class="text-cut text-lg text-bold text-black">{{ item.ProductName }}</view>
+            <switch checked="{{ item.IsDisplayWebsite == 1 }}" bindchange="setTop" data-index="{{ index }}"></switch>
+          </view>
+          <view>
+            <view class="text-cut text-sm text-gray">型号: {{ item.SKUModel }}</view>
+            <view class="text-cut text-sm text-gray" style="margin-top: 6rpx;">材质: {{ item.Material }}</view>
+          </view>
+          <view class="flex flex-row justify-between align-cener" style="width: 100%;">
+            <view class="text-cut text-price text-bold text-red text-lg">{{ item.RetailPrice }}</view>
+            <view class="cuIcon-edit erys-tab__edit" data-index="{{ index }}" bindtap="edit">编辑</view>
+          </view>
+        </view>
+        <!-- <view class="flex justify-between align-end erys-tab__footer" style="flex-direction: column;">
+          <button class="cu-btn round {{ item.IsDisplayWebsite == 1 && 'bg-blue'}}" data-index="{{ index }}" bindtap="setTop" style="font-size: 20rpx;">首页展示</button>
+          <view class="cuIcon-edit erys-tab__edit" data-index="{{ index }}" bindtap="edit">编辑</view>
+        </view> -->
+      </view>
+    </view>
+  </checkbox-group>
+  <view class="flex flex-row justifu-center align-center common-padding" wx:if="{{ loadingmore }}">
+    <view class="erys-home-button__loading">
+      <image class="animation" src="../../static/icon/loading.png"></image>
+      <view class="text-gray text-lg margin-left">正在加载....</view>
+    </view>
+  </view>
+</scroll-view>
+<view class="erys-tab__footer-fixed">
+  <view class="common-padding erys-footer__items" wx:if="{{ !setting }}">
+    <button class="common-button erys-button__footer" bindtap="edit">新增商品</button>
+  </view>
+  <view class="common-padding erys-footer__items flex flex-row justify-between align-center" wx:if="{{ setting }}">
+    <view class="text-sm text-black text-shadow flex flex-row align-center">
+      <checkbox-group bindchange="checkAll">
+        <checkbox class="round {{ checkall ?'checked':'' }}" checked="{{ checkall }}" value="-1"></checkbox>
+      </checkbox-group>
+    全选
+    </view>
+    <view class="flex flex-row justify-center align-center">
+      <view class="text-black text-shadow margin-right text-sm">已选：{{ hadChecked }}个</view>
+      <button wx:if="{{ saling == 10 }}" data-target="sale" class="cu-btn bg-blue round" bindtap="offsale">下架</button>
+      <button wx:if="{{ saling == 20 }}" data-target="delete" class="cu-btn bg-blue round" bindtap="offsale">删除</button>
+      <button wx:if="{{ saling == 20 }}" data-target="sale" class="cu-btn bg-blue round margin-left" bindtap="offsale">上架</button>
+    </view>
+  </view>
+</view>
+
