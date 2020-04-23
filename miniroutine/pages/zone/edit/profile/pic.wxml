@@ -56,8 +56,8 @@
   </block>
   <view class="padding-sm text-gray text-shadow bg-white">
     <view class="text-lg flex flex-row align-center justify-center" bindtap="actiontapClick" data-index="-1">
-      <icon class="cuIcon-add text-blue text-xl" style="margin-top: -4rpx; margin-right: 6rpx;"></icon>
-        添加更多图片
+      <icon class="cuIcon-add text-blue text-xl addImg"></icon>
+        添加更多图片111
     </view>
   </view>
 </view>

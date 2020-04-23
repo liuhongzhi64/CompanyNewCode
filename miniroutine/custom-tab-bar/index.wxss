@@ -1,0 +1,10 @@
+/* custom-tab-bar/index.wxss */
+#tab{
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  color: red;
+  background-color: #E6E6E6;
+  line-height: 2rem;
+  padding: 0 1rem;
+}

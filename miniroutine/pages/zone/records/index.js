@@ -219,14 +219,15 @@ Page({
     let _this = this;
     let array = this.data.checkBox
     remote.getMyRecords(0, _this.data.key, today(), today(), 1, {
-      pageSize: 1,
+      pageSize: 100,
       currentPage: 1,
       sort: 'desc'
     }).then(res => {
+      console.log(res)
       array[0]['count'] = res.totalCount
-      array[1]['count'] = res.totalCount
+      array[1]['count'] = res.browsetotalCount
       remote.getMyRecords(0, _this.data.key, '2019-11-01', today(), 1, {
-        pageSize: 1,
+        pageSize: 100,
         currentPage: 1,
         sort: 'desc'
       }).then(res => {

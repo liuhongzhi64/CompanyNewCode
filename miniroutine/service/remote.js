@@ -1,5 +1,5 @@
 import { get, post } from '../request/index.js';
-
+// 接口文档
 const remote = {
   // 登录
   login(params) {
@@ -276,6 +276,14 @@ const remote = {
   // AI雷达累计电话、微信复制、名片被转发(次)、名片被点赞、名片被保存、商品浏览、商品被转发、VR720(浏览) 详情
   getRadarRecordBySysNo(userId, radarType, type, sortType, page) {
     return post(`/WX_SmallProcedures/GetRadarRecordBySysNo?userSysNo=${userId}&radarType=${radarType}&type=${type}&sortType=${sortType}`, page)
+  },
+  // 获取电话号码：
+  getPhones(userSysNo,type){
+    return get(`/WX_SmallProcedures/GetPhoneCountByUserSysNo?userSysNo=${userSysNo}&type=${type}`)
+  },
+  // 获取电话号码详情
+  getUserPhone(userId, radarType, type, sortType, page) {
+    return post(`/WX_SmallProcedures/GetTelephoneByUserSysNo?userSysNo=${userId}&radarType=${radarType}&type=${type}&sortType=${sortType}`, page)
   },
   // 兴趣占比
   getRadarRecordInterested(userSysNo) {

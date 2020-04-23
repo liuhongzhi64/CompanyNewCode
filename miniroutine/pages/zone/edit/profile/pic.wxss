@@ -166,3 +166,7 @@ page {
   padding: 0 36rpx 36rpx 36rpx;
   box-sizing: border-box;
 }
+.addImg{
+  margin-top: -20rpx;
+  margin-right: 6rpx;
+}

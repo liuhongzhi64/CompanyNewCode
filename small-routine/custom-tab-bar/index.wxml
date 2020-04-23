@@ -1,0 +1,9 @@
+<!--custom-tab-bar/index.wxml-->
+<view id="tab" wx:if="{{ tabVIP }}">
+  <text bindtap="handleGoIndex">名片</text>
+  <text bindtap="handleGoOfficial">商城</text>
+  <text bindtap="handleGoStore">官网</text>
+  <!-- <view wx:for="{{ tabList }}" wx:key="{{ item.url }}" class="tab">
+    {{item.name}}
+  </view> -->
+</view>

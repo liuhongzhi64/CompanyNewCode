@@ -1,12 +1,31 @@
-// pages/store/store.js
+// custom-tab-bar/index.js
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
+    tabList: [{ name: '名片', url: 'index' }, { name: '商城', url: 'official' }, { name: '官网', url: 'store' }],
+    tabVIP:true
   },
-
+  handleGoIndex:function(){
+    // console.log(111)
+    wx.switchTab({
+      url: '/pages/index'
+    })
+  },
+  handleGoOfficial:function(){
+    // console.log(111)
+    wx.switchTab({
+      url: '/pages/official/official'
+    })
+  },
+  handleGoStore:function(){
+    // console.log(111)
+    wx.switchTab({
+      url: '/pages/store/store'
+    })
+  },
   /**
    * 生命周期函数--监听页面加载
    */

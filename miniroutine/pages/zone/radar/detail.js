@@ -138,6 +138,7 @@ Page({
         }
       })
     } else if (index == 2) {
+      // console.log("累计跟进")  
       // 累计跟进
       remote.getFollowupCustomerBySysNo(uniqueKey, type, sortType, page).then(res => {
         if (res.success) {
@@ -158,8 +159,31 @@ Page({
           }, () => {wx.hideLoading();})
         }
       })
-    } else {
-      // 剩余
+    } else if (index == 11) {
+      console.log("获取电话")
+      remote.getUserPhone(uniqueKey, this.data.radarType, type, sortType, page).then(res => {
+        if (res.success) {
+          let temp = res.data;
+          console.log(temp)
+          for (let i = 0; i < temp.length; i++) {
+            temp[i].HeadPortraitUrl = image(temp[i].HeadPortraitUrl);
+            temp[i].VisitTime = that.splitString(temp[i].VisitTime, 'T');
+          }
+          if (temp.length < page.pageSize) {
+            more = false;
+          }
+          page.currentPage += 1;
+          that.setData({
+            listData: listData.concat(temp),
+            page: page,
+            more: more,
+            complate: true
+          }, () => { wx.hideLoading(); })
+        }
+      })
+    }
+    else {
+      // 剩余发送请求，获取参数
       remote.getRadarRecordBySysNo(uniqueKey, this.data.radarType, type, sortType, page).then(res => {
         if (res.success) {
           let temp = res.data;
@@ -198,7 +222,8 @@ Page({
     let listData = this.data.listData;
     let tapIndex = this.data.index;
     let item = listData[index];
-    if (tapIndex != 11) {
+    // 原代码是tapIndex!=11,表示如果它不等于11，那么久跳转到另外一个页面
+    if (tapIndex <= 11) {
       wx.navigateTo({
         url: `../customers/info/index?targetId=${item.UserSysNo}`,
       })

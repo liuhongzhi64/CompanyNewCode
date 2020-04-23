@@ -17,10 +17,26 @@
       <view class="text-gray text-sm">{{ item.PositionName || '暂无职位' }}</view>
       <view class="flex flex-row justify-between align-center">
         <view class="text-gray text-sm">{{ item.CompanyName || '暂无公司' }}</view>
+        <!-- 电话号码，在只有点击电话号码的时候才会有此显示 -->
+        <view class="phone" wx:if="{{ complate && title == '获取电话号码' }}" >{{ item.Phone || '' }}</view>
         <view class="text-gray text-sm">{{ item.VisitCount == 0 ? '' : '浏览' + item.VisitCount +'次'}}</view>
       </view>
     </view>
   </view>
+  <!-- <view wx:if="{{ complate }}" class="flex flex-row justify-between align-ccenter common-padding-top-bottom common-border-bottom" wx:for="{{ listData }}" wx:key="index" data-index="{{ index }}" bindtap="clickItem">
+    <view class="cu-avatar round lg shadow bg-img" style="background-image: url({{ item.HeadPortraitUrl }})"></view>
+    <view class="basis-xl flex-column justify-between">
+      <view class="flex flex-row justify-between align-center">
+        <view class="text-black text-df text-cut" style="max-width: 120rpx;">{{ item.Name || '' }}</view>
+        <view class="text-gray text-df">{{ item.VisitTime }}</view>
+      </view>
+      <view class="text-gray text-sm">{{ item.PositionName || '暂无职位' }}</view>
+      <view class="flex flex-row justify-between align-center">
+        <view class="text-gray text-sm">{{ item.CompanyName || '暂无公司' }}</view>
+        <view class="text-gray text-sm">{{ item.VisitCount == 0 ? '' : '浏览' + item.VisitCount +'次'}}</view>
+      </view>
+    </view>
+  </view> -->
   <view class="flex flex-row justifu-center align-center common-padding" wx:if="{{ loadingmore }}">
     <view class="erys-home-button__loading">
       <image class="animation" src="../../../static/icon/loading.png"></image>

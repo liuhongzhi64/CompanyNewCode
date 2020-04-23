@@ -27,7 +27,7 @@
 	"compileType": "miniprogram",
 	"libVersion": "2.9.5",
 	"appid": "wx2f62903ef5ac2921",
-	"projectname": "yjj",
+	"projectname": "miniroutine",
 	"debugOptions": {
 		"hidedInDevtools": []
 	},

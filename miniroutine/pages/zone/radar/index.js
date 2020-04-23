@@ -19,7 +19,7 @@ Page({
       { cuIcon: 'peoplelist', color: 'purple', badge: 0, name: '名片被收藏' },
       { cuIcon: 'goodsnew', color: 'purple', badge: 0, name: '商品浏览' },
       { cuIcon: 'share', color: 'purple', badge: 0, name: '商品被转发' },
-      { cuIcon: 'same', color: 'purple', badge: 0, name: '累计交换电话' }
+      { cuIcon: 'same', color: 'purple', badge: 0, name: '获取电话号码' }
     ],
     gridCol: 3,
     dataItems: [0, 0, 0, 10, 8, 11, 7, 14, 12, 2, 15, 9],
@@ -97,7 +97,14 @@ Page({
           remote.getFollowupCustomerCount(uniqueKey, type).then(res => {
             resolve(res.data);
           })
-        } else {
+        }
+        else if (index == 11) {
+          //获取电话号码
+          remote.getPhones(uniqueKey, type).then(res => {
+            resolve(res.data);
+          })
+        }
+         else {
           // 剩下的数据
           // 我tm也不知道为什么要这样写接口，真的，你看到别气
           remote.getRadarRecordCount(uniqueKey, item, type).then(res => {

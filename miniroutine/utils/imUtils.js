@@ -197,8 +197,8 @@ tim.on(TIM.EVENT.MESSAGE_REVOKED, function (event) {
 // 收到会话列表更新通知，可通过遍历 event.data 获取会话列表数据并渲染到页面
 // 有新的回话会触发这个事件
 tim.on(TIM.EVENT.CONVERSATION_LIST_UPDATED, function (event) {
-  console.log(event)
-  console.log('会话更新')
+  // console.log(event)
+  // console.log('会话更新')
   let list = event.data;
   let count = sortMessageList(list);
   const app = getApp();

@@ -3,6 +3,7 @@ Page({
     userInfo: {}
   },
   onLoad: function (options) {
+    console.log(options)
     let item = JSON.parse(options.item);
     this.setData({
       userInfo: item

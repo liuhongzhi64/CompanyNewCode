@@ -298,7 +298,7 @@
   background: #E6E6E6;
 }
 /* 导航条 */
-#tab{
+/* #tab{
   width: 100%;
   display: flex;
   justify-content: space-around;
@@ -307,4 +307,4 @@
   bottom: 0;
   font-size: 30px;
   background-color: #E6E6E6;
-}
+} */

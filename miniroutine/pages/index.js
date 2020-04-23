@@ -253,6 +253,7 @@ Page({
   // 分享名片
   shareCard(res) {
     let result = this.getUserInfo(res)
+    // console.log(result)
     if (result == -1) {
       this.setData({
         showAction: true

@@ -26,6 +26,7 @@ page {
 .item-inner-box {
   width: 156rpx;
   height: 80rpx;
+  text-align: center;
 }
 .selected-font {
   color: #3A6AFC;
@@ -39,9 +40,9 @@ page {
   font-weight: bold;
 }
 .item-header {
-  display: flex;
+  /* display: flex;
   flex-direction: row;
-  justify-content: flex-start;
+  justify-content: flex-start; */
   align-items: center;
   margin-bottom: 10rpx;
 }

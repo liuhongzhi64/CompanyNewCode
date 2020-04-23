@@ -25,7 +25,8 @@
     "pages/zone/goods/edit/index",
     "components/scroll/index",
     "pages/store/store",
-    "pages/official/official"
+    "pages/official/official",
+    "custom-tab-bar/index"
   ],
   "window": {
     "backgroundTextStyle": "light",
@@ -33,6 +34,26 @@
     "navigationBarTitleText": "WeChat",
     "navigationBarTextStyle": "black",
     "navigationStyle": "custom"
+  },
+  "tabBar": {
+    "custom": true,
+    "color": "#000000",
+    "selectedColor": "#000000",
+    "backgroundColor": "#000000",
+    "list": [
+      {
+        "pagePath": "pages/index",
+        "text": "名片"
+      },
+      {
+        "pagePath": "pages/official/official",
+        "text": "商城"
+      },
+      {
+        "pagePath": "pages/store/store",
+        "text": "官网"
+      }
+    ]
   },
   "permission": {
     "scope.userLocation": {

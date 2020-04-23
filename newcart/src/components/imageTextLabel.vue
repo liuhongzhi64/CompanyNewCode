@@ -263,23 +263,23 @@ export default {
   watch: {
     // 监听默认地址背景颜色改变事件
     backgroundColor() {
-      this.$emit("getData", this.backgroundColor, "标签商品");
+      this.$emit("getData", this.backgroundColor, "图文导航");
     },
     // 商品背景色
     textColors() {
-      this.$emit("textColors", this.textColors, "标签商品");
+      this.$emit("textColors", this.textColors, "图文导航");
     },
     // 单个圆角
     radius() {
-      this.$emit("oneRadius", this.oneRadius, "标签商品");
+      this.$emit("oneRadius", this.oneRadius, "图文导航");
     },
     // 监听外边距
     margin() {
-      this.$emit("margin", this.margin, "标签商品");
+      this.$emit("margin", this.margin, "图文导航");
     },
     // 监听内边距
     padding() {
-      this.$emit("padding", this.padding, "标签商品");
+      this.$emit("padding", this.padding, "图文导航");
     }
   }
 };
@@ -298,6 +298,7 @@ export default {
   .setTemplate {
     .template {
       background-color: #eee;
+      margin-bottom: 10px
     }
     .bolck {
       display: flex;
