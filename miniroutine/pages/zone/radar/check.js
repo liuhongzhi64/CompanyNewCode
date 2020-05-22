@@ -65,14 +65,16 @@ Page({
       })
       return;
     }
-    if (!(/^1[3456789]\d{9}$/.test(userTelphone))) {
+    if (!(/^1[3456789]\d{9}$/.test(userTelphone))) {//以前的电话号码正则表达式
+    // if (!(/^1[0-9]\d{9}$/.test(userTelphone))) {
       wx.showToast({
         title: '请正确填写号码',
         icon: 'none'
       })
       return;
     }
-    if (!(/^1[3456789]\d{9}$/.test(recommandTelphone))) {
+    if (!(/^1[3456789]\d{9}$/.test(recommandTelphone))) {//以前的电话号码正则表达式
+    // if (!(/^1[0-9]\d{9}$/.test(recommandTelphone))) {
       wx.showToast({
         title: '请正确填写推荐人号码',
         icon: 'none'
@@ -82,13 +84,18 @@ Page({
     this.setData({
       sendRequest: true
     }, () => {
+
+      // 从本地取企业编号然后在接口里传值
+      let merchantSysNo = wx.getStorageSync(constants.MerchantSysNo)
+
       remote.insertRelationship({
         Name: username,
         UserTelPhone: userTelphone,
         Status: 0,
         Type: 1,
         VipTelPhone: recommandTelphone,
-        InUserSysNo: this.data.uniqueKey
+        InUserSysNo: this.data.uniqueKey,
+        MerchantSysNo: merchantSysNo
       }).then(res => {
         that.setData({
           hadComplate: true,

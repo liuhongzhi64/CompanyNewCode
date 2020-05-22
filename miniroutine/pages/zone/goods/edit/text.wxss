@@ -28,3 +28,9 @@
 .__opacity {
   opacity: 0.65;
 }
+.keep{
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  z-index: 10;
+}

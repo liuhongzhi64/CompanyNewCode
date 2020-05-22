@@ -1,6 +1,6 @@
 const dev = "http://app-svc.lixiantuce.com:8054";
 const pro = "https://www.xintui.xin:8058";
-const envParams = "pro";
+const envParams = "dev";
 Promise.prototype.finally = function (callback) {
   let P = this.constructor;
   return this.then(

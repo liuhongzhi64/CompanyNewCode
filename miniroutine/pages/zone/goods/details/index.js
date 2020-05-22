@@ -19,7 +19,8 @@ Page({
     info: {},
     count: 0,
     cur: 0,
-    autoHeight: 0
+    autoHeight: 0,
+    AName: ''
   },
 
   /**
@@ -47,9 +48,27 @@ Page({
   },
   onShareAppMessage: function () {
     let unique = this.data.uniqueKey;
+
+    // 从本地取企业编号在登录接口里传值
+    let merchantSysNo = wx.getStorageSync(constants.MerchantSysNo)//在66、58引用
+
     if (unique) {
-      let desc = `${this.data.userInfo.Name}分享了您的商品${this.data.info.ProductName}，快去看看吧！`;
-      this.addRecords(15, this.data.goodsId, desc);
+      console.log(unique)
+      // // 这是后面加的获取用户的信息的查询
+      remote.getUserInformation(unique, merchantSysNo).then(res => {
+        // console.log(res.data.Name)
+        this.setData({
+          AName: res.data.Name
+        })
+        console.log(this.data.AName)
+        let desc = `${this.data.userInfo.Name || this.data.AName}分享了您的商品${this.data.info.ProductName}，快去看看吧！`;
+        // this.addRecords(15, this.data.goodsId, desc);
+        this.addRecords(15, this.data.goodsId, desc, merchantSysNo);
+      })
+      // console.log(this.data.AName)
+
+      // let desc = `${this.data.userInfo.Name||this.data.AName}分享了您的商品${this.data.info.ProductName}，快去看看吧！`;
+      // this.addRecords(15, this.data.goodsId, desc);
     }
     return {
       title: `${this.data.info.ProductName}`,
@@ -96,7 +115,11 @@ Page({
       loading: true
     })
     let that = this;
-    product.getDetail(this.data.goodsId).then(res => {
+
+    // 从本地取企业编号然后在接口里传值
+    let configurationSysNo = wx.getStorageSync(constants.MerchantSysNo)
+
+    product.getDetail(this.data.goodsId, configurationSysNo).then(res => {
       if (res.ProductStatus == 20 && uniqueKey != res.MerchantSysNo) {
         wx.showToast({
           title: '产品已下架',
@@ -141,8 +164,23 @@ Page({
         loading: false
       }, () => {
         if (that.data.uniqueKey) {
-          let desc = `${that.data.userInfo.Name || that.data.userInfo.WX}浏览了您的商品<${that.data.info.ProductName}>,他可能对您很感兴趣，快去看看他吧！`;
-          that.addRecords(2, that.data.goodsId, desc);
+
+          // 从本地取企业编号然后再登录接口里传值
+          let merchantSysNo = wx.getStorageSync(constants.MerchantSysNo)//在175、168引用
+
+          // // 这是后面加的获取用户的信息的查询
+          remote.getUserInformation(that.data.uniqueKey, merchantSysNo).then(res => {
+            // console.log(res.data.Name)
+            this.setData({
+              AName: res.data.Name
+            })
+            let desc = `${that.data.userInfo.Name || that.data.userInfo.WX || that.data.AName}浏览了您的商品<${that.data.info.ProductName}>,他可能对您很感兴趣，快去看看他吧！`;
+            // that.addRecords(2, that.data.goodsId, desc);
+            that.addRecords(2, that.data.goodsId, desc, merchantSysNo);
+          })  
+            
+          // let desc = `${that.data.userInfo.Name || that.data.userInfo.WX}浏览了您的商品<${that.data.info.ProductName}>,他可能对您很感兴趣，快去看看他吧！`;
+          // that.addRecords(2, that.data.goodsId, desc);
         }
         wx.hideLoading();
       })
@@ -174,6 +212,11 @@ Page({
         login(res.userInfo).then(res => {
           let avatar = res.HeadPortraitUrl,
             name = res.WX;
+
+          // 从本地取企业编号然后在登录接口里传值
+          let merchantSysNo = wx.getStorageSync(constants.MerchantSysNo)//在480引用
+          res.MerchantSysNo = merchantSysNo//新加需求，要添加企业编号
+
           // 后台登录
           remote.login(res).then(res => {
             wx.setStorageSync(constants.UNIQUE_KEY, res.data);
@@ -181,6 +224,11 @@ Page({
             let app = getApp();
             app.globalData.uniqueKey = uniqueKey;
             // 验证用户是否有名片
+
+            // 从本地取企业编号然后再登录接口里传值
+            let merchantSysNo = wx.getStorageSync(constants.MerchantSysNo)
+            res.data.merchantSysNo = merchantSysNo
+
             remote.checkCard(res.data).then(res => {
               if (res.success) {
                 that.remotegetInfo(uniqueKey);
@@ -209,7 +257,7 @@ Page({
       })
     }
   },
-  addRecords(type,sysno, desc) {
+  addRecords(type, sysno, desc, merchantSysNo) {
     if (this.data.uniqueKey == this.data.info.MerchantSysNo) {
       return ;
     }
@@ -222,7 +270,8 @@ Page({
       InUserSysNo: this.data.uniqueKey,
       Description: desc,
       TimeSysNo: sysno,
-      Phone: 0
+      Phone: 0,
+      MerchantSysNo: merchantSysNo//新加的
     })
   }
 })

@@ -153,4 +153,10 @@
   font-size: 26rpx;
   font-weight: 500;
   letter-spacing: 1px;
+  margin-top: -100rpx;
+}
+.keep{
+  position: fixed;
+  bottom: 0;
+  width: 100%;
 }

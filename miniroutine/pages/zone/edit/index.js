@@ -20,7 +20,7 @@ Page({
     myInfo: {},
     dotStyle: true,
     swiperHeight: 580,
-    address: ''
+    address: '',
   },
 
   /**

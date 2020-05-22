@@ -167,6 +167,12 @@ page {
   box-sizing: border-box;
 }
 .addImg{
-  margin-top: -20rpx;
+  margin-top: -14rpx;
   margin-right: 6rpx;
+}
+.keep{
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  z-index: 10;
 }

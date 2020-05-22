@@ -2,7 +2,7 @@
 <!-- <tips content="完善资料让潜在客户更了解你，立即完善" link customLink="" url="../callingInfo/baseInfo"/> -->
 <view class="check-box-container">
   <view class="check-box-inner">
-    <view class="item-single-box {{ index == selected && 'selected-font' }}" hover-class="item-hover-style" wx:for="{{ checkBox }}" wx:key="{{ index }}" bindtap="selectedClick" data-index="{{ index }}">
+    <view class="item-single-box {{ index == selected && 'selected-font' }}" hover-class="item-hover-style" wx:for="{{ checkBox }}" wx:key="index" bindtap="selectedClick" data-index="{{ index }}">
       <view class="item-inner-box">
         <view class="item-header">
           <text class="front-title">{{ item.text }}</text>
@@ -15,7 +15,7 @@
 </view>
 <view class="main-content">
   <view class="content-header">
-    <view wx:for="{{ headerBox }}" wx:key="{{ index }}" data-index="{{ index }}" class="header-text" style="width: 250rpx;" bindtap="headerClick" hover-class="item-hover-style">
+    <view wx:for="{{ headerBox }}" wx:key="index" data-index="{{ index }}" class="header-text" style="width: 250rpx;" bindtap="headerClick" hover-class="item-hover-style">
       <view class="header-inner-box {{ index == headerSelected && 'header-selected' }}">
         <text>{{ item.text }}</text>
       </view>

@@ -50,6 +50,7 @@ Page({
     this.setData({
       image: imagePath
     })
+    // console.log(imagePath)
     wx.saveImageToPhotosAlbum({
       filePath: imagePath,
       success: function () {
@@ -103,6 +104,7 @@ Page({
   onReady: function () {
     let that = this;
     let userInfo = this.data.details;
+    console.log(that.data.targetId)
     remote.createQr(this.data.targetId, 1, {
       path: `/pages/index?targetId=${that.data.targetId}`,
       width: 430,
@@ -112,7 +114,7 @@ Page({
     }).then(res => {
       let avatar = userInfo['HeadPortraitUrl'] || constants.defaultLogo;
       let name = userInfo['Name'] || '新推名片';
-      let companyName = userInfo['CompanyName'] || '成都太平园信息科技有限公公司';
+      let companyName = userInfo['CompanyName'] || '';
       let item = {
         avatar: avatar,
         name: name,

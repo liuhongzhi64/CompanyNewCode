@@ -101,7 +101,7 @@ page {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding-left: 10px;
+  padding-left: 10rpx;
 }
 .lxy-nav-bar__inner .lxy-nav-bar__center .lxy-nav-bar__center-title {
   margin-top: -2px;

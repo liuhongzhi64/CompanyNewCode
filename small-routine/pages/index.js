@@ -15,7 +15,8 @@ Page({
     title: '',
     homeLoading: false,
     navTitle: '创建名片',
-    targetUserId: 79,
+    // targetUserId: 79,
+    targetUserId: 295,
     groups: [
       { text: '分享到微信', value: 1, openType: 'share' },
       { text: '下载二维码', value: 2 },

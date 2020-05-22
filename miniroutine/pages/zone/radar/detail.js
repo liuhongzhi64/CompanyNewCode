@@ -97,7 +97,11 @@ Page({
     let that = this;
     if (index == 0) {
       // 累计客户
-      remote.getCustomerInfoBySysNo(uniqueKey, type, sortType, page).then(res => {
+
+      // 从本地取企业编号然后在接口里传值
+      let merchantSysNo = wx.getStorageSync(constants.MerchantSysNo)//在104引用
+
+      remote.getCustomerInfoBySysNo(uniqueKey, type, sortType, merchantSysNo, page).then(res => {
         if (res.success) {
           let temp = res.data;
           for (let i = 0; i < temp.length; i++) {
@@ -117,8 +121,12 @@ Page({
         }
       })
     } else if (index == 1) {
+
+      // 从本地取企业编号然后在接口里传值
+      let merchantSysNo = wx.getStorageSync(constants.MerchantSysNo)//在129引用
+
       // 累计访问
-      remote.getCustomerRecordsBySysNo(uniqueKey, type, sortType, page).then(res => {
+      remote.getCustomerRecordsBySysNo(uniqueKey, type, sortType, merchantSysNo, page).then(res => {
         if (res.success) {
           let temp = res.data;
           for (let i = 0; i < temp.length; i++) {
@@ -140,7 +148,11 @@ Page({
     } else if (index == 2) {
       // console.log("累计跟进")  
       // 累计跟进
-      remote.getFollowupCustomerBySysNo(uniqueKey, type, sortType, page).then(res => {
+
+      // 从本地取企业编号然后在接口里传值
+      let merchantSysNo = wx.getStorageSync(constants.MerchantSysNo)//在155引用
+
+      remote.getFollowupCustomerBySysNo(uniqueKey, type, sortType, merchantSysNo, page).then(res => {
         if (res.success) {
           let temp = res.data;
           for (let i = 0; i < temp.length; i++) {
@@ -160,11 +172,17 @@ Page({
         }
       })
     } else if (index == 11) {
-      console.log("获取电话")
-      remote.getUserPhone(uniqueKey, this.data.radarType, type, sortType, page).then(res => {
+      // console.log("获取电话")
+      let phoneType = sortType
+      console.log(phoneType)
+
+      // 从本地取企业编号然后在接口里传值
+      let merchantSysNo = wx.getStorageSync(constants.MerchantSysNo)//在182引用
+
+      remote.getUserPhone(uniqueKey, type, phoneType, merchantSysNo, page).then(res => {
         if (res.success) {
           let temp = res.data;
-          console.log(temp)
+          // console.log(temp)
           for (let i = 0; i < temp.length; i++) {
             temp[i].HeadPortraitUrl = image(temp[i].HeadPortraitUrl);
             temp[i].VisitTime = that.splitString(temp[i].VisitTime, 'T');
@@ -184,7 +202,11 @@ Page({
     }
     else {
       // 剩余发送请求，获取参数
-      remote.getRadarRecordBySysNo(uniqueKey, this.data.radarType, type, sortType, page).then(res => {
+
+      // 从本地取企业编号然后在接口里传值
+      let merchantSysNo = wx.getStorageSync(constants.MerchantSysNo)//在205引用
+
+      remote.getRadarRecordBySysNo(uniqueKey, this.data.radarType, type, sortType, merchantSysNo, page).then(res => {
         if (res.success) {
           let temp = res.data;
           for (let i = 0; i < temp.length; i++) {
@@ -217,24 +239,43 @@ Page({
       return string;
     }
   },
+  // callIt(event) {
+  //   let index = event.currentTarget.dataset.index;
+  //   let listData = this.data.listData;
+  //   console.log(listData[index].Phone)
+  //   wx.makePhoneCall({
+  //     phoneNumber: listData[index].Phone,
+  //     fail() {
+  //     }
+  //   })
+  // },
   clickItem(event) {
     let index = event.currentTarget.dataset.index;
+    // console.log(111)
     let listData = this.data.listData;
     let tapIndex = this.data.index;
     let item = listData[index];
     // 原代码是tapIndex!=11,表示如果它不等于11，那么久跳转到另外一个页面
-    if (tapIndex <= 11) {
+    if (tapIndex != 11) {
       wx.navigateTo({
         url: `../customers/info/index?targetId=${item.UserSysNo}`,
       })
-    } else {
-      if (item['Description']) {
-        let pre = item['Description'].split('>');
-        let phone = pre[1].split('<')[0];
-        wx.makePhoneCall({
-          phoneNumber: phone,
-        })
-      }
+    } 
+    else {
+      // console.log(item)
+      wx.makePhoneCall({
+        phoneNumber: listData[index].Phone,
+        fail() {
+        }
+      })
+      // if (item['Description']) {
+      //   let pre = item['Description'].split('>');
+      //   let phone = pre[1].split('<')[0];
+        
+      //   wx.makePhoneCall({
+      //     phoneNumber: phone,
+      //   })
+      // }
     }
   }
 })

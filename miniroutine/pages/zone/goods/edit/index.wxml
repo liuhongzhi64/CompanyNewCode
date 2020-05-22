@@ -1,6 +1,7 @@
 <navigation title="{{ title }}" back bindback="back"/>
 <view class="bg-gray common-border-top">
   <form bindsubmit="saveOrupdate">
+    <!-- 商品名称 -->
     <view class="bg-white common-padding">
       <view class="text-shadow text-lg flex flex-row justify-start align-center text-black">商品名称
         <view class="text-lg text-shadow text-gray">(必填)</view>
@@ -9,6 +10,7 @@
         <input class="text-orange" name="productName" maxlength="20" placeholder="请填写您的商品名称" placeholder-class="text-gray" value="{{ form.productName }}"></input>
       </view>
     </view>
+    <!-- 商品价格 -->
     <view class="margin-top bg-white common-padding flex flex-row justify-between align-center">
       <view class="text-shadow text-lg text-balck flex flex-row justify-between align-center">
         商品价格
@@ -16,6 +18,7 @@
       </view>
       <input name="productPrice" class="text-right text-orange" maxlength="8" placeholder="商品价格" placeholder-class="text-gray" value="{{ form.productPrice || '' }}"></input>
     </view>
+    <!-- 商品型号 -->
     <view class="bg-white common-padding margin-top">
       <view class="text-shadow text-lg flex flex-row justify-start align-center text-black">商品型号
         <view class="text-lg text-shadow text-gray">(必填)</view>
@@ -24,6 +27,7 @@
         <input name="productModel" class="text-orange" maxlength="20" placeholder="请填写您的商品型号" placeholder-class="text-gray" value="{{ form.productModel }}"></input>
       </view>
     </view>
+    <!-- 商品材质 -->
     <view class="margin-top bg-white common-padding flex flex-row justify-between align-center">
       <view class="text-shadow text-lg text-balck flex flex-row justify-between align-center">
         商品材质
@@ -31,14 +35,16 @@
       </view>
       <input name="productQuality" class="text-right text-orange" maxlength="20" placeholder="商品材质" placeholder-class="text-gray" value="{{ form.productQuality }}"></input>
     </view>
+    <!-- 商品卖点 -->
     <view class="bg-white common-padding margin-top">
       <view class="text-shadow text-lg flex flex-row justify-start align-center text-black">商品卖点
-        <view class="text-lg text-shadow text-gray">(必填，最少10个字)</view>
+        <!-- <view class="text-lg text-shadow text-gray">(最少10个字)</view> -->
       </view>
       <view class="margin-top">
         <input name="productDescription" class="text-orange" maxlength="200" placeholder="请添加商品卖点" placeholder-class="text-gray" value="{{ form.productDescription }}"></input>
       </view>
     </view>
+    <!-- 商品图片 -->
     <view class="margin-top bg-white common-padding">
       <view class="text-shadow text-lg text-balck flex flex-row justify-between align-center">
         商品图片
@@ -64,15 +70,17 @@
         <view wx:if="{{ images.length > 0 }}" class="margin-top text-blue text-shadow text-right" bindtap="addText">添加图片文案</view>
       </view>
     </view>
+    <!-- 商品视频 -->
     <view class="margin-top bg-white common-padding">
       <view class="text-shadow text-lg text-balck flex flex-row justify-between align-center">
         商品视频
         <button class="cu-btn round text-sm" bindtap="chooseVideo">选择视频</button>
       </view>
-      <view class="margin-top text-sm text-black text-shadow">可上传一个视频，系统默认第一帧为商品主图</view>
+      <view class="margin-top text-sm text-black text-shadow">可上传一个视频，系统默认第一帧为商品主图(建议15秒以内)</view>
       <video wx:if="{{ videoSrc }}" src="{{ videoSrc }}" class="margin-top radius" style="width: 100%;"></video>
     </view>
-    <view class="margin-top bg-white common-padding">
+    <!-- 商品轮播图 -->
+    <view class="margin-top bg-white common-padding"  style="margin-bottom:140rpx">
       <view class="text-shadow text-lg text-balck flex flex-row justify-between align-center">
         商品轮播图
         <button class="cu-btn round text-sm" data-target="1" bindtap="chooseImage">选择照片</button>
@@ -96,7 +104,7 @@
         </drag>
       </view>
     </view>
-    <view class="common-padding bg-white margin-top">
+    <view class="common-padding bg-white margin-top keep">
       <button class="bg-blue" form-type="submit">发布</button>
     </view>
   </form>

@@ -35,7 +35,11 @@ Page({
     let that = this;
     let page = this.data.page;
     let products = this.data.products;
-    return product.getProductList(this.data.targetUserId, 10, 1, "", page).then(res => {
+
+    // 从本地取企业编号然后在接口里传值
+    let configurationSysNo = wx.getStorageSync(constants.MerchantSysNo)
+
+    return product.getProductList(this.data.targetUserId, 10, 1, "", configurationSysNo, page).then(res => {
       let result = res.data;
       if (result.length > 0) {
         page.currentPage += 1;

@@ -73,8 +73,22 @@ Page({
     let promise = new Promise((resolve, reject) => {
       if (item)  {
         resolve(item);
-      } else {
-        remote.getCardInfo(that.data.targetId).then(res => {
+      } 
+      // else {
+      //   remote.getCardInfo(that.data.targetId).then(res => {
+      //     let userInfo = res.data;
+      //     // console.log(res,userInfo)
+      //     userInfo.HeadPortraitUrl = image(userInfo.HeadPortraitUrl);
+      //     resolve(userInfo);
+      //   })
+      // }
+      else {
+
+        // 从本地取企业编号然后在接口里传值
+        let merchantSysNo = wx.getStorageSync(constants.MerchantSysNo)//在91引用
+
+        // remote.getUserInformation(that.data.targetId).then(res => {
+        remote.getUserInformation(that.data.targetId, merchantSysNo).then(res => {
           let userInfo = res.data;
           userInfo.HeadPortraitUrl = image(userInfo.HeadPortraitUrl);
           resolve(userInfo);
@@ -105,7 +119,12 @@ Page({
   },
   getRelationship() {
     let that = this;
-    remote.getUserExsitCustomer(this.data.targetId, this.data.uniqueKey).then(res => {
+
+    // 从本地取企业编号然后在接口里传值
+    let merchantSysNo = wx.getStorageSync(constants.MerchantSysNo)//在127引用
+
+    // remote.getUserExsitCustomer(this.data.targetId, this.data.uniqueKey).then(res => {
+    remote.getUserExsitCustomer(this.data.targetId, this.data.uniqueKey, merchantSysNo).then(res => {
       that.setData({
         hasRelation: res.success,
         cusId: res.data
@@ -119,7 +138,17 @@ Page({
   },
   getTargetUserInfo(targetId) {
     let that = this;
-    remote.getCardInfo(targetId).then(res => {
+    // remote.getCardInfo(targetId).then(res => {
+    //   let item = res.data;
+    //   item.HeadPortraitUrl = image(item.HeadPortraitUrl);
+    //   let currentDate = getCurrentDate();
+    // })
+
+    // 从本地取企业编号然后在接口里传值
+    let merchantSysNo = wx.getStorageSync(constants.MerchantSysNo)//在145引用
+
+    // remote.getUserInformation(targetId).then(res => {
+    remote.getUserInformation(targetId, merchantSysNo).then(res => {
       let item = res.data;
       item.HeadPortraitUrl = image(item.HeadPortraitUrl);
       let currentDate = getCurrentDate();
@@ -268,7 +297,11 @@ Page({
     }
     let historyList = this.data.historyList;
     let that = this;
-    remote.getCustomerHistory(query, page).then(res => {
+
+    // 从本地取企业编号然后在接口里传值
+    let merchantSysNo = wx.getStorageSync(constants.MerchantSysNo)//在289引用
+
+    remote.getCustomerHistory(query, merchantSysNo, page).then(res => {
       let temp = res.data;
       for (let i = 0; i < temp.length; i++) {
         temp[i]['currentDate'] = (that.splitString(temp[i].VisitTime, 'T'))[0];
@@ -327,6 +360,7 @@ Page({
   },
   navigateToInfo() {
     let userInfo = JSON.stringify(this.data.userInfo);
+    console.log(userInfo)
     wx.navigateTo({
       url: `./details?item=${userInfo}`,
     })
@@ -334,7 +368,11 @@ Page({
   getRecords() {
     let that = this;
     let records = this.data.records;
-    remote.getFollowUpRecords(this.data.userInfo.CustomerSysNo || this.data.targetId, this.data.uniqueKey).then(res => {
+
+    // 从本地取企业编号然后在接口里传值
+    let merchantSysNo = wx.getStorageSync(constants.MerchantSysNo)//在375引用
+
+    remote.getFollowUpRecords(this.data.userInfo.CustomerSysNo || this.data.targetId, this.data.uniqueKey, merchantSysNo).then(res => {
       let temp = res.data;
       for (let i = 0; i < temp.length; i++) {
         temp[i]['currentDate'] = (that.splitString(temp[i].InDateStr, ' '))[0];
@@ -351,9 +389,13 @@ Page({
     let colors = this.data.colors;
     let userInfo = this.data.userInfo;
     let uniqueKey = this.data.uniqueKey;
+
+    // 从本地取企业编号然后在接口里传值
+    let merchantSysNo = wx.getStorageSync(constants.MerchantSysNo)//在388引用
+
     let promise = Promise.all(ids.map((item, index) => {
       return new Promise((resolve, reject) => {
-        remote.getCustomerTypeCount(uniqueKey, userInfo.CustomerSysNo || this.data.targetId, item).then(res => {
+        remote.getCustomerTypeCount(uniqueKey, userInfo.CustomerSysNo || this.data.targetId, item, merchantSysNo).then(res => {
           resolve(res.data);
         })
       })
@@ -362,7 +404,11 @@ Page({
   },
   getLineDatas() {
     let that = this;
-    remote.getAvtive(that.data.uniqueKey, that.data.userInfo.CustomerSysNo || this.data.targetId, 1).then(res => {
+
+    // 从本地取企业编号然后在接口里传值
+    let merchantSysNo = wx.getStorageSync(constants.MerchantSysNo)
+
+    remote.getAvtive(that.data.uniqueKey, that.data.userInfo.CustomerSysNo || this.data.targetId, 1, merchantSysNo).then(res => {
       let temp = res.data;
       let datas = [], xaxis = [];
       for (let i = 0; i < temp.length; i++) {
@@ -446,12 +492,17 @@ Page({
             title: '加载中',
           })
           if (hasRelation) {
+
+            // 从本地取企业编号然后在接口里传值
+            let merchantSysNo = wx.getStorageSync(constants.MerchantSysNo)//在496引用
+
             remote.addCusteomer({
               CustomerSysNo: that.data.targetId,
               InUserSysNo: that.data.uniqueKey,
               IntentionLevel: 22,
               Remarks: "",
-              Source: 1
+              Source: 1,
+              MerchantSysNo: merchantSysNo
             }).then(res => {
               wx.showToast({
                 title: '添加成功',

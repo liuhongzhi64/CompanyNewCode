@@ -39,15 +39,22 @@ Component({
    * 组件的初始数据
    */
   data: {
-
+    
   },
-
   /**
    * 组件的方法列表
    */
   methods: {
     checkImage() {
       let img = this.data.avatar
+      console.log(img.substring(img.length - 3))
+      let newImg = img.substring(0, img.lastIndexOf('132'))
+      console.log(newImg)
+      if (newImg) {
+        img = newImg + '0'
+      }
+      // img = newImg + '0'
+      // console.log(img)
       let imgs = []
       imgs[0] = img
       if (img) {

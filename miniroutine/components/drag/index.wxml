@@ -13,8 +13,9 @@
     <view class="info">
       <view class="info__item">
         <image mode="aspectFill" class="image" src="{{ item.data.path }}"></image>
-        <icon catchtap="removeSelected" data-index="{{ item.sortKey }}" class="cuIcon-roundclosefill __close text-gray"/>
-        <!-- <image src="../../static/icon/delete_red.png" style="width: 30rpx; height: 30rpx;" catchtap="removeSelected" data-index="{{ item.sortKey }}" class="__close"></image> -->
+        <!-- <view catchtap="removeSelected" data-index="{{ item.sortKey }}" class=" __close text-gray">X</view> -->
+        <!-- <icon catchtap="removeSelected" data-index="{{ item.sortKey }}" class="cuIcon-roundclosefill __close text-gray"/> -->
+        <image src="../../static/icon/delete_red.png" style="width: 30rpx; height: 30rpx;border-radius: 20rpx;" catchtap="removeSelected" data-index="{{ item.sortKey }}" class="__close"></image>
       </view>
     </view>
     <slot></slot>

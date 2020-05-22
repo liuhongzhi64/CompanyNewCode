@@ -71,7 +71,11 @@ Page({
     let that = this;
     let page = this.data.page;
     let comments = this.data.comments;
-    return remote.getCommentsList(this.data.targetUserId, key, page).then(res => {
+
+    // 从本地取企业编号然后在接口里传值
+    let merchantSysNo = wx.getStorageSync(constants.MerchantSysNo)//在78引用
+
+    return remote.getCommentsList(this.data.targetUserId, key, page, merchantSysNo).then(res => {
       let result = res.data.commentPointRatioList;
       if (result.length > 0) {
         page.currentPage += 1;
@@ -87,7 +91,11 @@ Page({
         let promise = Promise.all(result.map((item, index) => {
           // 看到这段是不是想笑，评论只给内容，不给用户基本信息的
           return new Promise((resolve, reject) => {
-            remote.getOriginWxInfo(item.UserSysNo).then(res => {
+
+            // 从本地取企业编号然后在接口里传值
+            let merchantSysNo = wx.getStorageSync(constants.MerchantSysNo)//在98引用
+            
+            remote.getOriginWxInfo(item.UserSysNo, merchantSysNo).then(res => {
               let info = res.data;
               if (info) {
                 item['avatar'] = image(info.HeadPortraitUrl);
@@ -118,7 +126,11 @@ Page({
     let cur = comments[index];
     if (cur.PointRatioStatus != 1 && !this.data.homeLoading) {
       let that = this;
-      remote.updateLiked(this.data.uniqueKey, this.data.targetUserId, cur.SysNo).then(res => {
+
+      // 从本地取企业编号然后在接口里传值
+      let merchantSysNo = wx.getStorageSync(constants.MerchantSysNo)//在129引用
+
+      remote.updateLiked(this.data.uniqueKey, this.data.targetUserId, cur.SysNo, merchantSysNo).then(res => {
         if (res.success) {
           cur.PointRatio += 1;
           cur.PointRatioStatus = 1;
@@ -149,11 +161,16 @@ Page({
     }
     let uniqueKey = this.data.uniqueKey;
     let targetUserId = this.data.targetUserId;
+
+    // 从本地取企业编号然后在接口里传值
+    let merchantSysNo = wx.getStorageSync(constants.MerchantSysNo)//在144引用
+
     remote.insertComment({
       Content: text,
       InUserSysNo: uniqueKey,
       TouserSysNo: targetUserId,
-      UserSysNo: uniqueKey
+      UserSysNo: uniqueKey,
+      MerchantSysNo: merchantSysNo//新加的企业编号
     }).then(res => {
       wx.showToast({
         title: '留言成功,审核后显示',

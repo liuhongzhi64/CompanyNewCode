@@ -101,5 +101,6 @@
   </swiper-item>
 </swiper>
 <view class="common-padding erys-footer__items bg-white common-border-top">
-  <button class="common-button erys-button__footer bg-blue" bind:tap='sendMessage'>发送消息</button>
+  <!-- <button class="common-button erys-button__footer bg-blue" bind:tap='sendMessage'>发送消息111</button> -->
+  <button class="erys-button__footer bg-blue" bind:tap='sendMessage'>立即沟通</button>
 </view>

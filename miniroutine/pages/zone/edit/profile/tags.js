@@ -137,7 +137,11 @@ Page({
   initData() {
     let uniqueKey = this.data.uniqueKey;
     let that = this;
-    remote.getCurrentUserLabel(uniqueKey).then(res => {
+
+    // 从本地取企业编号然后在接口里传值
+    let merchantSysNo = wx.getStorageSync(constants.MerchantSysNo)//在144引用
+
+    remote.getCurrentUserLabel(uniqueKey, merchantSysNo).then(res => {
       that.setData({
         labels: res.data
       })
@@ -151,11 +155,20 @@ Page({
     let labels = this.data.labels;
     let deleted = this.data.deletedArray;
     let create = [];
+
+    // 从本地取企业编号然后在接口里传值
+    let merchantSysNo = wx.getStorageSync(constants.MerchantSysNo)
+    // create.MerchantSysNo = merchantSysNo
+    // console.log(create)
     for (let i = 0; i < labels.length; i++) {
       if (!labels[i]['SysNo'] && !labels[i]['deleted']) {
         create.push(labels[i]);
       }
     }
+    for(let i = 0 ; i<create.length;i++){
+      create[i].MerchantSysNo = merchantSysNo
+    }
+    // console.log(create)
     remote.createTags(create).then(res => {
       Promise.all(deleted.map((item, index) => {
         if (item.sysno != 0) {

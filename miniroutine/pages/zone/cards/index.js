@@ -48,7 +48,11 @@ Page({
   },
   getCollectionList(id,name) {
     let that = this;
-    remote.getCollectionList(id, name).then(res => {
+
+    // 从本地取企业编号然后在接口里传值
+    let merchantSysNo = wx.getStorageSync(constants.MerchantSysNo)//在55引用
+
+    remote.getCollectionList(id, name, merchantSysNo).then(res => {
       let list = res.data;
       for (let i = 0; i < list.length; i++) {
         list[i].HeadPortraitUrl = image(list[i].HeadPortraitUrl);

@@ -13,7 +13,7 @@
   <view class="swiper-container">
     <swiper autoplay style="height: {{ autoHeight }}px;" bindchange="cardSwiper" indicator-dots indicator-color="#3A6CFA" indicator-active-color="#FFFFFF">
       <swiper-item wx:for="{{ swipers }}" wx:key="index" style="display: flex; align-items: center;">
-        <!-- <video wx:if="{{ item.type == 'video' }}" src="{{ item.image }}" style="width: 100%; height: 100%;" bindplay="playVideo" bindpause="playVideo"></video> -->
+        <video wx:if="{{ item.type == 'video' }}" src="{{ item.image }}" style="width: 100%; height: 100%;" bindplay="playVideo" bindpause="playVideo"></video>
         <image mode="widthFix" style="width: 100%;" src="{{ item }}" bindload="autoHeight"></image>
         </swiper-item>
     </swiper>
@@ -38,6 +38,7 @@
       {{ info.Description }}
     </view>
   </view>
+  <!-- 商品视频 -->
   <view class="common-padding common-border-bottom-shadow" wx:if="{{ video }}">
     <view class="text-black text-lg text-bold">商品视频</view>
     <view class="margin-top">

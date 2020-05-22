@@ -18,6 +18,6 @@
     </view>
   </view>
 </view>
-<view class="common-padding bg-white margin-top">
+<view class="common-padding bg-white margin-top  keep">
   <button class="bg-blue" bindtap="save">保存</button>
 </view>

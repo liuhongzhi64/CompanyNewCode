@@ -1,6 +1,6 @@
 <navigation back title="编辑" bindback="back"></navigation>
-<swiper class="card-swiper {{ dotStyle?'square-dot':'round-dot' }} common-border-bottom-shadow" indicator-dots="true" circular="true" autoplay="{{ false }}" interval="5000" duration="500" bindchange="cardSwiper" indicator-color="#8799a3"
- indicator-active-color="#0081ff" style="height: {{ swiperHeight }}rpx;transition: all  300ms  ease-in">
+<swiper class="card-swiper {{ dotStyle?'square-dot':'round-dot' }} common-border-bottom-shadow"  indicator-dots="true" circular="true" autoplay="{{ false }}" interval="5000" duration="500" bindchange="cardSwiper" indicator-color="#8799a3"
+ indicator-active-color="#0081ff" style="height: {{ swiperHeight }}rpx;transition: all  300ms  ease-in" >
   <swiper-item>
     <view class="padding-sm">
       <view class="__flex padding-sm shadow bg-white" style="width: 100%;border-radius: 10rpx;">

@@ -1,12 +1,13 @@
 <navigation back title="我的视频" bindback="back"></navigation>
-<actionsheet show="{{ showAction }}" actions="{{ groups }}" title="选择视频" bindactiontap="chooseImage"/>
+<actionsheet show="{{ showAction }}" actions="{{ groups }}" title="选择视频" bindactiontap="chooseImage" />
 <view wx:if="{{ show }}">
   <view class="back-bg"></view>
   <view class="fff-box">
     <view class="info-box">
-      <image style="width: 650rpx" mode="widthFix" src="https://www.xintui.xin:8058/wx/icon/946bb9eaf67a26af4ed85b1de65e92b.png"></image>
+      <image style="width: 650rpx" src="https://www.xintui.xin:8058/wx/icon/946bb9eaf67a26af4ed85b1de65e92b.png"></image>
+      <!-- <image style="width: 650rpx" mode="widthFix" src="https://www.xintui.xin:8058/wx/icon/946bb9eaf67a26af4ed85b1de65e92b.png"></image> -->
       <view class="inner-box-1">
-        <form bindsubmit="formSubmit">
+        <!-- <form bindsubmit="formSubmit">
           <view class="inner-input-box">
             姓名：
             <input style="width: 240rpx;font-size: 24rpx;font-weight: lighter;" placeholder="请填写您的真实姓名" placeholder-style="font-size: 22rpx;" name="username" value="{{ form.username }}" maxlength="6"></input>
@@ -16,17 +17,14 @@
             <input style="width: 240rpx;font-size: 24rpx;font-weight: lighter;" placeholder="请填写您的电话号码" placeholder-style="font-size: 22rpx;" name="userTelephone" value="{{ form.userTelephone }}" type="number" maxlength="11"></input>
           </view>
           <button class="bg-button-1 common-button" hover-class="bg-button-hover" form-type="submit">立即申请</button>
-            <!-- <view class="line">
-              <view class="mid-line"></view>
-              <text class="tips-text">其他申请方式</text>
-            </view> -->
-          <!-- <view class="text-center text-blue margin-top" hover-class="bg-button-hover" bindtap="callmeMaybe">联系热线</view> -->
           <image src="../../../../static/icon/dadasdasdasdasdasda.png" class="margin-top margin-bottom" style="width: 350rpx; height: 20rpx;"></image>
           <button class="bg-button-1 common-button" style="margin-top: 0;" hover-class="bg-button-hover" hover-class="bg-button-hover" bindtap="callmeMaybe">联系热线</button>
-        </form>
+        </form> -->
+        <image src="../../../../static/icon/dadasdasdasdasdasda.png" class="margin-top margin-bottom" style="width: 350rpx; height: 20rpx;"></image>
+        <button class="bg-button-1 common-button" style="margin-top: 0;" hover-class="bg-button-hover" hover-class="bg-button-hover" bindtap="callmeMaybe">拨打电话</button>
       </view>
     </view>
-    <image style="width: 60rpx; height: 60rpx;" src="../../../../static/icon/cancle_pure.png" bindtap="cancleSalerToast"></image>
+    <image style="width: 60rpx; height: 60rpx;margin-top: -60rpx;" src="../../../../static/icon/cancle_pure.png" bindtap="cancleSalerToast"></image>
   </view>
 </view>
 <view class="common-padding bg-gray">
@@ -34,6 +32,7 @@
   <view class="text-shadow text-sm text-grey margin-top">添加视频能生动形象的展示自己，赶快添加吧！</view>
   <view class="text-shadow text-sm text-orange margin-top">tips: 所有操作要保存后才能生效,最大上传12M视频哦</view>
 </view>
+<!-- 中间的视频和添加视频 -->
 <view class="common-padding bg-white margin-bottom">
   <block wx:for="{{ picList }}" wx:key="index">
     <view class="text-gray text-shadow margin-bottom" wx:if="{{ !item.deleted }}">
@@ -46,7 +45,6 @@
         <view class="cuIcon-unfold margin-right text-black" wx:if="{{ index != picList.length - 1 }}" data-index="{{ index }}" bindtap="lowerPosition">下移</view>
         <view class="cuIcon-close text-black" data-index="{{ index }}" bindtap="deleteIndexImage">删除</view>
       </view>
-      <!-- <image src="{{ item.Url }}" mode="widthFix" class="common-pic-widthfixed"></image> -->
       <video src="{{ item.Url }}" style="width: 100%;" autoplay="{{ false }}" id="my-video{{index}}" bindplay="videoPlay" bindloadedmetadata="loadVideo"></video>
       <view class="margin-top">
         <input class="text-black text-lg" placeholder="点击添加视频描述,限20字" placeholder-class="text-gray text-lg" maxlength="20" value="{{ item.Description }}" data-index="{{ index }}" bindinput="inputDescription"></input>
@@ -56,14 +54,14 @@
   <view class="text-gray text-shadow margin-bottom">
     <view class="text-center text-lg" bindtap="actiontapClick" data-index="-1">
       <icon class="cuIcon-add text-blue text-xl"></icon>
-        添加更多视频
+      添加更多视频
     </view>
   </view>
 </view>
-<view class="common-padding bg-gray">
+<!-- 申请更多的视频 -->
+<view class="common-padding bg-gray" style="margin-bottom:200rpx">
   <view class="text-shadow text-sm text-red" bindtap="showRegister" wx:if="{{ imageAvalible == 0 }}">点我申请更多视频数量</view>
 </view>
-<view class="bg-white shadow padding-xl">
+<view class="bg-white shadow padding-xl keep">
   <button class="cu-btn bg-blue text-xl" style="width: 100%; height: 100rpx;" bindtap="submit">保存</button>
 </view>
-

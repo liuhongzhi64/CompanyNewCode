@@ -11,8 +11,8 @@
   <view class="flex flex-row justify-center align-center">
     <view class="margin-top flex flex-row justify-center align-center" style="width: 504rpx;">
       <view class="flex-twice">
-        <input placeholder="标题，8个字" value="{{ item.name }}" bindinput="inputTitle"></input>
-        <input class="margin-top" placeholder="内容，10个字" value="{{ item.companyName }}" bindinput="inputDesc"></input>
+        <input placeholder="请填写标题（8字以内）" value="{{ item.name }}" bindinput="inputTitle"></input>
+        <input class="margin-top" placeholder="请填写公司名称（10字以内）" value="{{ item.companyName }}" bindinput="inputDesc"></input>
       </view>
       <view class="flex-sub justify-end flex align-end" style="flex-direction: column;">
         <image src="{{ item.qrImage }}" style="width: 130rpx; height: 130rpx;"></image>
@@ -21,9 +21,7 @@
     </view>
   </view>
   <view class="common-padding erys-footer__items margin-top-xl">
-
-
-  
-    <button disabled="{{ disabled }}" class="common-button erys-button__footer" bind:tap='saveImage'>保存</button>
+    <!-- <button disabled="{{ disabled }}" class="common-button erys-button__footer" bind:tap='saveImage'>保存</button> -->
+    <button  class="common-button erys-button__footer" bind:tap='saveImage'>保存</button>
   </view>
 </view>

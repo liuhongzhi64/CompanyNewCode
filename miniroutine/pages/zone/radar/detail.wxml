@@ -1,25 +1,39 @@
 <navigation back bindback="back" title="{{ title }}">
   <!-- <view slot="center" class="cuIcon-order" bindtap="sort">{{ title || '累计' }}</view> -->
 </navigation>
-<view class="flex flex-row justify-between align-center" style="width: 100%;">
+
+<view class="flex flex-row justify-between align-center" style="width: 100%;" wx:if="{{  title != '获取电话号码' }}">
   <view class="text-center text-lg basis-df  flex flex-row justify-center align-center {{ sortType == 1 && 'border-bot' }} common-padding" data-index="1" bindtap="sort">按时间顺序</view>
   <view class="text-center text-lg basis-df  flex flex-row justify-center align-center {{ sortType == 2 && 'border-bot' }} common-padding" data-index="2" bindtap="sort">按浏览次数</view>
 </view>
+<view class="flex flex-row justify-between align-center" style="width: 100%;" wx:if="{{  title == '获取电话号码' }}">
+  <view class="text-center text-lg basis-df  flex flex-row justify-center align-center {{ sortType == 1 && 'border-bot' }} common-padding" data-index="1" bindtap="sort">交换电话</view>
+  <view class="text-center text-lg basis-df  flex flex-row justify-center align-center {{ sortType == 2 && 'border-bot' }} common-padding" data-index="2" bindtap="sort">名片电话</view>
+</view>
+
 <view wx:if="{{ complate && listData.length == 0 }}" class="text-gray flex justify-center align-center" style="width: 100%; height: 600rpx;">未找到数据</view>
 <scroll-view scroll-y class="common-padding-left-right" style="height: {{ screenHeight - 246 }}rpx;" bindscrolltolower="loadmore">
-  <view wx:if="{{ complate }}" class="flex flex-row justify-between align-ccenter common-padding-top-bottom common-border-bottom" wx:for="{{ listData }}" wx:key="index" data-index="{{ index }}" bindtap="clickItem">
+  <view wx:if="{{ complate }}" class="flex flex-row justify-between align-ccenter common-padding-top-bottom common-border-bottom" wx:for="{{ listData }}" wx:key="index" data-index="{{ index }}" bindtap="clickItem" 
+  
+  >
     <view class="cu-avatar round lg shadow bg-img" style="background-image: url({{ item.HeadPortraitUrl }})"></view>
     <view class="basis-xl flex-column justify-between">
       <view class="flex flex-row justify-between align-center">
         <view class="text-black text-df text-cut" style="max-width: 120rpx;">{{ item.Name || '' }}</view>
         <view class="text-gray text-df">{{ item.VisitTime }}</view>
       </view>
-      <view class="text-gray text-sm">{{ item.PositionName || '暂无职位' }}</view>
+      <!-- <view class="text-gray text-sm">
+      {{ item.PositionName || '暂无职位' }}
+      </view> -->
+      <view class="text-gray text-sm flex flex-row justify-between align-center">
+        <view>{{ item.PositionName || '暂无职位' }}</view>
+        <!-- 电话号码，在只有点击电话号码的时候才会有此显示 -->
+        <view class="phone" wx:if="{{ complate && title == '获取电话号码' }}" >{{ item.Phone || '' }}</view>     
+      </view>
       <view class="flex flex-row justify-between align-center">
         <view class="text-gray text-sm">{{ item.CompanyName || '暂无公司' }}</view>
-        <!-- 电话号码，在只有点击电话号码的时候才会有此显示 -->
-        <view class="phone" wx:if="{{ complate && title == '获取电话号码' }}" >{{ item.Phone || '' }}</view>
-        <view class="text-gray text-sm">{{ item.VisitCount == 0 ? '' : '浏览' + item.VisitCount +'次'}}</view>
+        <!-- 在获取电话号码的页面是不显示浏览次数 -->
+        <view class="text-gray text-sm" wx:if="{{ complate && title != '获取电话号码' }}" >{{ item.VisitCount == 0 ? '' : '浏览' + item.VisitCount +'次'}}</view>
       </view>
     </view>
   </view>

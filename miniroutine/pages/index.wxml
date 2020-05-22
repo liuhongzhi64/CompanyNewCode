@@ -1,16 +1,38 @@
 <navigation>
   <home slot="left" title="{{ navTitle }}" avatar="{{ avatar }}" catchgetUserInfo="navgateToZone" badge="{{ unreadcount > 0 }}"></home>
-  <button slot="center" class="common-button" open-type="getUserInfo" bindgetuserinfo="scanCards">
+  <!-- <button slot="center" class="common-button" open-type="getUserInfo" bindgetuserinfo="scanCards" style="width:70% ;">
     <view class="erys-index__title-box common-color text-cut" bindtap="scanCards">
       {{ userInfo.Name || '正在加载中...' }}
-      <image src="../static/icon/icon_down_bold.png" class="erys-index__title-image" wx:if="{{ userInfo.Name }}"></image>
+      <image src="../static/icon/icon_down_bold.png" class="erys-index__title-image" wx:if="{{ userInfo.Name }}" ></image>
+    </view>
+  </button> -->
+  <button slot="center" class="common-button" open-type="getUserInfo" bindgetuserinfo="scanCards" style="width:300rpx ;">
+    <view class="erys-index__title-box common-color text-cut" bindtap="scanCards">
+      <view style="overflow: hidden;white-space: nowrap;text-overflow: ellipsis;max-width: 55%;"> 
+        {{ userInfo.Name || '正在加载中...' }} 
+      </view>
+      <image src="../static/icon/icon_down_bold.png" class="erys-index__title-image" wx:if="{{ userInfo.Name }}" ></image>
     </view>
   </button>
+  <!-- 头部的中间显示名字和控制访问名片的对话框 -->
+  <!-- <view slot="center" class="common-button" open-type="getUserInfo" bindgetuserinfo="scanCards" style="width:70% ;">
+    <view class="erys-index__title-box common-color" bindtap="scanCards" >
+      <view style="overflow: hidden;white-space: nowrap;text-overflow: ellipsis;max-width: 55%;margin-left: -20rpx"> {{ userInfo.Name || '正在加载中...' }} </view>
+      <image src="../static/icon/icon_down_bold.png" class="erys-index__title-image" wx:if="{{ userInfo.Name }}" ></image>
+    </view>
+  </view> -->
 </navigation>
 <actionsheet show="{{ showAction }}" actions="{{ groups }}" title="分享名片" bindactiontap="actiontapClick"/>
+<!-- 访问过的名片的下面的对话框 -->
 <halfaction show="{{ showHistoryModal }}" closabled mask title="访问过的名片">
   <scroll-view scroll-y class="erys-history__box" slot="desc">
-    <view wx:for="{{ historyList }}" wx:key="UserSysNo" data-index="{{ item.UserSysNo }}" class="erys-history__item radius shadow shadow-lg bg-white" hover-class="erys-history__hover" bindtap="historytap">
+    <view 
+      wx:for="{{ historyList }}" 
+      wx:key="UserSysNo" 
+      data-index="{{ item.UserSysNo }}" 
+      class="erys-history__item radius shadow shadow-lg bg-white" 
+      hover-class="erys-history__hover" 
+      bindtap="historytap">
       <view class="cu-avatar xl round" style="background-image:url({{ item.HeadPortraitUrl }});"></view>
       <view class="erys-history__text-box padding-sm">
         <view class="erys-history__top-title text-black text-shadow text-cut">{{ item.Name }}</view>
@@ -54,8 +76,11 @@
     </view>
   </view>
 </view>
+<!-- 中间的名片、名片码、浏览记录、个人介绍、留言、商品、视频、照片 -->
 <view style="width: 100%;" wx:if="{{ !translentAnimation }}">
+  <!-- 名片类型、分享名片，存入通讯录 -->
   <view class="common-background-index erys-index__index-box common-padding">
+    <!-- 名片显示的两种类型 -->
     <cardB
       wx:if="{{ userInfo.TemplateSysNo == 2 }}"
       avatar="{{ userInfo.HeadPortraitUrl }}" 
@@ -76,33 +101,89 @@
       email="{{ userInfo.Email }}"
       address="{{ userInfo.ProvinceName + userInfo.CityName + userInfo.DistrictName + userInfo.Address }}"
     />
+  <!-- 分享名片和存入通讯录 -->
       <view class="erys-index__share-box">
+    <!-- 分享名片 -->
+      <!-- 没有授权分享名片 -->
         <button 
           class="common-button erys-index__share-button erys-index-share__button-text-left common-box-shadow"
           hover-class="erys-index-share__button-text-left-hover"
           open-type="getUserInfo"
           bindgetuserinfo="shareCard"
-        >分享名片</button>
+          wx:if="{{ buttonOpenTypeGetUserInfoShow }}">
+        分享名片
+        </button>
+      <!-- 授权没有名片分享名片 -->
+        <button 
+          class="common-button erys-index__share-button erys-index-share__button-text-left common-box-shadow"
+          hover-class="erys-index-share__button-text-left-hover"
+          data-phone="{{ userInfo.Telephone }}" 
+          open-type="{{ 'getPhoneNumber' }}"
+          bindgetphonenumber="shareCard"
+          wx:if="{{ buttonOpenTypeGetPhoneNumberShow  }}">
+        分享名片
+        </button>
+      <!-- 有名片分享名片 -->
+        <button 
+          class="common-button erys-index__share-button erys-index-share__button-text-left common-box-shadow"
+          hover-class="erys-index-share__button-text-left-hover"
+          bindtap="shareCards"
+          wx:if="{{ buttonOpenTypeDefaultShow  }}">
+        分享名片
+        </button>
+
+    <!-- 存入通讯录按钮 -->
+      <!-- 没有授权存入通讯录 -->
         <button 
           class="common-button erys-index__share-button erys-index-share__button-text-right common-box-shadow"
           hover-class="erys-index-share__button-text-right-hover"
-          open-type="{{ uniqueKey == -1 ? 'getUserInfo' : 'getPhoneNumber' }}"
-          bindgetuserinfo="{{ uniqueKey == -1 && 'getUserInfo' }}"
-          bindgetphonenumber="{{ uniqueKey != -1 && 'savePhone' }}"
-        >存入通讯录</button>
+          open-type="{{ 'getUserInfo'}}"
+          bindgetuserinfo="{{ 'savePhone' }}"
+          data-phone="{{ userInfo.Telephone }}" 
+          wx:if="{{ buttonOpenTypeGetUserInfoShow }}"
+        >存入通讯录
+        </button>
+      <!-- 已授权没有名片存入通讯录 -->
+        <button 
+          class="common-button erys-index__share-button erys-index-share__button-text-right common-box-shadow"
+          hover-class="erys-index-share__button-text-right-hover"
+          open-type="{{ 'getPhoneNumber' }}"
+          data-phone="{{ userInfo.Telephone }}" 
+          bindgetphonenumber="{{ 'savePhone' }}"
+          wx:if="{{ buttonOpenTypeGetPhoneNumberShow  }}"
+        >存入通讯录
+        </button>
+      <!-- 有名片存入通讯录 -->
+        <button 
+          class="common-button erys-index__share-button erys-index-share__button-text-right common-box-shadow"
+          hover-class="erys-index-share__button-text-right-hover"
+          bindtap="{{ 'addSavePhone' }}"
+          data-phone="{{ userInfo.Telephone }}" 
+          wx:if="{{ buttonOpenTypeDefaultShow  }}"
+        >存入通讯录
+        </button>
+
       </view>
   </view>
+  <!-- 名片码，电话，微信，邮箱，地址 -->
   <view class="erys-index__scroll-items">
     <!-- <view class="erys-index__card-qr common-box-shadow bg-img" style="background-image: url('../static/icon/bg-border.png')" bindtap="navigateToShare">
       <view class="cu-avatar round" style="background-image: url('../static/icon/icon-qr-000.png')"></view>
     </view> -->
+    <!-- 名片码 -->
     <view class="erys-index__card-qr erys-index__position" bindtap="navigateToShare">
       <image src="../static/icon/bg-border.png" style="width: 80rpx; height: 108rpx;"></image>
       <view class="erys-index__text-position">名片码</view>
       <image src="../static/icon/1571476930(1).jpg" class="erys-index__image-qr"></image>
     </view>
     <scroll-view class="erys-index__card_items" scroll-x scroll-with-animation="{{ true }}">
-      <button class="__card-items common-button common-box-shadow" open-type="getUserInfo" bindgetuserinfo="callme" data-phone="{{ userInfo.Telephone }}" wx:if="{{ userInfo.Telephone }}">
+    <!-- 拨打电话 -->
+      <button 
+        class="__card-items common-button common-box-shadow" 
+        open-type="getUserInfo" 
+        bindgetuserinfo="callme" 
+        data-phone="{{ userInfo.Telephone }}"  
+        wx:if="{{ userInfo.Telephone && buttonOpenTypeGetUserInfoShow  }}">
         <view class="__items-inner-box">
           <view class="__items-inner-top">
             <image src="../static/icon/icon-phone-000.png" class="__items-inner-image"></image>
@@ -111,7 +192,41 @@
           <view class="__items-inner-bottom" style="color: #9B9B9B; margin-top: -10rpx;">{{ userInfo.Telephone }}</view>
         </view>
       </button>
-      <button class="__card-items common-button common-box-shadow" open-type="getUserInfo" bindgetuserinfo="beMyWechatFriend" data-weichat="{{ userInfo.WX }}" wx:if="{{ userInfo.WX }}">
+      <!-- 已授权但是没名片打电话的按钮 -->
+      <button 
+        class="__card-items common-button common-box-shadow" 
+        open-type="{{'getPhoneNumber'}}"
+        bindgetuserinfo="callme" 
+        bindgetphonenumber="{{ uniqueKey != -1 && 'callme' }}"
+        data-phone="{{ userInfo.Telephone }}"  
+        wx:if="{{ userInfo.Telephone && uniqueKey != -1 && buttonOpenTypeGetPhoneNumberShow }}"
+        >
+        <view class="__items-inner-box">
+          <view class="__items-inner-top">
+            <image src="../static/icon/icon-phone-000.png" class="__items-inner-image"></image>
+            拨打电话
+          </view>
+          <view class="__items-inner-bottom" style="color: #9B9B9B; margin-top: -10rpx;">{{ userInfo.Telephone }}</view>
+        </view>
+      </button>
+    <!-- 用户已经创建了自己的名片的拨打电话 -->
+      <button 
+        class="__card-items common-button common-box-shadow"  
+        data-phone="{{ userInfo.Telephone }}" 
+        bindtap="callPhone"
+        wx:if="{{ buttonOpenTypeDefaultShow }}">
+          <view class="__items-inner-box">
+          <view class="__items-inner-top">
+            <image src="../static/icon/icon-phone-000.png" class="__items-inner-image"></image>
+            拨打电话
+          </view>
+          <view class="__items-inner-bottom" style="color: #9B9B9B; margin-top: -10rpx;">{{ userInfo.Telephone }}</view>
+        </view>
+      </button>
+
+  <!-- 添加微信 -->
+      <!-- 用户没有授权加微信按钮 -->
+      <button class="__card-items common-button common-box-shadow" open-type="getUserInfo" bindgetuserinfo="beMyWechatFriend" data-weichat="{{ userInfo.WX }}" wx:if="{{ buttonOpenTypeGetUserInfoShow }}">
         <view class="__items-inner-box">
           <view class="__items-inner-top">
             <image src="../static/icon/icon-weixin-000.png" class="__items-inner-image"></image>
@@ -120,7 +235,29 @@
           <view class="__items-inner-bottom" style="color: #9B9B9B; margin-top: -10rpx;">{{ userInfo.WX }}</view>
         </view>
       </button>
-      <button class="__card-items common-button common-box-shadow" open-type="getUserInfo" bindgetuserinfo="beMyWechatFriend" data-weichat="{{ userInfo.Email }}" wx:if="{{ userInfo.Email }}">
+      <!-- 用户授权没有名片加微信按钮 -->
+      <button class="__card-items common-button common-box-shadow" open-type="getPhoneNumber" bindgetphonenumber="beMyWechatFriend" data-weichat="{{ userInfo.WX }}" wx:if="{{ userInfo.WX && buttonOpenTypeGetPhoneNumberShow  }}">
+        <view class="__items-inner-box">
+          <view class="__items-inner-top">
+            <image src="../static/icon/icon-weixin-000.png" class="__items-inner-image"></image>
+            加我微信
+          </view>
+          <view class="__items-inner-bottom" style="color: #9B9B9B; margin-top: -10rpx;">{{ userInfo.WX }}</view>
+        </view>
+      </button>
+      <!-- 用户已有名片加微信 -->
+      <button class="__card-items common-button common-box-shadow" data-phone="{{ userInfo.Telephone }}"  bindtap="addBeMyWechatFriend" data-weichat="{{ userInfo.WX }}" wx:if="{{ userInfo.WX && buttonOpenTypeDefaultShow  }}">
+        <view class="__items-inner-box">
+          <view class="__items-inner-top">
+            <image src="../static/icon/icon-weixin-000.png" class="__items-inner-image"></image>
+            加我微信
+          </view>
+          <view class="__items-inner-bottom" style="color: #9B9B9B; margin-top: -10rpx;">{{ userInfo.WX }}</view>
+        </view>
+      </button>
+  <!-- 邮箱按钮 -->
+    <!-- 未授权 -->
+      <button class="__card-items common-button common-box-shadow" open-type="getUserInfo" bindgetuserinfo="beMyWechatFriend" data-weichat="{{ userInfo.Email }}" wx:if="{{ userInfo.Email && buttonOpenTypeGetUserInfoShow }}">
         <view class="__items-inner-box">
           <view class="__items-inner-top">
             <image src="../static/icon/icon-email-000.png" class="__items-inner-image" style="width: 32rpx; height: 32rpx;"></image>
@@ -129,7 +266,55 @@
           <view class="__items-inner-bottom" style="color: #9B9B9B; margin-top: -10rpx;">{{ userInfo.Email }}</view>
         </view>
       </button>
-      <button class="__card-items common-button common-box-shadow" open-type="getUserInfo" bindgetuserinfo="useAddress" wx:if="{{ userInfo.Address }}">
+    <!-- 授权但是没名片 -->
+      <button class="__card-items common-button common-box-shadow" data-phone="{{ userInfo.Telephone }}" open-type="{{'getPhoneNumber'}}" bindgetphonenumber="beMyWechatFriend" data-weichat="{{ userInfo.Email }}" wx:if="{{ userInfo.Email && buttonOpenTypeGetPhoneNumberShow }}">
+        <view class="__items-inner-box">
+          <view class="__items-inner-top">
+            <image src="../static/icon/icon-email-000.png" class="__items-inner-image" style="width: 32rpx; height: 32rpx;"></image>
+            邮箱
+          </view>
+          <view class="__items-inner-bottom" style="color: #9B9B9B; margin-top: -10rpx;">{{ userInfo.Email }}</view>
+        </view>
+      </button>
+    <!-- 有名片 -->
+      <button class="__card-items common-button common-box-shadow" data-phone="{{ userInfo.Telephone }}"  bindtap="addBeMyWechatFriend" data-weichat="{{ userInfo.Email }}" wx:if="{{ userInfo.Email && buttonOpenTypeDefaultShow  }}">
+        <view class="__items-inner-box">
+          <view class="__items-inner-top">
+            <image src="../static/icon/icon-email-000.png" class="__items-inner-image" style="width: 32rpx; height: 32rpx;"></image>
+            邮箱
+          </view>
+          <view class="__items-inner-bottom" style="color: #9B9B9B; margin-top: -10rpx;">{{ userInfo.Email }}</view>
+        </view>
+      </button>
+
+  <!-- 地址按钮 -->
+    <!-- 未授权 -->
+      <button class="__card-items common-button common-box-shadow" open-type="getUserInfo" bindgetuserinfo="useAddress" wx:if="{{ userInfo.Address && buttonOpenTypeGetUserInfoShow }}">
+        <view class="__items-inner-box">
+          <view class="__items-inner-top">
+            <image src="../static/icon/icon-address-000.png" class="__items-inner-image" style="width: 35rpx; height: 35rpx;"></image>
+            地址
+          </view>
+          <view class="__items-inner-bottom" style="color: #9B9B9B; margin-top: -10rpx;">{{ userInfo.ProvinceName + userInfo.CityName + userInfo.DistrictName + userInfo.Address }}</view>
+        </view>
+      </button>
+    <!-- 授权但是没名片 -->
+      <button 
+      class="__card-items common-button common-box-shadow" 
+      data-phone="{{ userInfo.Telephone }}" 
+      open-type="{{'getPhoneNumber'}}" 
+      bindgetphonenumber="useAddress" 
+      wx:if="{{ userInfo.Address && buttonOpenTypeGetPhoneNumberShow }}">
+        <view class="__items-inner-box">
+          <view class="__items-inner-top">
+            <image src="../static/icon/icon-address-000.png" class="__items-inner-image" style="width: 35rpx; height: 35rpx;"></image>
+            地址
+          </view>
+          <view class="__items-inner-bottom" style="color: #9B9B9B; margin-top: -10rpx;">{{ userInfo.ProvinceName + userInfo.CityName + userInfo.DistrictName + userInfo.Address }}</view>
+        </view>
+      </button>
+    <!-- 有名片 -->
+      <button class="__card-items common-button common-box-shadow"  bindtap="addUseAddress" wx:if="{{ userInfo.Address && buttonOpenTypeDefaultShow }}">
         <view class="__items-inner-box">
           <view class="__items-inner-top">
             <image src="../static/icon/icon-address-000.png" class="__items-inner-image" style="width: 35rpx; height: 35rpx;"></image>
@@ -141,6 +326,7 @@
       <!-- <view style="width: 100rpx;height: 100%;display: inline-block;"></view> -->
     </scroll-view>
   </view>
+  <!-- 浏览记录和点赞靠谱 -->
   <view class="__padding erys-history__outer-box"  style="border-bottom: 1px solid #E6E6E6;">
     <view class="erys-history__outer-box" bindtap="{{ uniqueKey == targetUserId && 'navigateToHistory' }}">
       <view 
@@ -162,6 +348,7 @@
     </view>
   </view>
   <view class="common-padding">
+  <!-- 个人介绍 -->
     <view class="erys-index__content-box">
       <view class="erys-index__content-title text-shadow __title-padding">我的个人介绍</view>
       <text space="nbsp" style="word-break:break-all;">{{ userInfo.PersonalProfile || '' }}</text>
@@ -192,6 +379,7 @@
         <view class="cuIcon-appreciate" style="margin-left: 6rpx;">{{ (!item.count || item.count == 0) ? '' : item.count }}</view>
       </button>
     </view>
+    <!-- 我的留言 -->
     <view class="erys-index__comments-groups" >
       <view class="erys-index__comments-title">我的留言</view>
       <!-- <view class="text-cut padding radius cu-btn" style="width:100%;margin-top: 32rpx;" wx:if="{{ comments.length <= 0 }}">暂时没有人给我留言，你要当第一个留言的人吗？</view> -->
@@ -210,22 +398,108 @@
             </view>
           </view>
       </view>
+    <!-- 更多留言 -->
       <view class="erys-index__more-comments" wx:if="{{ comments.length > 0 }}">
         <button class="common-button __more-btn-font" open-type="getUserInfo" bindgetuserinfo="moreComments">
           更多留言<icon class="cuIcon-right"></icon>
         </button>
       </view>
+    <!-- 我要留言 -->
       <view class="erys-index__comment-box">
         <view class="cu-avatar round" style="background-image: url('{{ avatar }}')"></view>
-        <button class="common-button cu-btn lg" style="margin: 0; padding: 0;" open-type="getUserInfo" bindgetuserinfo="sendComment">
+      <!-- 没有授权留言  -->
+        <button 
+          class="common-button cu-btn lg" 
+          style="margin: 0; padding: 0;" 
+          open-type="getUserInfo" 
+          bindgetuserinfo="sendComment"
+          wx:if="{{ buttonOpenTypeGetUserInfoShow }}"
+          >
+          <view style="width: {{ screenWidth - 85 }}px;" class="__comment-box-text">我要留言</view>
+        </button>
+      <!-- 授权了没名片留言 -->
+        <button 
+          class="common-button cu-btn lg" style="margin: 0; padding: 0;" 
+          bindgetphonenumber="sendComment"
+          data-phone="{{ userInfo.Telephone }}"
+          open-type="getPhoneNumber" 
+          wx:if="{{ buttonOpenTypeGetPhoneNumberShow  }}"
+          >
+          <view style="width: {{ screenWidth - 85 }}px;" class="__comment-box-text">我要留言</view>
+        </button>
+      <!-- 有名片留言 -->
+        <button 
+          class="common-button cu-btn lg" 
+          style="margin: 0; padding: 0;" 
+          open-type="getUserInfo" 
+          bindgetuserinfo="sendComments"
+          wx:if="{{ buttonOpenTypeDefaultShow  }}"
+          >
           <view style="width: {{ screenWidth - 85 }}px;" class="__comment-box-text">我要留言</view>
         </button>
       </view>
     </view>
+    <!-- 我的商品 -->
     <view class="erys-index__content-box" wx:if="{{ products.length > 0 }}">
       <view class="erys-index__content-title text-shadow">我的商品</view>
       <view class="erys-index__button-groups">
-        <button class="cu-btn common-button erys-inddex__product" style="background: white;" open-type="getUserInfo" bindgetuserinfo="goodsDetails" wx:for="{{ products }}" wx:key="index" data-index="{{ item.SysNo }}">
+      <!-- 这是以前的商品展示 -->
+        <!-- <button 
+          class="cu-btn common-button erys-inddex__product" 
+          style="background: white;" 
+          open-type="getUserInfo" 
+          bindgetuserinfo="goodsDetails" 
+          wx:for="{{ products }}" 
+          wx:key="index" 
+          data-index="{{ item.SysNo }}">
+          <view class="common-radius padding-xl radius bg-img shadow bg-gray" style="background-image: url('{{ item.DefaultImage }}');width: 322rpx;height: 250rpx;"></view>
+          <view class="erys-product__text">
+            <view style="margin-bottom: 26rpx;">{{ item.ProductName }}1</view>
+            <view class="text-price text-red">{{ item.RetailPrice }}</view>
+          </view>
+        </button> -->
+      <!-- 没有授权商品展示 -->
+        <button 
+          class="cu-btn common-button erys-inddex__product" 
+          style="background: white;" 
+          open-type="getUserInfo" 
+          bindgetuserinfo="goodsDetails" 
+          wx:for="{{ products }}" 
+          wx:key="index" 
+          data-index="{{ item.SysNo }}"
+          wx:if="{{ buttonOpenTypeGetUserInfoShow }}">
+          <view class="common-radius padding-xl radius bg-img shadow bg-gray" style="background-image: url('{{ item.DefaultImage }}');width: 322rpx;height: 250rpx;"></view>
+          <view class="erys-product__text">
+            <view style="margin-bottom: 26rpx;">{{ item.ProductName }}</view>
+            <view class="text-price text-red">{{ item.RetailPrice }}</view>
+          </view>
+        </button>
+      <!-- 授权但是没有名片的商品展示 -->
+        <button 
+          class="cu-btn common-button erys-inddex__product" 
+          style="background: white;" 
+          data-phone="{{ userInfo.Telephone }}" 
+          open-type="{{ 'getPhoneNumber' }}"
+          bindgetphonenumber="goodsDetails" 
+          wx:for="{{ products }}" 
+          wx:key="index" 
+          data-index="{{ item.SysNo }}"
+          wx:if="{{ buttonOpenTypeGetPhoneNumberShow }}">
+          <view class="common-radius padding-xl radius bg-img shadow bg-gray" style="background-image: url('{{ item.DefaultImage }}');width: 322rpx;height: 250rpx;"></view>
+          <view class="erys-product__text">
+            <view style="margin-bottom: 26rpx;">{{ item.ProductName }}</view>
+            <view class="text-price text-red">{{ item.RetailPrice }}</view>
+          </view>
+        </button>
+      <!-- 有名片的商品展示 -->
+        <button 
+          class="cu-btn common-button erys-inddex__product" 
+          style="background: white;"
+          bindtap="addGoodsDetails" 
+          wx:for="{{ products }}" 
+          wx:key="index" 
+          data-index="{{ item.SysNo }}"
+          wx:if="{{ buttonOpenTypeDefaultShow }}">
           <view class="common-radius padding-xl radius bg-img shadow bg-gray" style="background-image: url('{{ item.DefaultImage }}');width: 322rpx;height: 250rpx;"></view>
           <view class="erys-product__text">
             <view style="margin-bottom: 26rpx;">{{ item.ProductName }}</view>
@@ -234,16 +508,19 @@
         </button>
       </view>
     </view>
+    <!-- 更多商品 -->
     <view class="erys-index__more-comments" wx:if="{{ products.length > 0 }}">
       <button class="common-button __more-btn-font" open-type="getUserInfo" bindgetuserinfo="moreProduct">
         更多商品<icon class="cuIcon-right"></icon>
       </button>
     </view>
+    <!-- 我的企业 -->
     <view class="erys-index__content-box" wx:if="{{ userInfo.CompanyProfile }}">
       <view class="erys-index__content-title text-shadow">我的企业</view>
-      <view class="erys-index__content-title" style="border: none;">{{ userInfo.CompanyName }}</view>
+      <!-- <view class="erys-index__content-title" style="border: none;">{{ userInfo.CompanyName }}</view> -->
       <text space="nbsp" style="word-break:break-all;">{{ userInfo.CompanyProfile }}</text>
     </view>
+    <!-- 我的视频 -->
     <view class="erys-index__content-box" style="margin-top: 36rpx;" wx:if="{{ userInfo.VideoList.length > 0 }}">
       <view class="erys-index__content-title text-shadow">我的视频</view>
       <view class="erys-index__video-items">
@@ -255,6 +532,7 @@
         </block>
       </view>
     </view>
+    <!-- 我的照片 -->
     <view class="erys-index__content-box">
       <view class="erys-index__content-title text-shadow">我的照片</view>
       <view class="erys-index__video-items">
@@ -269,8 +547,22 @@
     </view>
   </view>
 </view>
+<!-- 底部商标和版本 -->
 <view class="padding-xl" wx:if="{{ !translentAnimation }}">
-  <view class="text-center text-gray text-sm">新零售 · 用新推</view>
+  <view class="text-center text-gray text-sm">新零售 · 用心推</view>
   <!-- <view class="text-center text-gray text-sm">copyright@ chengdu taiping park infomation tech.ltd</view> -->
   <view class="text-center text-gray text-sm margin-top-sm">Version: {{ versionNum }}</view>
+</view>
+<!-- 这是定时器开启的授权提醒 -->
+<view class="authorization modal-mask" wx:if="{{authorizationShow}}">
+  <view class='modal-content'>
+    <scroll-view scroll-y class='main-content'>
+      <image src="../static/icon/pop-up.png" ></image>
+    </scroll-view>
+    <view class='modal-footer'>
+      <!-- <view wx:if='{{!single}}' class='cancel-btn' bindtap='cancel'>取消</view> -->
+      <button wx:if='{{!single}}' bindtap='isAuthorizationShow' class='cancel-btn' open-type="getUserInfo" bindgetuserinfo="getUserInfo"> 取消 </button>
+      <button class='confirm-btn' bindtap='isAuthorizationShow' open-type="getUserInfo" bindgetuserinfo="getUserInfo"> 确定 </button>
+    </view>
+  </view>
 </view>

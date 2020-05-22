@@ -28,196 +28,199 @@
                     <div class="set" @click="setShowElementTop"></div>
                 </div>
                 <!-- 中间 -->
-                <div class="showElementCenter" :style="{'background': `url(${defultBackgroundImg}) no-repeat ${defultBackgroundColor}`,'background-size':'100%'}">
-                    <draggable
-                    class="dragArea list-group"
-                    :list="list2"
-                    group="people"
-                    @change="log1"
-                    style="min-height:500px;"
-                    >
-                    <div class="list-group-item item"
-                    v-for="i in list2" :key="i.id"  
-                    :class="{'delStyle':i.name ==''}"                 
-                    >
-                    <div class="items">
-                        <div class="name" v-if="i.name !=='地址'&&i.name!=='电话'&&i.name !== '请添加新闻资讯'&&i.name!=='图片'&&i.name !== '富文本'&&i.name !== '视频'&&i.name !=='文本'&&i.name!==''&&i.name !== '图文广告'&&i.name !== '营销活动'&&i.name!=='标题'&&i.name !== '空白辅助'">{{ i.name }}</div>
-                        <!-- 地址样式 -->
-                        <div class="name" v-if="i.name ==='地址'&&i.name!=='电话'&&i.name !== '请添加新闻资讯'&&i.name !== '富文本'&&i.name !== '视频'&&i.name !=='文本'&&i.name !== '图文广告'&&i.name !== '营销活动'&&i.name!=='标题'&&i.name !== '空白辅助'" :style="{'backgroundColor':elementSendStyle,'height':'80px','borderRadius':elementRadius+'px','marginLeft':elementMargin+'px','marginRight':elementMargin+'px','paddingLeft':elementPadding+'px','paddingRight':elementPadding+'px'}">
-                            <span :style="{'color':elementTitleColorStyle}">{{ i.name }}:</span>
-                            <span :style="{'color':elementColorStyle}" >{{ i.site }}</span> 
-                        </div>
-                        <!-- 电话 -->
-                        <div class="name" v-if="i.name !=='地址'&&i.name ==='电话'&&i.name !== '请添加新闻资讯'&&i.name !== '富文本'&&i.name !== '视频'&&i.name !=='文本'&&i.name !== '图文广告'&&i.name !== '营销活动'&&i.name!=='标题'&&i.name !== '空白辅助'" :style="{'backgroundColor':elementSendPhoneStyle,'height':'100px','borderRadius':elementSendPhoneRadius+'px','marginLeft':elementSendPhoneMargin+'px','marginRight':elementSendPhoneMargin+'px','paddingLeft':elementSendPhonePadding+'px','paddingRight':elementSendPhonePadding+'px'}">
-                            <span :style="{'color':elementSendPhoneTitleColorStyle}">{{ PhoneTitle }}:</span>
-                            <span :style="{'color':elementSendPhoneColorStyle}" >{{ SendPhone }}</span> 
-                        </div>
-                        <!-- 图片 -->
-                        <div class="name" v-if="i.name !=='地址'&&i.name!=='电话'&&i.name !== '请添加新闻资讯'&&i.name==='图片'&&i.name !== '富文本'&&i.name !== '视频'&&i.name !=='文本'&&i.name !== '图文广告'&&i.name !== '营销活动'&&i.name!=='标题'&&i.name !== '空白辅助'" :style="{'backgroundColor':pictureStyles,'borderRadius':pictureSendPhoneRadius+'px','marginLeft':pictureSendPhoneMargin+'px','marginRight':pictureSendPhoneMargin+'px','paddingLeft':pictureSendPhonePadding+'px','paddingRight':pictureSendPhonePadding+'px'}"> 
-                            <div style=" width: 100%;text-align: center;"><img style="width: 100%; height: 100%; text-align: center; display: block; border-radius: 0px;" src="../../assets/imgs/picture.png" alt=""></div>
-                        </div>
-                        <!-- 新闻资讯 -->
-                        <div class="name" v-if="i.name === '请添加新闻资讯' && i.name !=='地址'&&i.name!=='电话'&&i.name !== '富文本'&&i.name !== '视频'&&i.name !=='文本'&&i.name !== '图文广告'&&i.name !== '营销活动'&&i.name!=='标题'&&i.name !== '空白辅助'" :style="{'backgroundColor':elementNewStyle}">{{ i.name }}</div>
-                        <!-- 富文本编辑 -->
-                        <div class="name" v-if="i.name !=='地址'&&i.name!=='电话'&&i.name !== '请添加新闻资讯'&&i.name!=='图片'&&i.name === '富文本'&&i.name !== '视频'&&i.name !=='文本'&&i.name !== '图文广告'&&i.name !== '营销活动'&&i.name!=='标题'&&i.name !== '空白辅助'" :style="{'min-height':'20px'}"></div>
-                        <!-- 视频编辑 -->
-                        <div class="name" v-if="i.name !=='地址'&&i.name!=='电话'&&i.name !== '图文广告'&&i.name !== '请添加新闻资讯'&&i.name!=='图片'&&i.name !== '富文本'&&i.name === '视频'&&i.name !=='文本'&&i.name !== '营销活动'&&i.name!=='标题'&&i.name !== '空白辅助'" :style="{'height':'200px','backgroundColor':'currentcolor'}"><video ></video></div>
-                        <!-- 文本 -->
-                        <div class="name" v-if="i.name !=='地址'&&i.name!=='电话'&&i.name !== '请添加新闻资讯'&&i.name!=='图片'&&i.name !== '富文本'&&i.name !== '视频'&&i.name ==='文本'&&i.name !== '图文广告'&&i.name !== '营销活动'&&i.name!=='标题'&&i.name !== '空白辅助'" :style="{'backgroundColor':TextBackgroundColor,'borderRadius':TextRadius+'px','marginLeft':TextMargin+'px','marginRight':TextMargin+'px','paddingLeft':TextPadding+'px','paddingRight':TextPadding+'px','min-height':'20px'}"> 
-                            <div :style="{ 'width': '100%','text-align': TextsideRadio,'font-size':TextRadio+'px','color': TextFontColor ,'font-weight':TextStrong}">{{ TextTextarea }}</div>
-                        </div>
-                        <!-- 辅助线样式 -->
-                        <div class="name" v-if="i.name === ''" :style="{'backgroundColor':sublineBackgroundColor,'paddingLeft':sublinePadding+'px','paddingRight':sublinePadding+'px','padding-top': '10px','padding-bottom':'10px'}">
-                            <div  :style="{'border-top': `${sublineThickness}px ${sublineStyleRadio} ${sublineColor}`,'margin-bottom':'1px' }"></div>
-                        </div>
+                <vue-scroll :ops="ops" style="width:100%;height:100%">
+                    <div class="showElementCenter" :style="{'background': `url(${defultBackgroundImg}) no-repeat ${defultBackgroundColor}`,'background-size':'100%'}">
+                        <draggable
+                        class="dragArea list-group"
+                        :list="list2"
+                        group="people"
+                        @change="log1"
+                        style="min-height:500px;"
+                        >
+                        <div class="list-group-item item"
+                        v-for="i in list2" :key="i.id"  
+                        :class="{'delStyle':i.name ==''}"                 
+                        >
+                        <div class="items">
+                            <div class="name" v-if="i.name !=='地址'&&i.name!=='电话'&&i.name !== '请添加新闻资讯'&&i.name!=='图片'&&i.name !== '富文本'&&i.name !== '视频'&&i.name !=='文本'&&i.name!==''&&i.name !== '图文广告'&&i.name !== '营销活动'&&i.name!=='标题'&&i.name !== '空白辅助'">{{ i.name }}</div>
+                            <!-- 地址样式 -->
+                            <div class="name" v-if="i.name ==='地址'&&i.name!=='电话'&&i.name !== '请添加新闻资讯'&&i.name !== '富文本'&&i.name !== '视频'&&i.name !=='文本'&&i.name !== '图文广告'&&i.name !== '营销活动'&&i.name!=='标题'&&i.name !== '空白辅助'" :style="{'backgroundColor':elementSendStyle,'height':'80px','borderRadius':elementRadius+'px','marginLeft':elementMargin+'px','marginRight':elementMargin+'px','paddingLeft':elementPadding+'px','paddingRight':elementPadding+'px'}">
+                                <span :style="{'color':elementTitleColorStyle}">{{ i.name }}:</span>
+                                <span :style="{'color':elementColorStyle}" >{{ i.site }}</span> 
+                            </div>
+                            <!-- 电话 -->
+                            <div class="name" v-if="i.name !=='地址'&&i.name ==='电话'&&i.name !== '请添加新闻资讯'&&i.name !== '富文本'&&i.name !== '视频'&&i.name !=='文本'&&i.name !== '图文广告'&&i.name !== '营销活动'&&i.name!=='标题'&&i.name !== '空白辅助'" :style="{'backgroundColor':elementSendPhoneStyle,'height':'100px','borderRadius':elementSendPhoneRadius+'px','marginLeft':elementSendPhoneMargin+'px','marginRight':elementSendPhoneMargin+'px','paddingLeft':elementSendPhonePadding+'px','paddingRight':elementSendPhonePadding+'px'}">
+                                <span :style="{'color':elementSendPhoneTitleColorStyle}">{{ PhoneTitle }}:</span>
+                                <span :style="{'color':elementSendPhoneColorStyle}" >{{ SendPhone }}</span> 
+                            </div>
+                            <!-- 图片 -->
+                            <div class="name" v-if="i.name !=='地址'&&i.name!=='电话'&&i.name !== '请添加新闻资讯'&&i.name==='图片'&&i.name !== '富文本'&&i.name !== '视频'&&i.name !=='文本'&&i.name !== '图文广告'&&i.name !== '营销活动'&&i.name!=='标题'&&i.name !== '空白辅助'" :style="{'backgroundColor':pictureStyles,'borderRadius':pictureSendPhoneRadius+'px','marginLeft':pictureSendPhoneMargin+'px','marginRight':pictureSendPhoneMargin+'px','paddingLeft':pictureSendPhonePadding+'px','paddingRight':pictureSendPhonePadding+'px'}"> 
+                                <div style=" width: 100%;text-align: center;"><img style="width: 100%; height: 100%; text-align: center; display: block; border-radius: 0px;" src="../../assets/imgs/picture.png" alt=""></div>
+                            </div>
+                            <!-- 新闻资讯 -->
+                            <div class="name" v-if="i.name === '请添加新闻资讯' && i.name !=='地址'&&i.name!=='电话'&&i.name !== '富文本'&&i.name !== '视频'&&i.name !=='文本'&&i.name !== '图文广告'&&i.name !== '营销活动'&&i.name!=='标题'&&i.name !== '空白辅助'" :style="{'backgroundColor':elementNewStyle}">{{ i.name }}</div>
+                            <!-- 富文本编辑 -->
+                            <div class="name" v-if="i.name !=='地址'&&i.name!=='电话'&&i.name !== '请添加新闻资讯'&&i.name!=='图片'&&i.name === '富文本'&&i.name !== '视频'&&i.name !=='文本'&&i.name !== '图文广告'&&i.name !== '营销活动'&&i.name!=='标题'&&i.name !== '空白辅助'" :style="{'min-height':'20px'}"></div>
+                            <!-- 视频编辑 -->
+                            <div class="name" v-if="i.name !=='地址'&&i.name!=='电话'&&i.name !== '图文广告'&&i.name !== '请添加新闻资讯'&&i.name!=='图片'&&i.name !== '富文本'&&i.name === '视频'&&i.name !=='文本'&&i.name !== '营销活动'&&i.name!=='标题'&&i.name !== '空白辅助'" :style="{'height':'200px','backgroundColor':'currentcolor'}"><video ></video></div>
+                            <!-- 文本 -->
+                            <div class="name" v-if="i.name !=='地址'&&i.name!=='电话'&&i.name !== '请添加新闻资讯'&&i.name!=='图片'&&i.name !== '富文本'&&i.name !== '视频'&&i.name ==='文本'&&i.name !== '图文广告'&&i.name !== '营销活动'&&i.name!=='标题'&&i.name !== '空白辅助'" :style="{'backgroundColor':TextBackgroundColor,'borderRadius':TextRadius+'px','marginLeft':TextMargin+'px','marginRight':TextMargin+'px','paddingLeft':TextPadding+'px','paddingRight':TextPadding+'px','min-height':'20px'}"> 
+                                <div :style="{ 'width': '100%','text-align': TextsideRadio,'font-size':TextRadio+'px','color': TextFontColor ,'font-weight':TextStrong}">{{ TextTextarea }}</div>
+                            </div>
+                            <!-- 辅助线样式 -->
+                            <div class="name" v-if="i.name === ''" :style="{'backgroundColor':sublineBackgroundColor,'paddingLeft':sublinePadding+'px','paddingRight':sublinePadding+'px','padding-top': '10px','padding-bottom':'10px'}">
+                                <div  :style="{'border-top': `${sublineThickness}px ${sublineStyleRadio} ${sublineColor}`,'margin-bottom':'1px' }"></div>
+                            </div>
 
-                        <!-- 图文广告模板1 -->
-                        <div class="name"  v-if="i.name !=='地址'&&i.name!=='电话'&&i.name !== '请添加新闻资讯'&&i.name!=='图片'&&i.name !== '富文本'&&i.name !== '视频'&&i.name !=='文本'&&i.name!==''&&i.name === '图文广告'&&i.name !== '营销活动'&&i.name!=='标题'&&i.name !== '空白辅助' &&imageTextchangeTemplate ===1" :style="{'backgroundColor':imageTextBackgroundColor,'borderRadius':imageTextBackgroungRadius+'px','marginLeft':imageTextMargin+'px','marginRight':imageTextMargin+'px','paddingLeft':imageTextPadding+'px','paddingRight':imageTextPadding+'px',}">
-                            <div :style=" {'backgroundColor':imageTextOnebackgroundColor,'width': '100%','height': '100%','borderRadius':imageTextOneRadius+'px',}"><img :style="{'borderRadius':imageTextRadius+'px','width': '100%','height': '100%'}" src="../../assets/imgs/imageText.png" alt=""></div>
-                        </div>
-                        <!-- 图文广告模板2 -->
-                        <div class="name"  v-if="i.name !=='地址'&&i.name!=='电话'&&i.name !== '请添加新闻资讯'&&i.name!=='图片'&&i.name !== '富文本'&&i.name !== '视频'&&i.name !=='文本'&&i.name!==''&&i.name === '图文广告'&&i.name !== '营销活动'&&i.name!=='标题'&&i.name !== '空白辅助' &&imageTextchangeTemplate ===2" :style="{'backgroundColor':imageTextBackgroundColor,'borderRadius':imageTextBackgroungRadius+'px','marginLeft':imageTextMargin+'px','marginRight':imageTextMargin+'px','paddingLeft':imageTextPadding+'px','paddingRight':imageTextPadding+'px','display':'flex'}">
-                            <!-- <div v-for="(i,k) in imageTextList" :key="k" style="display:flex">
+                            <!-- 图文广告模板1 -->
+                            <div class="name"  v-if="i.name !=='地址'&&i.name!=='电话'&&i.name !== '请添加新闻资讯'&&i.name!=='图片'&&i.name !== '富文本'&&i.name !== '视频'&&i.name !=='文本'&&i.name!==''&&i.name === '图文广告'&&i.name !== '营销活动'&&i.name!=='标题'&&i.name !== '空白辅助' &&imageTextchangeTemplate ===1" :style="{'backgroundColor':imageTextBackgroundColor,'borderRadius':imageTextBackgroungRadius+'px','marginLeft':imageTextMargin+'px','marginRight':imageTextMargin+'px','paddingLeft':imageTextPadding+'px','paddingRight':imageTextPadding+'px',}">
+                                <div :style=" {'backgroundColor':imageTextOnebackgroundColor,'width': '100%','height': '100%','borderRadius':imageTextOneRadius+'px',}"><img :style="{'borderRadius':imageTextRadius+'px','width': '100%','height': '100%'}" src="../../assets/imgs/imageText.png" alt=""></div>
+                            </div>
+                            <!-- 图文广告模板2 -->
+                            <div class="name"  v-if="i.name !=='地址'&&i.name!=='电话'&&i.name !== '请添加新闻资讯'&&i.name!=='图片'&&i.name !== '富文本'&&i.name !== '视频'&&i.name !=='文本'&&i.name!==''&&i.name === '图文广告'&&i.name !== '营销活动'&&i.name!=='标题'&&i.name !== '空白辅助' &&imageTextchangeTemplate ===2" :style="{'backgroundColor':imageTextBackgroundColor,'borderRadius':imageTextBackgroungRadius+'px','marginLeft':imageTextMargin+'px','marginRight':imageTextMargin+'px','paddingLeft':imageTextPadding+'px','paddingRight':imageTextPadding+'px','display':'flex'}">
+                                <!-- <div v-for="(i,k) in imageTextList" :key="k" style="display:flex">
+                                    <div :style=" {'backgroundColor':imageTextOnebackgroundColor,'width': '80%','height': '100%','borderRadius':imageTextOneRadius+'px','margin':'0 5px'}">
+                                        <img :style="{'borderRadius':imageTextRadius+'px','width': '100%','height': '100%'}" src="../../assets/imgs/imageText.png" alt="">
+                                        <span  :style=" {'color':imageTextTitle1Color,}">{{i.imageTextTitle}}</span><br>
+                                        <span :style=" {'color':imageTextPrice1Color,}">{{i.imageTextPrice}}</span>
+                                    </div>
+                                </div> -->
                                 <div :style=" {'backgroundColor':imageTextOnebackgroundColor,'width': '80%','height': '100%','borderRadius':imageTextOneRadius+'px','margin':'0 5px'}">
                                     <img :style="{'borderRadius':imageTextRadius+'px','width': '100%','height': '100%'}" src="../../assets/imgs/imageText.png" alt="">
-                                    <span  :style=" {'color':imageTextTitle1Color,}">{{i.imageTextTitle}}</span><br>
-                                    <span :style=" {'color':imageTextPrice1Color,}">{{i.imageTextPrice}}</span>
+                                    <span  :style=" {'color':imageTextTitleColor,}">{{imageTextTitle1}}</span><br>
+                                    <span :style=" {'color':imageTextPriceColor,}">{{imageTextPrice1}}</span>
                                 </div>
-                            </div> -->
-                            <div :style=" {'backgroundColor':imageTextOnebackgroundColor,'width': '80%','height': '100%','borderRadius':imageTextOneRadius+'px','margin':'0 5px'}">
-                                <img :style="{'borderRadius':imageTextRadius+'px','width': '100%','height': '100%'}" src="../../assets/imgs/imageText.png" alt="">
-                                <span  :style=" {'color':imageTextTitleColor,}">{{imageTextTitle1}}</span><br>
-                                <span :style=" {'color':imageTextPriceColor,}">{{imageTextPrice1}}</span>
-                            </div>
-                            <div :style=" {'backgroundColor':imageTextOnebackgroundColor,'width': '20%','height': '100%','overflow': 'hidden','borderRadius':imageTextOneRadius+'px',}">
-                                <img :style="{'borderRadius':imageTextRadius+'px','width': '244px','height': '170px'}" src="../../assets/imgs/imageText.png" alt="">
-                                <span :style=" {'color':imageTextTitleColor,}">{{imageTextTitle2}}</span><br>
-                                <span :style=" {'color':imageTextPriceColor,}">{{imageTextPrice2}}</span>
-                            </div>
-                        </div>
-                        <!-- 图文广告模板3 -->
-                        <div class="name"  v-if="i.name !=='地址'&&i.name!=='电话'&&i.name !== '请添加新闻资讯'&&i.name!=='图片'&&i.name !== '富文本'&&i.name !== '视频'&&i.name !=='文本'&&i.name!==''&&i.name === '图文广告'&&i.name !== '营销活动'&&i.name!=='标题'&&i.name !== '空白辅助' &&imageTextchangeTemplate ===3" :style="{'backgroundColor':imageTextBackgroundColor,'borderRadius':imageTextBackgroungRadius+'px','marginLeft':imageTextMargin+'px','marginRight':imageTextMargin+'px','paddingLeft':imageTextPadding+'px','paddingRight':imageTextPadding+'px','display':'flex'}">
-                            <div :style=" {'margin-left': '5px','backgroundColor':imageTextOnebackgroundColor,'width': '44%','height': '100%','borderRadius':imageTextOneRadius+'px',}">
-                                <img :style="{'borderRadius':imageTextRadius+'px','width': '100%','height': '120px'}" src="../../assets/imgs/imageText.png" alt="">
-                                <span :style=" {'color':imageTextTitleColor,}">{{imageTextTitle1}}</span><br>
-                                <span :style=" {'color':imageTextPriceColor,}">{{imageTextPrice1}}</span>
-                            </div>
-                            <div :style=" {'margin-left': '5px','backgroundColor':imageTextOnebackgroundColor,'width': '44%','height': '100%','borderRadius':imageTextOneRadius+'px',}">
-                                <img :style="{'borderRadius':imageTextRadius+'px','width': '100%','height': '120px'}" src="../../assets/imgs/imageText.png" alt="">
-                                <span :style=" {'color':imageTextTitleColor,}">{{imageTextTitle2}}</span><br>
-                                <span :style=" {'color':imageTextPriceColor,}">{{imageTextPrice2}}</span>
-                            </div>
-                            <div :style=" {'margin-left': '5px','backgroundColor':imageTextOnebackgroundColor,'width': '12%','height': '100%','overflow': 'hidden','borderRadius':imageTextOneRadius+'px',}">
-                                <img :style="{'borderRadius':imageTextRadius+'px','width': '132px','height': '120px'}" src="../../assets/imgs/imageText.png" alt="">
-                                <span :style=" {'color':imageTextTitleColor,}">{{imageTextTitle3}}</span><br>
-                                <span :style=" {'color':imageTextPriceColor,}">{{imageTextPrice3}}</span>
-                            </div>
-                        </div>
-
-                        <!-- 营销活动1 -->
-                        <div class="names" v-if="i.name !=='地址'&&i.name!=='电话'&&i.name !== '请添加新闻资讯'&&i.name!=='图片'&&i.name !== '富文本'&&i.name !== '视频'&&i.name !=='文本'&&i.name!==''&&i.name !== '图文广告'&&i.name === '营销活动'&&i.name!=='标题'&&i.name !== '空白辅助'&&marketingCampaignchangeTemplate ===1" :style="{'backgroundColor':marketgroundColor,'paddingLeft':marketPadding+'px','paddingRight':marketPadding+'px','borderRadius':marketgroundRadio+'px','marginLeft':marketMargin+'px','marginRight':marketMargin+'px','overflow': 'hidden'}">
-                            <div :style="{'width': '100%','height': '100%',}"><img :style="{'width': '100%','height': '100%','borderRadius':marketOneRadius+'px'}" src="../../assets/imgs/imageText.png" alt=""></div>
-                        </div>
-                        <!-- 营销活动2 -->
-                        <div class="names" v-if="i.name !=='地址'&&i.name!=='电话'&&i.name !== '请添加新闻资讯'&&i.name!=='图片'&&i.name !== '富文本'&&i.name !== '视频'&&i.name !=='文本'&&i.name!==''&&i.name !== '图文广告'&&i.name === '营销活动'&&i.name!=='标题'&&i.name !== '空白辅助' &&marketingCampaignchangeTemplate ===2" :style="{'backgroundColor':marketgroundColor,'paddingLeft':marketPadding+'px','paddingRight':marketPadding+'px','borderRadius':marketgroundRadio+'px','marginLeft':marketMargin+'px','marginRight':marketMargin+'px','overflow': 'hidden'}">
-                            <div :style="{'marginRight':marketspaceBetweenRadius+'px' ,'width': marketwideRadius+'%','height': '120px',}"><img :style="{'borderRadius':marketOneRadius+'px','width': '100%','height': '100%'}" src="../../assets/imgs/imageText.png" alt=""></div>
-                            <div :style="{'width': marketwideRadius+'%','height': '120px',}"><img :style="{'width': '100%','height': '100%','borderRadius':marketOneRadius+'px',}" src="../../assets/imgs/imageText.png" alt=""></div>
-                        </div>
-                        <!-- 营销活动3 -->
-                        <div class="names" v-if="i.name !=='地址'&&i.name!=='电话'&&i.name !== '请添加新闻资讯'&&i.name!=='图片'&&i.name !== '富文本'&&i.name !== '视频'&&i.name !=='文本'&&i.name!==''&&i.name !== '图文广告'&&i.name === '营销活动'&&i.name!=='标题'&&i.name !== '空白辅助' &&marketingCampaignchangeTemplate ===3" :style="{'backgroundColor':marketgroundColor,'paddingLeft':marketPadding+'px','paddingRight':marketPadding+'px','borderRadius':marketgroundRadio+'px','marginLeft':marketMargin+'px','marginRight':marketMargin+'px','flex-wrap': 'wrap'}">
-                            <div :style="{'marginRight':marketspaceBetweenRadius+'px' ,'width': marketwideRadius+'%','height': '120px',}"><img :style="{'borderRadius':marketOneRadius+'px','width': '100%','height': '100%'}" src="../../assets/imgs/imageText.png" alt=""></div>
-                            <div :style="{'marginRight':marketspaceBetweenRadius+'px' ,'width': marketwideRadius+'%','height': '120px',}"><img :style="{'borderRadius':marketOneRadius+'px','width': '100%','height': '100%'}" src="../../assets/imgs/imageText.png" alt=""></div>
-                            <div :style="{'width': marketwideRadius+'%','height': '120px',}"><img :style="{'width': '100%','height': '100%','borderRadius':marketOneRadius+'px',}" src="../../assets/imgs/imageText.png" alt=""></div>
-                        </div>
-                        <!-- 营销活动4 -->
-                        <div class="names" v-if="i.name !=='地址'&&i.name!=='电话'&&i.name !== '请添加新闻资讯'&&i.name!=='图片'&&i.name !== '富文本'&&i.name !== '视频'&&i.name !=='文本'&&i.name!==''&&i.name !== '图文广告'&&i.name === '营销活动'&&i.name!=='标题'&&i.name !== '空白辅助' &&marketingCampaignchangeTemplate ===4" :style="{'backgroundColor':marketgroundColor,'paddingLeft':marketPadding+'px','paddingRight':marketPadding+'px','borderRadius':marketgroundRadio+'px','marginLeft':marketMargin+'px','marginRight':marketMargin+'px','overflow': 'hidden','display':'flex'}">
-
-                            <div :style="{'marginRight':'10px' ,'width': '49%','height': '180px',}"><img :style="{'borderRadius':marketOneRadius+'px','width': '100%','height': '100%'}" src="../../assets/imgs/imageText.png" alt=""></div>
-
-                            <div style="display：flex;flex-direction: column;justify-content: space-between;width: 49%;height: 180px">
-                                <div :style="{'height': '85px',}"><img :style="{'borderRadius':marketOneRadius+'px','width': '100%','height': '100%'}" src="../../assets/imgs/imageText.png" alt=""></div>
-                                <div :style="{'height': '85px',}"><img :style="{'width': '100%','height': '100%','borderRadius':marketOneRadius+'px','margin-top':'10px'}" src="../../assets/imgs/imageText.png" alt=""></div>
-                            </div>
-                            
-                        </div>
-                        <!-- 营销活动5 -->
-                        <div class="names" v-if="i.name !=='地址'&&i.name!=='电话'&&i.name !== '请添加新闻资讯'&&i.name!=='图片'&&i.name !== '富文本'&&i.name !== '视频'&&i.name !=='文本'&&i.name!==''&&i.name !== '图文广告'&&i.name === '营销活动'&&i.name!=='标题'&&i.name !== '空白辅助' &&marketingCampaignchangeTemplate ===5" :style="{'backgroundColor':marketgroundColor,'paddingLeft':marketPadding+'px','paddingRight':marketPadding+'px','borderRadius':marketgroundRadio+'px','marginLeft':marketMargin+'px','marginRight':marketMargin+'px','overflow': 'hidden','display':'flex','flex-direction': 'column'}">
-
-                            <div :style="{'marginRight':marketspaceBetweenRadius+'px' ,'width': '100%','height': '120px','margin-bottom': '10px'}"><img :style="{'borderRadius':marketOneRadius+'px','width': '100%','height': '100%'}" src="../../assets/imgs/imageText.png" alt=""></div>
-
-                            <div style="justify-content: space-between;display:flex;">
-                                <div :style="{'width': '48%','height': '90px',}"><img :style="{'borderRadius':marketOneRadius+'px','width': '100%','height': '100%'}" src="../../assets/imgs/imageText.png" alt=""></div>
-                                <div :style="{ 'width': '48%','height': '90px',}"><img :style="{'width': '100%','height': '100%','borderRadius':marketOneRadius+'px'}" src="../../assets/imgs/imageText.png" alt=""></div>
-                            </div>
-                            
-                        </div>
-                        <!-- 营销活动6 -->
-                        <div class="names" v-if="i.name !=='地址'&&i.name!=='电话'&&i.name !== '请添加新闻资讯'&&i.name!=='图片'&&i.name !== '富文本'&&i.name !== '视频'&&i.name !=='文本'&&i.name!==''&&i.name !== '图文广告'&&i.name === '营销活动'&&i.name!=='标题'&&i.name !== '空白辅助' &&marketingCampaignchangeTemplate ===6" :style="{'backgroundColor':marketgroundColor,'paddingLeft':marketPadding+'px','paddingRight':marketPadding+'px','borderRadius':marketgroundRadio+'px','marginLeft':marketMargin+'px','marginRight':marketMargin+'px','overflow': 'hidden','display':'flex','flex-direction': 'column'}">
-
-                            <div :style="{'marginRight':marketspaceBetweenRadius+'px' ,'width': '100%','height': '120px','margin-bottom': '10px'}"><img :style="{'borderRadius':marketOneRadius+'px','width': '100%','height': '100%'}" src="../../assets/imgs/imageText.png" alt=""></div>
-
-                            <div style="justify-content: space-between;display:flex;">
-                                <div :style="{'width': '31.2%','height': '90px',}"><img :style="{'borderRadius':marketOneRadius+'px','width': '100%','height': '100%'}" src="../../assets/imgs/imageText.png" alt=""></div>
-                                <div :style="{ 'width': '31.2%','height': '90px',}"><img :style="{'width': '100%','height': '100%','borderRadius':marketOneRadius+'px'}" src="../../assets/imgs/imageText.png" alt=""></div>
-                                <div :style="{ 'width': '31.2%','height': '90px',}"><img :style="{'width': '100%','height': '100%','borderRadius':marketOneRadius+'px'}" src="../../assets/imgs/imageText.png" alt=""></div>
-                            </div>
-                            
-                        </div>
-                        <!-- 营销活动7 -->
-                        <div class="names" v-if="i.name !=='地址'&&i.name!=='电话'&&i.name !== '请添加新闻资讯'&&i.name!=='图片'&&i.name !== '富文本'&&i.name !== '视频'&&i.name !=='文本'&&i.name!==''&&i.name !== '图文广告'&&i.name === '营销活动'&&i.name!=='标题'&&i.name !== '空白辅助' &&marketingCampaignchangeTemplate ===7" :style="{'backgroundColor':marketgroundColor,'paddingLeft':marketPadding+'px','paddingRight':marketPadding+'px','borderRadius':marketgroundRadio+'px','marginLeft':marketMargin+'px','marginRight':marketMargin+'px','overflow': 'hidden','display':'flex','flex-direction': 'column'}">
-                            <div style="justify-content: space-between;display:flex;">
-                                <div :style="{'width': '48%','height': '90px','margin-bottom': '10px'}"><img :style="{'borderRadius':marketOneRadius+'px','width': '100%','height': '100%'}" src="../../assets/imgs/imageText.png" alt=""></div>
-                                <div :style="{'width': '48%','height': '90px','margin-bottom': '10px'}"><img :style="{'borderRadius':marketOneRadius+'px','width': '100%','height': '100%'}" src="../../assets/imgs/imageText.png" alt=""></div>
-                            </div>
-
-                            <div style="justify-content: space-between;display:flex;">
-                                <div :style="{ 'width': '48%','height': '90px',}"><img :style="{'width': '100%','height': '100%','borderRadius':marketOneRadius+'px'}" src="../../assets/imgs/imageText.png" alt=""></div>
-                                <div :style="{ 'width': '48%','height': '90px',}"><img :style="{'width': '100%','height': '100%','borderRadius':marketOneRadius+'px'}" src="../../assets/imgs/imageText.png" alt=""></div>
-                            </div>
-                            
-                        </div>
-                        <!-- 营销活动8 -->
-                        <div class="names" v-if="i.name !=='地址'&&i.name!=='电话'&&i.name !== '请添加新闻资讯'&&i.name!=='图片'&&i.name !== '富文本'&&i.name !== '视频'&&i.name !=='文本'&&i.name!==''&&i.name !== '图文广告'&&i.name === '营销活动'&&i.name!=='标题'&&i.name !== '空白辅助' &&marketingCampaignchangeTemplate ===8" :style="{'backgroundColor':marketgroundColor,'paddingLeft':marketPadding+'px','paddingRight':marketPadding+'px','borderRadius':marketgroundRadio+'px','marginLeft':marketMargin+'px','marginRight':marketMargin+'px','overflow': 'hidden','display':'flex'}">
-
-                            <div :style="{'marginRight':marketspaceBetweenRadius+'px' ,'width': '49%','height': '180px',}"><img :style="{'borderRadius':marketOneRadius+'px','width': '100%','height': '100%'}" src="../../assets/imgs/imageText.png" alt=""></div>
-
-                            <div style="display：flex;flex-direction: column;justify-content: space-between;width: 49%;height: 180px">
-                                <div :style="{'height': '85px',}"><img :style="{'borderRadius':marketOneRadius+'px','width': '100%','height': '100%'}" src="../../assets/imgs/imageText.png" alt=""></div>
-
-                                <div style="display:flex;justify-content: space-between;height: 85px;margin-top: 10px">
-                                    <div :style="{'width': '49%'}"><img :style="{'width': '100%','height': '100%','borderRadius':marketOneRadius+'px'}" src="../../assets/imgs/imageText.png" alt=""></div>
-                                    <div :style="{'width': '49%'}"><img :style="{'width': '100%','height': '100%','borderRadius':marketOneRadius+'px'}" src="../../assets/imgs/imageText.png" alt=""></div>
+                                <div :style=" {'backgroundColor':imageTextOnebackgroundColor,'width': '20%','height': '100%','overflow': 'hidden','borderRadius':imageTextOneRadius+'px',}">
+                                    <img :style="{'borderRadius':imageTextRadius+'px','width': '244px','height': '170px'}" src="../../assets/imgs/imageText.png" alt="">
+                                    <span :style=" {'color':imageTextTitleColor,}">{{imageTextTitle2}}</span><br>
+                                    <span :style=" {'color':imageTextPriceColor,}">{{imageTextPrice2}}</span>
                                 </div>
                             </div>
-                            
-                        </div>
-
-                        <!-- 营销活动9 -->
-                        <div class="names" v-if="i.name !=='地址'&&i.name!=='电话'&&i.name !== '请添加新闻资讯'&&i.name!=='图片'&&i.name !== '富文本'&&i.name !== '视频'&&i.name !=='文本'&&i.name!==''&&i.name !== '图文广告'&&i.name === '营销活动'&&i.name!=='标题'&&i.name !== '空白辅助' &&marketingCampaignchangeTemplate ===9" :style="{'backgroundColor':marketgroundColor,'paddingLeft':marketPadding+'px','paddingRight':marketPadding+'px','borderRadius':marketgroundRadio+'px','marginLeft':marketMargin+'px','marginRight':marketMargin+'px','flex-wrap': 'wrap'}">
-                            <div :style="{'marginRight':marketspaceBetweenRadius+'px' ,'width': marketwideRadius+'%','height': '120px',}"><img :style="{'borderRadius':marketOneRadius+'px','width': '100%','height': '100%'}" src="../../assets/imgs/imageText.png" alt=""></div>
-                            <div :style="{'marginRight':marketspaceBetweenRadius+'px' ,'width': marketwideRadius+'%','height': '120px',}"><img :style="{'borderRadius':marketOneRadius+'px','width': '100%','height': '100%'}" src="../../assets/imgs/imageText.png" alt=""></div>
-                            <div :style="{'marginRight':marketspaceBetweenRadius+'px' ,'width': marketwideRadius+'%','height': '120px',}"><img :style="{'borderRadius':marketOneRadius+'px','width': '100%','height': '100%'}" src="../../assets/imgs/imageText.png" alt=""></div>
-                            <div :style="{'marginRight':marketspaceBetweenRadius+'px' ,'width': marketwideRadius+'%','height': '120px',}"><img :style="{'borderRadius':marketOneRadius+'px','width': '100%','height': '100%'}" src="../../assets/imgs/imageText.png" alt=""></div>
-                        </div>
-
-                        <!-- 标题 -->
-                        <div class="name" v-if="i.name !=='地址'&&i.name!=='电话'&&i.name !== '请添加新闻资讯'&&i.name!=='图片'&&i.name !== '富文本'&&i.name !== '视频'&&i.name !=='文本'&&i.name !== '图文广告'&&i.name==='标题'&&i.name !== '营销活动'&&i.name !== '空白辅助'" :style="{'backgroundColor':titleBackgroundColor,'border-radius':titleRadius+'px','marginLeft':titleMargin+'px','marginRight':titleMargin+'px','paddingLeft':titlePadding+'px','paddingRight':titlePadding+'px','min-height':'18px'}"> 
-                            <div :style="{ 'width': '100%','text-align': titlesideRadio,'font-size':'24px','color': titleFontColor}">{{ titleStyleText }}
-                                <div :style="{'font-size':'14px',}">{{subheadtextareaText}}</div>
+                            <!-- 图文广告模板3 -->
+                            <div class="name"  v-if="i.name !=='地址'&&i.name!=='电话'&&i.name !== '请添加新闻资讯'&&i.name!=='图片'&&i.name !== '富文本'&&i.name !== '视频'&&i.name !=='文本'&&i.name!==''&&i.name === '图文广告'&&i.name !== '营销活动'&&i.name!=='标题'&&i.name !== '空白辅助' &&imageTextchangeTemplate ===3" :style="{'backgroundColor':imageTextBackgroundColor,'borderRadius':imageTextBackgroungRadius+'px','marginLeft':imageTextMargin+'px','marginRight':imageTextMargin+'px','paddingLeft':imageTextPadding+'px','paddingRight':imageTextPadding+'px','display':'flex'}">
+                                <div :style=" {'margin-left': '5px','backgroundColor':imageTextOnebackgroundColor,'width': '44%','height': '100%','borderRadius':imageTextOneRadius+'px',}">
+                                    <img :style="{'borderRadius':imageTextRadius+'px','width': '100%','height': '120px'}" src="../../assets/imgs/imageText.png" alt="">
+                                    <span :style=" {'color':imageTextTitleColor,}">{{imageTextTitle1}}</span><br>
+                                    <span :style=" {'color':imageTextPriceColor,}">{{imageTextPrice1}}</span>
+                                </div>
+                                <div :style=" {'margin-left': '5px','backgroundColor':imageTextOnebackgroundColor,'width': '44%','height': '100%','borderRadius':imageTextOneRadius+'px',}">
+                                    <img :style="{'borderRadius':imageTextRadius+'px','width': '100%','height': '120px'}" src="../../assets/imgs/imageText.png" alt="">
+                                    <span :style=" {'color':imageTextTitleColor,}">{{imageTextTitle2}}</span><br>
+                                    <span :style=" {'color':imageTextPriceColor,}">{{imageTextPrice2}}</span>
+                                </div>
+                                <div :style=" {'margin-left': '5px','backgroundColor':imageTextOnebackgroundColor,'width': '12%','height': '100%','overflow': 'hidden','borderRadius':imageTextOneRadius+'px',}">
+                                    <img :style="{'borderRadius':imageTextRadius+'px','width': '132px','height': '120px'}" src="../../assets/imgs/imageText.png" alt="">
+                                    <span :style=" {'color':imageTextTitleColor,}">{{imageTextTitle3}}</span><br>
+                                    <span :style=" {'color':imageTextPriceColor,}">{{imageTextPrice3}}</span>
+                                </div>
                             </div>
-                        </div>
 
-                        <!-- 空白辅助 -->
-                        <div class="name" v-if="i.name !=='地址'&&i.name!=='电话'&&i.name !== '请添加新闻资讯'&&i.name!=='图片'&&i.name !== '富文本'&&i.name !== '视频'&&i.name !=='文本'&&i.name!==''&&i.name !== '图文广告'&&i.name!=='标题'&&i.name !== '营销活动'&&i.name === '空白辅助'" :style="{'backgroundColor':blankAssistBackgroundColor,'height': currentValueHeigthRadius +'px'}"></div>
-                        <!-- <div  v-if="i.name === ''" :style="{'backgroundColor':sublineBackgroundColor,'paddingLeft':sublinePadding+'px','paddingRight':sublinePadding+'px', 'margin-top': '10px', 'margin-left': '5%',}"></div> -->
-                    </div>
-                    <!-- <i class="del" @click="delElement(i)" v-show="i.name ==='地址'&&i.name!=='电话'" :style="{'backgroundColor':elementSendStyle}"></i> 
-                    <i class="del" @click="delElement(i)" v-show="i.name !=='地址'&&i.name ==='电话'" :style="{'backgroundColor':elementSendPhoneStyle}"></i>  -->
-                    <!-- <i class="del" @click="delElement(i)" v-show="i.name !=='地址'&&i.name!=='电话'"></i>  -->
-                    <i class="del" @click="delElement(i)"></i> 
-                    </div>
-                    </draggable> 
-                </div>
+                            <!-- 营销活动1 -->
+                            <div class="names" v-if="i.name !=='地址'&&i.name!=='电话'&&i.name !== '请添加新闻资讯'&&i.name!=='图片'&&i.name !== '富文本'&&i.name !== '视频'&&i.name !=='文本'&&i.name!==''&&i.name !== '图文广告'&&i.name === '营销活动'&&i.name!=='标题'&&i.name !== '空白辅助'&&marketingCampaignchangeTemplate ===1" :style="{'backgroundColor':marketgroundColor,'paddingLeft':marketPadding+'px','paddingRight':marketPadding+'px','borderRadius':marketgroundRadio+'px','marginLeft':marketMargin+'px','marginRight':marketMargin+'px','overflow': 'hidden'}">
+                                <div :style="{'width': '100%','height': '100%',}"><img :style="{'width': '100%','height': '100%','borderRadius':marketOneRadius+'px'}" src="../../assets/imgs/imageText.png" alt=""></div>
+                            </div>
+                            <!-- 营销活动2 -->
+                            <div class="names" v-if="i.name !=='地址'&&i.name!=='电话'&&i.name !== '请添加新闻资讯'&&i.name!=='图片'&&i.name !== '富文本'&&i.name !== '视频'&&i.name !=='文本'&&i.name!==''&&i.name !== '图文广告'&&i.name === '营销活动'&&i.name!=='标题'&&i.name !== '空白辅助' &&marketingCampaignchangeTemplate ===2" :style="{'backgroundColor':marketgroundColor,'paddingLeft':marketPadding+'px','paddingRight':marketPadding+'px','borderRadius':marketgroundRadio+'px','marginLeft':marketMargin+'px','marginRight':marketMargin+'px','overflow': 'hidden'}">
+                                <div :style="{'marginRight':marketspaceBetweenRadius+'px' ,'width': marketwideRadius+'%','height': '120px',}"><img :style="{'borderRadius':marketOneRadius+'px','width': '100%','height': '100%'}" src="../../assets/imgs/imageText.png" alt=""></div>
+                                <div :style="{'width': marketwideRadius+'%','height': '120px',}"><img :style="{'width': '100%','height': '100%','borderRadius':marketOneRadius+'px',}" src="../../assets/imgs/imageText.png" alt=""></div>
+                            </div>
+                            <!-- 营销活动3 -->
+                            <div class="names" v-if="i.name !=='地址'&&i.name!=='电话'&&i.name !== '请添加新闻资讯'&&i.name!=='图片'&&i.name !== '富文本'&&i.name !== '视频'&&i.name !=='文本'&&i.name!==''&&i.name !== '图文广告'&&i.name === '营销活动'&&i.name!=='标题'&&i.name !== '空白辅助' &&marketingCampaignchangeTemplate ===3" :style="{'backgroundColor':marketgroundColor,'paddingLeft':marketPadding+'px','paddingRight':marketPadding+'px','borderRadius':marketgroundRadio+'px','marginLeft':marketMargin+'px','marginRight':marketMargin+'px','flex-wrap': 'wrap'}">
+                                <div :style="{'marginRight':marketspaceBetweenRadius+'px' ,'width': marketwideRadius+'%','height': '120px',}"><img :style="{'borderRadius':marketOneRadius+'px','width': '100%','height': '100%'}" src="../../assets/imgs/imageText.png" alt=""></div>
+                                <div :style="{'marginRight':marketspaceBetweenRadius+'px' ,'width': marketwideRadius+'%','height': '120px',}"><img :style="{'borderRadius':marketOneRadius+'px','width': '100%','height': '100%'}" src="../../assets/imgs/imageText.png" alt=""></div>
+                                <div :style="{'width': marketwideRadius+'%','height': '120px',}"><img :style="{'width': '100%','height': '100%','borderRadius':marketOneRadius+'px',}" src="../../assets/imgs/imageText.png" alt=""></div>
+                            </div>
+                            <!-- 营销活动4 -->
+                            <div class="names" v-if="i.name !=='地址'&&i.name!=='电话'&&i.name !== '请添加新闻资讯'&&i.name!=='图片'&&i.name !== '富文本'&&i.name !== '视频'&&i.name !=='文本'&&i.name!==''&&i.name !== '图文广告'&&i.name === '营销活动'&&i.name!=='标题'&&i.name !== '空白辅助' &&marketingCampaignchangeTemplate ===4" :style="{'backgroundColor':marketgroundColor,'paddingLeft':marketPadding+'px','paddingRight':marketPadding+'px','borderRadius':marketgroundRadio+'px','marginLeft':marketMargin+'px','marginRight':marketMargin+'px','overflow': 'hidden','display':'flex'}">
+
+                                <div :style="{'marginRight':'10px' ,'width': '49%','height': '180px',}"><img :style="{'borderRadius':marketOneRadius+'px','width': '100%','height': '100%'}" src="../../assets/imgs/imageText.png" alt=""></div>
+
+                                <div style="display：flex;flex-direction: column;justify-content: space-between;width: 49%;height: 180px">
+                                    <div :style="{'height': '85px',}"><img :style="{'borderRadius':marketOneRadius+'px','width': '100%','height': '100%'}" src="../../assets/imgs/imageText.png" alt=""></div>
+                                    <div :style="{'height': '85px',}"><img :style="{'width': '100%','height': '100%','borderRadius':marketOneRadius+'px','margin-top':'10px'}" src="../../assets/imgs/imageText.png" alt=""></div>
+                                </div>
+                                
+                            </div>
+                            <!-- 营销活动5 -->
+                            <div class="names" v-if="i.name !=='地址'&&i.name!=='电话'&&i.name !== '请添加新闻资讯'&&i.name!=='图片'&&i.name !== '富文本'&&i.name !== '视频'&&i.name !=='文本'&&i.name!==''&&i.name !== '图文广告'&&i.name === '营销活动'&&i.name!=='标题'&&i.name !== '空白辅助' &&marketingCampaignchangeTemplate ===5" :style="{'backgroundColor':marketgroundColor,'paddingLeft':marketPadding+'px','paddingRight':marketPadding+'px','borderRadius':marketgroundRadio+'px','marginLeft':marketMargin+'px','marginRight':marketMargin+'px','overflow': 'hidden','display':'flex','flex-direction': 'column'}">
+
+                                <div :style="{'marginRight':marketspaceBetweenRadius+'px' ,'width': '100%','height': '120px','margin-bottom': '10px'}"><img :style="{'borderRadius':marketOneRadius+'px','width': '100%','height': '100%'}" src="../../assets/imgs/imageText.png" alt=""></div>
+
+                                <div style="justify-content: space-between;display:flex;">
+                                    <div :style="{'width': '48%','height': '90px',}"><img :style="{'borderRadius':marketOneRadius+'px','width': '100%','height': '100%'}" src="../../assets/imgs/imageText.png" alt=""></div>
+                                    <div :style="{ 'width': '48%','height': '90px',}"><img :style="{'width': '100%','height': '100%','borderRadius':marketOneRadius+'px'}" src="../../assets/imgs/imageText.png" alt=""></div>
+                                </div>
+                                
+                            </div>
+                            <!-- 营销活动6 -->
+                            <div class="names" v-if="i.name !=='地址'&&i.name!=='电话'&&i.name !== '请添加新闻资讯'&&i.name!=='图片'&&i.name !== '富文本'&&i.name !== '视频'&&i.name !=='文本'&&i.name!==''&&i.name !== '图文广告'&&i.name === '营销活动'&&i.name!=='标题'&&i.name !== '空白辅助' &&marketingCampaignchangeTemplate ===6" :style="{'backgroundColor':marketgroundColor,'paddingLeft':marketPadding+'px','paddingRight':marketPadding+'px','borderRadius':marketgroundRadio+'px','marginLeft':marketMargin+'px','marginRight':marketMargin+'px','overflow': 'hidden','display':'flex','flex-direction': 'column'}">
+
+                                <div :style="{'marginRight':marketspaceBetweenRadius+'px' ,'width': '100%','height': '120px','margin-bottom': '10px'}"><img :style="{'borderRadius':marketOneRadius+'px','width': '100%','height': '100%'}" src="../../assets/imgs/imageText.png" alt=""></div>
+
+                                <div style="justify-content: space-between;display:flex;">
+                                    <div :style="{'width': '31.2%','height': '90px',}"><img :style="{'borderRadius':marketOneRadius+'px','width': '100%','height': '100%'}" src="../../assets/imgs/imageText.png" alt=""></div>
+                                    <div :style="{ 'width': '31.2%','height': '90px',}"><img :style="{'width': '100%','height': '100%','borderRadius':marketOneRadius+'px'}" src="../../assets/imgs/imageText.png" alt=""></div>
+                                    <div :style="{ 'width': '31.2%','height': '90px',}"><img :style="{'width': '100%','height': '100%','borderRadius':marketOneRadius+'px'}" src="../../assets/imgs/imageText.png" alt=""></div>
+                                </div>
+                                
+                            </div>
+                            <!-- 营销活动7 -->
+                            <div class="names" v-if="i.name !=='地址'&&i.name!=='电话'&&i.name !== '请添加新闻资讯'&&i.name!=='图片'&&i.name !== '富文本'&&i.name !== '视频'&&i.name !=='文本'&&i.name!==''&&i.name !== '图文广告'&&i.name === '营销活动'&&i.name!=='标题'&&i.name !== '空白辅助' &&marketingCampaignchangeTemplate ===7" :style="{'backgroundColor':marketgroundColor,'paddingLeft':marketPadding+'px','paddingRight':marketPadding+'px','borderRadius':marketgroundRadio+'px','marginLeft':marketMargin+'px','marginRight':marketMargin+'px','overflow': 'hidden','display':'flex','flex-direction': 'column'}">
+                                <div style="justify-content: space-between;display:flex;">
+                                    <div :style="{'width': '48%','height': '90px','margin-bottom': '10px'}"><img :style="{'borderRadius':marketOneRadius+'px','width': '100%','height': '100%'}" src="../../assets/imgs/imageText.png" alt=""></div>
+                                    <div :style="{'width': '48%','height': '90px','margin-bottom': '10px'}"><img :style="{'borderRadius':marketOneRadius+'px','width': '100%','height': '100%'}" src="../../assets/imgs/imageText.png" alt=""></div>
+                                </div>
+
+                                <div style="justify-content: space-between;display:flex;">
+                                    <div :style="{ 'width': '48%','height': '90px',}"><img :style="{'width': '100%','height': '100%','borderRadius':marketOneRadius+'px'}" src="../../assets/imgs/imageText.png" alt=""></div>
+                                    <div :style="{ 'width': '48%','height': '90px',}"><img :style="{'width': '100%','height': '100%','borderRadius':marketOneRadius+'px'}" src="../../assets/imgs/imageText.png" alt=""></div>
+                                </div>
+                                
+                            </div>
+                            <!-- 营销活动8 -->
+                            <div class="names" v-if="i.name !=='地址'&&i.name!=='电话'&&i.name !== '请添加新闻资讯'&&i.name!=='图片'&&i.name !== '富文本'&&i.name !== '视频'&&i.name !=='文本'&&i.name!==''&&i.name !== '图文广告'&&i.name === '营销活动'&&i.name!=='标题'&&i.name !== '空白辅助' &&marketingCampaignchangeTemplate ===8" :style="{'backgroundColor':marketgroundColor,'paddingLeft':marketPadding+'px','paddingRight':marketPadding+'px','borderRadius':marketgroundRadio+'px','marginLeft':marketMargin+'px','marginRight':marketMargin+'px','overflow': 'hidden','display':'flex'}">
+
+                                <div :style="{'marginRight':marketspaceBetweenRadius+'px' ,'width': '49%','height': '180px',}"><img :style="{'borderRadius':marketOneRadius+'px','width': '100%','height': '100%'}" src="../../assets/imgs/imageText.png" alt=""></div>
+
+                                <div style="display：flex;flex-direction: column;justify-content: space-between;width: 49%;height: 180px">
+                                    <div :style="{'height': '85px',}"><img :style="{'borderRadius':marketOneRadius+'px','width': '100%','height': '100%'}" src="../../assets/imgs/imageText.png" alt=""></div>
+
+                                    <div style="display:flex;justify-content: space-between;height: 85px;margin-top: 10px">
+                                        <div :style="{'width': '49%'}"><img :style="{'width': '100%','height': '100%','borderRadius':marketOneRadius+'px'}" src="../../assets/imgs/imageText.png" alt=""></div>
+                                        <div :style="{'width': '49%'}"><img :style="{'width': '100%','height': '100%','borderRadius':marketOneRadius+'px'}" src="../../assets/imgs/imageText.png" alt=""></div>
+                                    </div>
+                                </div>
+                                
+                            </div>
+
+                            <!-- 营销活动9 -->
+                            <div class="names" v-if="i.name !=='地址'&&i.name!=='电话'&&i.name !== '请添加新闻资讯'&&i.name!=='图片'&&i.name !== '富文本'&&i.name !== '视频'&&i.name !=='文本'&&i.name!==''&&i.name !== '图文广告'&&i.name === '营销活动'&&i.name!=='标题'&&i.name !== '空白辅助' &&marketingCampaignchangeTemplate ===9" :style="{'backgroundColor':marketgroundColor,'paddingLeft':marketPadding+'px','paddingRight':marketPadding+'px','borderRadius':marketgroundRadio+'px','marginLeft':marketMargin+'px','marginRight':marketMargin+'px','flex-wrap': 'wrap'}">
+                                <div :style="{'marginRight':marketspaceBetweenRadius+'px' ,'width': marketwideRadius+'%','height': '120px',}"><img :style="{'borderRadius':marketOneRadius+'px','width': '100%','height': '100%'}" src="../../assets/imgs/imageText.png" alt=""></div>
+                                <div :style="{'marginRight':marketspaceBetweenRadius+'px' ,'width': marketwideRadius+'%','height': '120px',}"><img :style="{'borderRadius':marketOneRadius+'px','width': '100%','height': '100%'}" src="../../assets/imgs/imageText.png" alt=""></div>
+                                <div :style="{'marginRight':marketspaceBetweenRadius+'px' ,'width': marketwideRadius+'%','height': '120px',}"><img :style="{'borderRadius':marketOneRadius+'px','width': '100%','height': '100%'}" src="../../assets/imgs/imageText.png" alt=""></div>
+                                <div :style="{'marginRight':marketspaceBetweenRadius+'px' ,'width': marketwideRadius+'%','height': '120px',}"><img :style="{'borderRadius':marketOneRadius+'px','width': '100%','height': '100%'}" src="../../assets/imgs/imageText.png" alt=""></div>
+                            </div>
+
+                            <!-- 标题 -->
+                            <div class="name" v-if="i.name !=='地址'&&i.name!=='电话'&&i.name !== '请添加新闻资讯'&&i.name!=='图片'&&i.name !== '富文本'&&i.name !== '视频'&&i.name !=='文本'&&i.name !== '图文广告'&&i.name==='标题'&&i.name !== '营销活动'&&i.name !== '空白辅助'" :style="{'backgroundColor':titleBackgroundColor,'border-radius':titleRadius+'px','marginLeft':titleMargin+'px','marginRight':titleMargin+'px','paddingLeft':titlePadding+'px','paddingRight':titlePadding+'px','min-height':'18px'}"> 
+                                <div :style="{ 'width': '100%','text-align': titlesideRadio,'font-size':'24px','color': titleFontColor}">{{ titleStyleText }}
+                                    <div :style="{'font-size':'14px',}">{{subheadtextareaText}}</div>
+                                </div>
+                            </div>
+
+                            <!-- 空白辅助 -->
+                            <div class="name" v-if="i.name !=='地址'&&i.name!=='电话'&&i.name !== '请添加新闻资讯'&&i.name!=='图片'&&i.name !== '富文本'&&i.name !== '视频'&&i.name !=='文本'&&i.name!==''&&i.name !== '图文广告'&&i.name!=='标题'&&i.name !== '营销活动'&&i.name === '空白辅助'" :style="{'backgroundColor':blankAssistBackgroundColor,'height': currentValueHeigthRadius +'px'}"></div>
+                            <!-- <div  v-if="i.name === ''" :style="{'backgroundColor':sublineBackgroundColor,'paddingLeft':sublinePadding+'px','paddingRight':sublinePadding+'px', 'margin-top': '10px', 'margin-left': '5%',}"></div> -->
+                        </div>
+                        <!-- <i class="del" @click="delElement(i)" v-show="i.name ==='地址'&&i.name!=='电话'" :style="{'backgroundColor':elementSendStyle}"></i> 
+                        <i class="del" @click="delElement(i)" v-show="i.name !=='地址'&&i.name ==='电话'" :style="{'backgroundColor':elementSendPhoneStyle}"></i>  -->
+                        <!-- <i class="del" @click="delElement(i)" v-show="i.name !=='地址'&&i.name!=='电话'"></i>  -->
+                        <i class="del" @click="delElement(i)"></i> 
+                        </div>
+                        </draggable> 
+                    </div>                    
+                </vue-scroll>
+
             </div>
             <div class="clear">
                 <!-- 清空组件 -->
@@ -371,24 +374,38 @@ export default {
   },
   data() {
         return {
-        list1: [
-            { name: "优惠券", id: 1 },
-            { name: "地址", id: 2 },
-            { name: "电话", id: 3 },
-            { name: "新闻资讯", id: 4 },
-            { name: "图片", id: 5 },
-            { name: "富文本", id: 6 },
-            { name: "视频", id: 7 },
-            { name: "文本", id: 8 },
-            { name: "辅助线", id: 9 },
-            { name: "图文广告", id: 10 },
-            { name: "营销活动", id: 11 },
-            { name: "标签商品", id: 12 },
-            { name: "标题", id: 13 },
-            { name: "图文导航", id: 14 },
-            { name: "空白辅助", id: 15 },
-            { name: "商品", id: 16 },
-        ],
+            ops: {
+                vuescroll: {},
+                scrollPanel: {},
+                rail: {
+                keepShow: true
+                },
+                bar: {
+                hoverStyle: true,
+                onlyShowBarOnScroll: false, //是否只有滚动的时候才显示滚动条
+                background: "#000",//滚动条颜色
+                opacity: 0.5,//滚动条透明度
+                "overflow-x": "hidden"
+                }
+            },
+            list1: [
+                { name: "优惠券", id: 1 },
+                { name: "地址", id: 2 },
+                { name: "电话", id: 3 },
+                { name: "新闻资讯", id: 4 },
+                { name: "图片", id: 5 },
+                { name: "富文本", id: 6 },
+                { name: "视频", id: 7 },
+                { name: "文本", id: 8 },
+                { name: "辅助线", id: 9 },
+                { name: "图文广告", id: 10 },
+                { name: "营销活动", id: 11 },
+                { name: "标签商品", id: 12 },
+                { name: "标题", id: 13 },
+                { name: "图文导航", id: 14 },
+                { name: "空白辅助", id: 15 },
+                { name: "商品", id: 16 },
+            ],
         list2: [],
         titleName:'仙剑',
         defultStyle:true,//默认右边编辑显示
@@ -1406,7 +1423,7 @@ export default {
                 height: 70%;
                 margin: 0 auto;
                 border: 1px solid #fff;
-                overflow: auto;
+                // overflow: auto;
                 .showElementTop{
                     display: flex;
                     justify-content: flex-end;
@@ -1601,4 +1618,12 @@ export default {
     height: 178px;
     display: block;
   }
+  /* // 滚动条位置 */
+/* .__bar-is-vertical {
+  right: -10px !important;
+} */
+/* // 隐藏横向滚动条 */
+.__bar-is-horizontal {
+  display: none !important;
+}
 </style>

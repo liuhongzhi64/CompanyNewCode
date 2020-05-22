@@ -45,7 +45,7 @@ Page({
         myInfo: wxUserInfo,
         avatar: image(wxUserInfo.HeadPortraitUrl)
       })
-      console.log(app.globalData.unreadcount)
+      // console.log(app.globalData.unreadcount)
       let unreadcount = app.globalData.unreadcount;
       this.feedback(unreadcount);
     }
@@ -69,7 +69,7 @@ Page({
     })
   },
   feedback(value) {
-    console.log(value)
+    // console.log(value)
     let cuIconList = this.data.cuIconList;
     let item = cuIconList[3];
     item.badge = value;
@@ -85,6 +85,10 @@ Page({
   // 点击tap
   clicktap(event) {
     let index = event.currentTarget.dataset.index;
+
+    // 从本地取企业编号然后在接口里传值
+    let merchantSysNo = wx.getStorageSync(constants.MerchantSysNo)
+    console.log(merchantSysNo)
     switch(index) {
       case 0:
         wx.navigateTo({
@@ -117,8 +121,9 @@ Page({
         })
         break;
       case 6:
-        remote.getUserPackage(this.data.uniqueKey).then(res => {
+        remote.getUserPackage(this.data.uniqueKey, merchantSysNo).then(res => {
           let info = res.data;
+          // console.log(info)
           if (info && info.AIData > 0 && lessDate(today(), info.EditDate)) {
             wx.navigateTo({
               url: './radar/index',
@@ -127,7 +132,8 @@ Page({
               }
             })
           } else {
-            remote.isPass(this.data.uniqueKey).then(res => {
+            remote.isPass(this.data.uniqueKey, merchantSysNo).then(res => {
+              // console.log(this.data.uniqueKey)
               wx.navigateTo({
                 url: `./radar/check?hadSend=${res.success}&suggestPerson=${res.data}`,
                 success() {
@@ -161,7 +167,7 @@ Page({
         // }
         break;
       case 7:
-        remote.vipCheck(this.data.uniqueKey).then(res => {
+        remote.vipCheck(this.data.uniqueKey, merchantSysNo).then(res => {
           let manageVip = res.data;
           if (manageVip && manageVip['AINumber'] > 0) {
             wx.navigateTo({
@@ -179,7 +185,11 @@ Page({
   },
   initManagerVip() {
     let that = this;
-    remote.vipCheck(this.data.uniqueKey).then(res => {
+
+    // 从本地取企业编号然后在接口里传值
+    let merchantSysNo = wx.getStorageSync(constants.MerchantSysNo)
+
+    remote.vipCheck(this.data.uniqueKey, merchantSysNo).then(res => {
       that.setData({
         manageVip: res.data
       })
@@ -191,8 +201,13 @@ Page({
   },
   getCollectionList(id) {
     let that = this;
-    remote.getCollectionList(id, "").then(res => {
+
+    // 从本地取企业编号然后在接口里传值
+    let merchantSysNo = wx.getStorageSync(constants.MerchantSysNo)//在200引用
+
+    remote.getCollectionList(id, "", merchantSysNo).then(res => {
       let list = res.data;
+      // console.log(list)==null 所以有报错
       for (let i = 0; i < list.length; i++) {
         list[i].HeadPortraitUrl = image(list[i].HeadPortraitUrl);
       }
@@ -203,7 +218,11 @@ Page({
   },
   initVip() {
     let that = this;
-    remote.getUserPackage(this.data.uniqueKey).then(res => {
+
+    // 从本地取企业编号然后在接口里传值
+    let merchantSysNo = wx.getStorageSync(constants.MerchantSysNo)
+
+    remote.getUserPackage(this.data.uniqueKey, merchantSysNo).then(res => {
       that.setData({
         vip: res.data
       })
@@ -235,7 +254,11 @@ Page({
     let index = event.currentTarget.dataset.index;
     let historyItems = this.data.historyItems;
     let item = historyItems[index];
-    remote.getUserPackage(this.data.uniqueKey).then(res => {
+
+    // 从本地取企业编号然后在接口里传值
+    let merchantSysNo = wx.getStorageSync(constants.MerchantSysNo)
+
+    remote.getUserPackage(this.data.uniqueKey, merchantSysNo).then(res => {
       let info = res.data;
       if (info && info.AIData > 0 && lessDate(today(), info.EditDate)) {
         wx.navigateTo({
@@ -245,7 +268,7 @@ Page({
           }
         })
       } else {
-        remote.isPass(this.data.uniqueKey).then(res => {
+        remote.isPass(this.data.uniqueKey, merchantSysNo).then(res => {
           wx.navigateTo({
             url: `./radar/check?hadSend=${res.success}&suggestPerson=${res.data}`,
             success() {
@@ -283,7 +306,11 @@ Page({
     let cuIconList = this.data.cuIconList;
     let item = cuIconList[7];
     let that = this;
-    remote.getRelationShip(this.data.uniqueKey, 0, {
+
+    // 从本地取企业编号然后在接口里传值
+    let merchantSysNo = wx.getStorageSync(constants.MerchantSysNo)
+
+    remote.getRelationShip(this.data.uniqueKey, 0, merchantSysNo, {
       pageSize: 12,
       sort: 'desc',
       currentPage: 1
@@ -299,11 +326,15 @@ Page({
     let cuIconList = this.data.cuIconList;
     let item = cuIconList[1];
     let that = this;
+
+    // 从本地取企业编号然后在接口里传值
+    let merchantSysNo = wx.getStorageSync(constants.MerchantSysNo)//在313引用
+
     remote.getComments(this.data.uniqueKey, 0, {
       pageSize: 12,
       currentPage: 1,
       sort: "desc"
-    }).then(res => {
+    }, merchantSysNo).then(res => {
       item.badge = res.totalCount;
       cuIconList[1] = item;
       that.setData({

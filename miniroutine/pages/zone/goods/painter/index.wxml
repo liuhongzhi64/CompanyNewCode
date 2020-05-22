@@ -1,7 +1,7 @@
 <navigation title="海报分享" back bindback="back"/>
 <!-- <bg-loading showLoading="{{ loading }}"/> -->
 <painter customStyle='position: fixed; left: -9999rpx;' palette="{{template}}" bind:imgOK="onImgOK" widthPixels="1000"/>
-<view class="padding-xl" wx:if="{{ !loading }}">
+<view class="padding-xl " style="padding: 20rpx 50rpx;" wx:if="{{ !loading }}">
   <view class="text-gray text-lg">选择海报</view>
   <view class="flex flex-row justify-around align-center margin-top">
     <view class="padding-sm {{ curIndex == 0 && 'erys-painter__border' }}" data-index="0" bindtap="switchtap">
@@ -15,7 +15,7 @@
     </view>
   </view>
 </view>
-<swiper class="margin-bottom" style="height: {{ swiperHeight }}px;" bindchange="switchTabSwiper" current="{{ curIndex }}">
+<swiper class="margin-bottom" style="height: {{ swiperHeight }}px; margin-bottom:60rpx" bindchange="switchTabSwiper" current="{{ curIndex }}">
   <swiper-item>
     <view class="__items common-padding-left-right margin-bottom">
       <view class="erys-painter__inner-box erys-painter__border padding-xl">
@@ -93,6 +93,6 @@
     </view>
   </swiper-item>
 </swiper>
-<view class="padding-xl margin-top" wx:if="{{ !loading }}">
-  <button class="bg-blue" bindtap="saveImage">生成图片</button>
+<view class="padding-xl bg-white margin-top keep" wx:if="{{ !loading }}">
+  <button class="bg-blue" bindtap="saveImage">生成海报</button>
 </view>

@@ -99,6 +99,11 @@ Page({
     let newLabels = this.data.newLabels;
     let selected = this.data.selected;
     let level = this.data.level;
+
+    // 从本地取企业编号然后在接口里传值
+    let merchantSysNo = wx.getStorageSync(constants.MerchantSysNo)
+    newLabels.MerchantSysNo = merchantSysNo
+
     if (deleted.length > 0) {
       deleted.map(item => {
         remote.deleteCurrentUserLabel(item);
@@ -117,11 +122,16 @@ Page({
       })
     } else {
       if (level) {
+
+        // 从本地取企业编号然后在接口里传值
+        let merchantSysNo = wx.getStorageSync(constants.MerchantSysNo)
+
         remote.insertIntentionLevel({
           InUserSysNo: this.data.uniqueKey,
           LevelName: level,
           Priority: 10 - selected,
-          UsersysNo: this.data.userInfo.CustomerSysNo
+          UsersysNo: this.data.userInfo.CustomerSysNo,
+          MerchantSysNo: merchantSysNo
         })
       }
     }

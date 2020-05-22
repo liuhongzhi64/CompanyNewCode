@@ -98,7 +98,11 @@ Page({
     let listData = this.data.listData;
     let page = this.data.page;
     let that = this;
-    remote.getRelationShip(uniqueKey, status, page).then(res => {
+
+    // 从本地取企业编号然后在接口里传值
+    let merchantSysNo = wx.getStorageSync(constants.MerchantSysNo)
+
+    remote.getRelationShip(uniqueKey, status, merchantSysNo, page).then(res => {
       let temp = res.data;
       for (let i = 0; i < temp.length; i++) {
         temp[i].HeadPortraitUrl = image(temp[i].HeadPortraitUrl);
@@ -180,7 +184,11 @@ Page({
         if (res.confirm) {
           let promise = Promise.all(doPass.map(item => {
             return new Promise((resolve, reject) => {
-              remote.updateAudit(item, Number(status) + 1).then(res => {
+
+              // 从本地取企业编号然后在接口里传值
+              let merchantSysNo = wx.getStorageSync(constants.MerchantSysNo)
+
+              remote.updateAudit(item, Number(status) + 1, merchantSysNo).then(res => {
                 if (res.success) {
                   resolve(res.data);
                 }
@@ -214,7 +222,11 @@ Page({
   },
   initPackage() {
     let that = this;
-    remote.vipCheck(this.data.uniqueKey).then(res => {
+
+    // 从本地取企业编号然后在接口里传值
+    let merchantSysNo = wx.getStorageSync(constants.MerchantSysNo)
+
+    remote.vipCheck(this.data.uniqueKey, merchantSysNo).then(res => {
       that.setData({
         count: res.data.AINumber
       })

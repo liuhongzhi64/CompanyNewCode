@@ -137,12 +137,20 @@ Page({
     let that = this;
     // 第一个魔法值是source 具体的指向我也忘记了
     // 第二个魔法值是type 0是全部，1最后访问时间 2最后跟时间 3自定义时间
-    remote.getCustomerList(uniqueKey, 0, startTime, endTime, this.data.type, level, page).then(res => {
+
+    // 从本地取企业编号然后在接口里传值
+    let merchantSysNo = wx.getStorageSync(constants.MerchantSysNo)//在144引用
+
+    remote.getCustomerList(uniqueKey, 0, startTime, endTime, this.data.type, level, merchantSysNo, page).then(res => {
       let list = res.data;
       let promise = Promise.all(list.map((item, index) => {
         return new Promise((resolve, reject) => {
           item.HeadPortraitUrl = image(item.HeadPortraitUrl);
-          remote.getIntentionLevel(item.CustomerSysNo, uniqueKey).then(res => {
+
+          // 从本地取企业编号然后在接口里传值
+          let merchantSysNo = wx.getStorageSync(constants.MerchantSysNo)
+
+          remote.getIntentionLevel(item.CustomerSysNo, uniqueKey, merchantSysNo).then(res => {
             if (res.success) {
               item['levelLabel'] = res.data[0];
             }

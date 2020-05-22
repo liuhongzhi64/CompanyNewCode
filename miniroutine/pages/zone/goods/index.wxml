@@ -80,7 +80,7 @@
     </view>
   </view>
 </scroll-view>
-<view class="erys-tab__footer-fixed">
+<view class="erys-tab__footer-fixed keep">
   <view class="common-padding erys-footer__items" wx:if="{{ !setting }}">
     <button class="common-button erys-button__footer" bindtap="edit">新增商品</button>
   </view>
@@ -93,10 +93,23 @@
     </view>
     <view class="flex flex-row justify-center align-center">
       <view class="text-black text-shadow margin-right text-sm">已选：{{ hadChecked }}个</view>
-      <button wx:if="{{ saling == 10 }}" data-target="sale" class="cu-btn bg-blue round" bindtap="offsale">下架</button>
+      <button wx:if="{{ saling == 10 }}" data-target="sale" class="cu-btn bg-blue round" bindtap="offsale" >下架</button>
       <button wx:if="{{ saling == 20 }}" data-target="delete" class="cu-btn bg-blue round" bindtap="offsale">删除</button>
       <button wx:if="{{ saling == 20 }}" data-target="sale" class="cu-btn bg-blue round margin-left" bindtap="offsale">上架</button>
     </view>
   </view>
 </view>
+<!-- 这是上下架的提醒 -->
+<!-- <view class="authorization modal-mask" wx:if="{{authorizationShow}}">
+  <view class='modal-content'>
+    <scroll-view scroll-y class='main-content'>
+      是否确定
+      <slot></slot>
+    </scroll-view>
+    <view class='modal-footer'>
+      <button wx:if='{{!single}}' bindtap='isAuthorizationShow' class='cancel-btn'  > 取消 </button>
+      <button class='confirm-btn' bindtap='isAuthorizationShow'  bindtap="submit"> 确定 </button>
+    </view>
+  </view>
+</view> -->
 

@@ -83,31 +83,51 @@ Page({
     let promise = Promise.all(dataItems.map((item, index) => {
       let promise = new Promise((resolve, reject) => {
         if (index == 0) {
+
+          // 从本地取企业编号然后在接口里传值
+          let merchantSysNo = wx.getStorageSync(constants.MerchantSysNo)//在91引用
+
           // 累计客户
-          remote.getCustomerCount(uniqueKey, type).then(res => {
+          remote.getCustomerCount(uniqueKey, type, merchantSysNo).then(res => {
             resolve(res.data);
           })
         } else if (index == 1) {
           // 累计访问量
-          remote.getCustomerRecords(uniqueKey, type).then(res => {
+
+          // 从本地取企业编号然后在接口里传值
+          let merchantSysNo = wx.getStorageSync(constants.MerchantSysNo)//在100引用
+
+          remote.getCustomerRecords(uniqueKey, type, merchantSysNo).then(res => {
             resolve(res.data);
           })
         } else if (index == 2) {
+
+          // 从本地取企业编号然后在接口里传值
+          let merchantSysNo = wx.getStorageSync(constants.MerchantSysNo)//在100引用
+
           // 累计跟进客户
-          remote.getFollowupCustomerCount(uniqueKey, type).then(res => {
+          remote.getFollowupCustomerCount(uniqueKey, type, merchantSysNo).then(res => {
             resolve(res.data);
           })
         }
         else if (index == 11) {
           //获取电话号码
-          remote.getPhones(uniqueKey, type).then(res => {
+
+          // 从本地取企业编号然后在接口里传值
+          let merchantSysNo = wx.getStorageSync(constants.MerchantSysNo)
+
+          remote.getPhones(uniqueKey, type, merchantSysNo).then(res => {
             resolve(res.data);
           })
         }
          else {
           // 剩下的数据
           // 我tm也不知道为什么要这样写接口，真的，你看到别气
-          remote.getRadarRecordCount(uniqueKey, item, type).then(res => {
+
+          // 从本地取企业编号然后在接口里传值
+          let merchantSysNo = wx.getStorageSync(constants.MerchantSysNo)//在100引用
+
+          remote.getRadarRecordCount(uniqueKey, item, type, merchantSysNo).then(res => {
             resolve(res.data);
           })
         }
@@ -126,7 +146,11 @@ Page({
   },
   initPieData() {
     let that = this;
-    remote.getRadarRecordInterested(this.data.uniqueKey).then(res => {
+
+    // // 从本地取企业编号然后在接口里传值
+    let merchantSysNo = wx.getStorageSync(constants.MerchantSysNo)
+
+    remote.getRadarRecordInterested(this.data.uniqueKey, merchantSysNo).then(res => {
       let item = res.data;
       let temp = [];
       temp.push(item.InterestedMePercentage);
@@ -146,7 +170,11 @@ Page({
     let lineStatus = this.data.lineStatus;
     let xaxis = [], data = [];
     let _this = this;
-    remote.getAIActive(this.data.uniqueKey, customersType, timesType).then(res => {
+
+    // 从本地取企业编号然后在接口里传值
+    let merchantSysNo = wx.getStorageSync(constants.MerchantSysNo)
+
+    remote.getAIActive(this.data.uniqueKey, customersType, timesType, merchantSysNo).then(res => {
       let temp = res.data
       let cur = []
       switch (timesType) {
@@ -237,9 +265,9 @@ Page({
     })
   },
   chooseTime() {
-    wx.showLoading({
-      title: '加载中',
-    })
+    // wx.showLoading({
+    //   title: '加载中',
+    // })
     let dataTimes = this.data.dataTimes;
     let dataIndexGroup = this.data.dataIndexGroup;
     let that = this;

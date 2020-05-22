@@ -9,12 +9,18 @@ const product = {
  * @productName 模糊商品名字（是不是贼low）
  * @param page： 分页对象
  */
-  getProductList(targetUserId, productStatus, isDisplayWebsite, productName, page) {
-    return post(`/WX_SmallProcedures/GetSmallProductInfoList?merchantSysNo=${targetUserId}&productStatus=${productStatus}&isDisplayWebsite=${isDisplayWebsite}&ProductName=${productName}`, page);
+  // getProductList(targetUserId, productStatus, isDisplayWebsite, productName, page) {
+  //   return post(`/WX_SmallProcedures/GetSmallProductInfoList?merchantSysNo=${targetUserId}&productStatus=${productStatus}&isDisplayWebsite=${isDisplayWebsite}&ProductName=${productName}`, page);
+  // },
+  getProductList(targetUserId, productStatus, isDisplayWebsite, productName, configurationSysNo, page) {
+    return post(`/WX_SmallProcedures/GetSmallProductInfoList?merchantSysNo=${targetUserId}&productStatus=${productStatus}&isDisplayWebsite=${isDisplayWebsite}&ProductName=${productName}&configurationSysNo=${configurationSysNo}`, page);
   },
   // 获取商品详情
-  getDetail(key) {
-    return get(`/WX_SmallProcedures/GetSmallProductInfo?sysNo=${key}`);
+  // getDetail(key) {
+  //   return get(`/WX_SmallProcedures/GetSmallProductInfo?sysNo=${key}`);
+  // },
+  getDetail(key, configurationSysNo) {
+    return get(`/WX_SmallProcedures/GetSmallProductInfo?sysNo=${key}&configurationSysNo=${configurationSysNo}`);
   },
   /**
    * 删除商品
@@ -73,8 +79,11 @@ const product = {
     return post('/WX_SmallProcedures/UpperShelfSmallProduct', data);
   },
   // 获取商品详情
-  getDetail(key) {
-    return get(`/WX_SmallProcedures/GetSmallProductInfo?sysNo=${key}`);
+  // getDetail(key) {
+  //   return get(`/WX_SmallProcedures/GetSmallProductInfo?sysNo=${key}`);
+  // },
+  getDetail(key, configurationSysNo) {
+    return get(`/WX_SmallProcedures/GetSmallProductInfo?sysNo=${key}&configurationSysNo=${configurationSysNo}`);
   },
   /**
    * 首页展示商品

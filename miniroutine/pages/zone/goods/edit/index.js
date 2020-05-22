@@ -156,7 +156,7 @@ Page({
         minlength: 2
       },
       productDescription: {
-        required: true,
+        // required: true,
         minlength: 10
       }
     };
@@ -177,10 +177,10 @@ Page({
         required: '请填写材质',
         minlength: '材质最短两个字'
       },
-      productDescription: {
-        required: '请填写卖点',
-        minlength: '卖点最短10个字'
-      }
+      // productDescription: {
+      //   required: '请填写卖点',
+      //   minlength: '卖点最短10个字'
+      // }
     };
     this.WxValidate = new WxValidate(rules, messages);
   },
@@ -188,7 +188,8 @@ Page({
     let maxSize = this.data.maxSize;
     let that = this;
     wx.chooseVideo({
-      maxDuration: "120",
+      // maxDuration: "120",//以前的代码
+      maxDuration: 60,
       success(res) {
         if (res.size > maxSize) {
           wx.showToast({
@@ -243,6 +244,7 @@ Page({
       title: '正在上传',
     })
     const params = e.detail.value
+    console.log(e)
     //校验表单
     if (!this.WxValidate.checkForm(params)) {
       const error = this.WxValidate.errorList[0]
@@ -292,6 +294,7 @@ Page({
            })
          })
        } else {
+          console.log(data)
          product.insertProduct(data).then(res => {
            wx.showToast({
              title: '上传完成',
@@ -355,7 +358,8 @@ Page({
         })
       }
     }
-    
+    // 从本地取企业编号然后在接口里传值
+    let configurationSysNo = wx.getStorageSync(constants.MerchantSysNo)
     let data =  [{
       DefaultImage: temp[0]['ImagePath'] || temp[0]['path'],
       DefaultImageList: temp,
@@ -371,7 +375,8 @@ Page({
       RetailPrice: form.productPrice,
       SKUModel: form.productModel,
       ShowPrice: 1,
-      VideoImage: videoSrc
+      VideoImage: videoSrc,
+      ConfigurationSysNo: configurationSysNo
     }];
     if (item) {
       data[0]['SysNo'] = item.SysNo

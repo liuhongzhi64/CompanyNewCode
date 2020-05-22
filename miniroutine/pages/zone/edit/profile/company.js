@@ -94,7 +94,11 @@ Page({
     let that =this;
     let uniqueKey = wx.getStorageSync(constants.UNIQUE_KEY);
     // 获取公司信息
-    remote.getCompanyInfo(uniqueKey).then(res => {
+
+    // 从本地取企业编号然后在接口里传值
+    let merchantSysNo = wx.getStorageSync(constants.MerchantSysNo)
+
+    remote.getCompanyInfo(uniqueKey, merchantSysNo).then(res => {
       let region = that.data.region;
       let info = res.data;
       let form = that.data.form;
@@ -245,10 +249,10 @@ Page({
   // 初始化验证规则
   initValidate: function () {
     const rules = {
-      company: {
-        required: true,
-        minlength: 2
-      },
+      // company: {
+      //   required: true,
+      //   minlength: 2
+      // },
       address: {
         required: true,
         minlength: 1,
@@ -320,6 +324,9 @@ Page({
         wx.navigateBack()
       })
     } else {
+      // 从本地取企业编号然后在接口里传值
+      let merchantSysNo = wx.getStorageSync(constants.MerchantSysNo)
+      temp['MerchantSysNo'] = merchantSysNo
       remote.insertCompany(temp).then(res => {
         wx.showToast({
           title: '新增成功',

@@ -2,7 +2,7 @@
 <view wx:if="{{ messageList.length == 0 }}" class="text-center text-gray margin-top">未找到数据</view>
 <view class="cu-list menu-avatar">
 	<view class="cu-item {{ modalName == index ? 'move-cur' : '' }}" wx:for="{{ messageList }}" wx:key="index" bindtouchstart="ListTouchStart" bindtouchmove="ListTouchMove" bindtouchend="ListTouchEnd" data-target="{{ index }}" bindtap="navigateToBoard">
-		<view class="cu-avatar round lg" style="background-image: url('{{ item.userProfile.avatar }}')"></view>
+		<view class="cu-avatar round lg" style="background-image: url( '{{ item.userProfile.avatar }}')"></view>
 		<view class="content">
 			<view class="text-grey">{{ item.userProfile.nick }}</view>
 			<view class="text-gray text-sm">

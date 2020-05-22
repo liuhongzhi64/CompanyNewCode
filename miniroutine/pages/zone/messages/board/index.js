@@ -28,7 +28,7 @@ Page({
     longPress: false,
     msgType: false,
     normals: [
-      '您好', '我们公司诚信为本，请您绝对放心！', '我们的产品质量绝对不错！', '您的建议很中肯。', '谢谢您！', '您能选择我们的产品，您的眼光真好！', '货到付款', '诚信为本', '您可以定个时间我们见面聊', '价格实惠，质量过硬。','请问您的地址是？', '很高心能认识您。'
+      '您好', '我们公司诚信为本，请您绝对放心！', '我们的产品质量绝对不错！', '您的建议很中肯。', '谢谢您！', '您能选择我们的产品，您的眼光真好！', '货到付款', '诚信为本', '您可以定个时间我们见面聊', '价格实惠，质量过硬。','请问您的地址是？', '很高兴能认识您。'
     ],
     currentIndex: 0
   },
@@ -272,12 +272,17 @@ Page({
               })
             })
           } else {
+
+            // 从本地取企业编号然后在接口里传值
+            let merchantSysNo = wx.getStorageSync(constants.MerchantSysNo)//在285引用
+
             remote.addCusteomer({
               CustomerSysNo: parseInt(that.data.conversation.userProfile.userID),
               InUserSysNo: that.data.uniqueKey,
               IntentionLevel: 22,
               Remarks: "",
-              Source: 1
+              Source: 1,
+              MerchantSysNo: merchantSysNo
             }).then(res => {
               wx.showToast({
                 title: '添加成功',
@@ -311,7 +316,11 @@ Page({
   },
   _getRelationship() {
     let that = this;
-    remote.getUserExsitCustomer(parseInt(this.data.conversation.userProfile.userID), this.data.uniqueKey).then(res => {
+
+    // 从本地取企业编号然后在接口里传值
+    let merchantSysNo = wx.getStorageSync(constants.MerchantSysNo)//在318引用
+
+    remote.getUserExsitCustomer(parseInt(this.data.conversation.userProfile.userID), this.data.uniqueKey, merchantSysNo).then(res => {
       that.setData({
         alreadyBeCustomer: res.data
       })
@@ -416,57 +425,116 @@ Page({
   },
   getCardInfo() {
     let that = this;
-    remote.getCardInfo(this.data.conversation.userProfile.userID).then(res => {
+
+    // 从本地取企业编号然后再登录接口里传值
+    let merchantSysNo = wx.getStorageSync(constants.MerchantSysNo)
+
+    // remote.getCardInfo(this.data.conversation.userProfile.userID).then(res => {
+    remote.getCardInfo(this.data.conversation.userProfile.userID, merchantSysNo).then(res => {
       that.setData({
         targetUserInfo: res.data
       })
     })
   },
   redirectToIndex() {
-    wx.reLaunch({
-      url: `../../../index?targetKey=${this.data.conversation.userProfile.userID}`,
+    // 从本地取企业编号然后再登录接口里传值
+    let merchantSysNo = wx.getStorageSync(constants.MerchantSysNo)
+    remote.getUserInformation(this.data.conversation.userProfile.userID, merchantSysNo).then(res => {
+      console.log(res.data.TelePhone)
+      if (res.data.TelePhone){
+        wx.reLaunch({
+          url: `../../../index?targetKey=${this.data.conversation.userProfile.userID}`,
+        })
+      }else{
+        wx.showLoading({
+          title: '该用户没有创建名片',
+        })
+        setTimeout(function () {
+          wx.hideLoading()
+        }, 1000)
+      }
     })
+    // wx.reLaunch({
+    //   url: `../../../index?targetKey=${this.data.conversation.userProfile.userID}`,
+    // })
   },
   call() {
-    let targetUserInfo = this.data.targetUserInfo;
-    let myInfo = this.data.userInfo;
-    let that = this;
-    if (targetUserInfo.Telephone) {
-      wx.makePhoneCall({
-        phoneNumber: targetUserInfo.Telephone,
-        success: function() {
-          let desc = "";
-          if (myInfo.Telephone) {
-            desc = `${myInfo.Name || myInfo.WX}拨打了你的电话，他的电话是--->${ myInfo.Telephone }<,快回拨过去，促成交易!`;
-          } else {
-            desc = `${myInfo.Name || myInfo.WX}拨打了你的电话,注意接听。`;
-          }
-          that.addRecord(today(), 8, desc, myInfo.Telephone ? 1 : 0);
+    let merchantSysNo = wx.getStorageSync(constants.MerchantSysNo)
+    remote.getUserInformation(this.data.conversation.userProfile.userID, merchantSysNo).then(res => {
+      console.log(res.data.TelePhone)
+      if (res.data.TelePhone) {
+        let targetUserInfo = this.data.targetUserInfo;
+        let myInfo = this.data.userInfo;
+        let that = this;
+
+        // 从本地取企业编号然后再登录接口里传值
+        let merchantSysNo = wx.getStorageSync(constants.MerchantSysNo)//在454引用
+
+        if (targetUserInfo.Telephone) {
+          wx.makePhoneCall({
+            phoneNumber: targetUserInfo.Telephone,
+            success: function () {
+              let desc = "";
+              if (myInfo.Telephone) {
+                desc = `${myInfo.Name || myInfo.WX}拨打了你的电话，他的电话是--->${myInfo.Telephone}<,快回拨过去，促成交易!`;
+              } else {
+                desc = `${myInfo.Name || myInfo.WX}拨打了你的电话,注意接听。`;
+              }
+              // that.addRecord(today(), 8, desc, myInfo.Telephone ? 1 : 0);
+              that.addRecord(today(), 8, desc, myInfo.Telephone ? 1 : 0, merchantSysNo);
+            }
+          })
+        } else {
+          wx.showToast({
+            title: '对方电话保密了',
+            icon: 'none'
+          })
         }
-      })
-    } else {
-      wx.showToast({
-        title: '对方电话保密了',
-        icon: 'none'
-      })
-    }
+      } else {
+        wx.showLoading({
+          title: '该用户没有创建名片',
+        })
+        setTimeout(function () {
+          wx.hideLoading()
+        }, 1000)
+      }
+    })
+
   },
   copyWechat() {
-    let targetUserInfo = this.data.targetUserInfo;
-    let myInfo = this.data.userInfo;
-    let that = this;
-    wx.setClipboardData({
-      data: targetUserInfo.WX,
-      success: function() {
-        wx.showToast({
-          title: '微信已复制'
+    let merchantSysNo = wx.getStorageSync(constants.MerchantSysNo)
+    remote.getUserInformation(this.data.conversation.userProfile.userID, merchantSysNo).then(res => {
+      if (res.data.TelePhone) {
+        let targetUserInfo = this.data.targetUserInfo;
+        let myInfo = this.data.userInfo;
+        let that = this;
+
+        // 从本地取企业编号然后在登录接口里传值
+        let merchantSysNo = wx.getStorageSync(constants.MerchantSysNo)//在480引用
+
+        wx.setClipboardData({
+          data: targetUserInfo.WX,
+          success: function () {
+            wx.showToast({
+              title: '微信已复制'
+            })
+            let desc = `${myInfo.Name || myInfo.WX}复制了您的微信号码。`
+            // that.addRecord(today(), 11, desc, 0);
+            that.addRecord(today(), 11, desc, 0, merchantSysNo);
+          }
         })
-        let desc = `${myInfo.Name || myInfo.WX}复制了您的微信号码。`
-        that.addRecord(today(), 11, desc, 0);
+      } else {
+        wx.showLoading({
+          title: '该用户没有创建名片',
+        })
+        setTimeout(function () {
+          wx.hideLoading()
+        }, 1000)
       }
     })
   },
-  addRecord(time, type, desc, phone) {
+  // addRecord(time, type, desc, phone) {
+  addRecord(time, type, desc, phone, merchantSysNo) {
     let targetUserInfo = this.data.targetUserInfo;
     remote.insertRecords({
       CustomerSubject: parseInt(this.data.conversation.userProfile.userID),
@@ -477,7 +545,8 @@ Page({
       InUserSysNo: this.data.uniqueKey,
       Description: desc,
       TimeSysNo: 0,
-      Phone: phone
+      Phone: phone,
+      MerchantSysNo: merchantSysNo
     });
   },
   saveToConcact(res) {
@@ -485,15 +554,20 @@ Page({
     let that = this
     let userInfo = that.data.userInfo;
     let targetUserInfo = that.data.targetUserInfo;
+
+    // 从本地取企业编号然后再登录接口里传值
+    let merchantSysNo = wx.getStorageSync(constants.MerchantSysNo)//在511,518引用
+
     if (res.detail.errMsg.split(':')[1] == 'ok') {
       that.checkSession(sessionData).then(res => {
-        remote.getPhone(res.encryptedData, res.iV, that.data.uniqueKey).then(res => {
+        remote.getPhone(res.encryptedData, res.iV, that.data.uniqueKey, merchantSysNo).then(res => {
           wx.addPhoneContact({
             firstName: targetUserInfo.Name,
             mobilePhoneNumber: targetUserInfo.Telephone
           })
           let desc = desc = `${userInfo.Name || userInfo.WX}保存了您的号码，他的电话是--->${JSON.parse(res.data).purePhoneNumber}<,快回拨过去，促成交易!`;
-          that.addRecord(today(), 9, desc, 1);
+          // that.addRecord(today(), 9, desc, 1);
+          that.addRecord(today(), 9, desc, 1, merchantSysNo);
         })
       })
     }
@@ -510,7 +584,16 @@ Page({
           })
         },
         fail: function () {
+          // let userInfo = that.data.myInfo
+          // login(userInfo).then(res => {
+          //   remote.login(res).then(res => {
+          //     resolve(res.data)
+          //   })
+          // })
           let userInfo = that.data.myInfo
+          // 从本地取企业编号然后再登录接口里传值
+          let merchantSysNo = wx.getStorageSync(constants.MerchantSysNo)
+          userInfo.MerchantSysNo = merchantSysNo
           login(userInfo).then(res => {
             remote.login(res).then(res => {
               resolve(res.data)

@@ -16,7 +16,7 @@
         <view class="cu-avatar shadow lg round" style="background-image: url({{ item.HeadPortraitUrl }})"></view>
         <view class="common-padding-left-right __text-title">
           <view class="text-bold text-black text-lg">{{ item.Name }}</view>
-          <view class="text-gray text-df">{{ item.CompanyName }}</view>
+          <view class="text-gray text-df">{{ item.CompanyName || '' }}</view>
         </view>
       </view>
       <view class="text-df text-back margin-top">
@@ -25,8 +25,8 @@
       <view class="flex flex-row justify-end align-end margin-top">
         <!-- <view class="text-df text-gray">编号：{{ item.SysNo }}</view> -->
         <view class="flex flex-row">
-          <view data-index="{{ index }}" class="text-blue text-lg" style="text-decoration: underline;" bindtap="setStatus">{{ item.Status == 0 ? '未审核' : '' }}</view>
-          <view data-index="{{ index }}" class="text-blue text-lg margin-left" style="text-decoration: underline;" bindtap="deleteData">删除</view>
+          <view data-index="{{ index }}" class="text-blue text-lg" style="color:var(--white);background-color: var(--blue);text-align:center;width:90rpx;line-height:44rpx;border-radius:8rpx;" bindtap="setStatus" wx:if="{{ item.Status == 0 }}">{{ item.Status == 0 ? '审核' : '' }}</view>
+          <view data-index="{{ index }}" class="text-blue text-lg margin-left" style="text-decoration: underline; color:red;" bindtap="deleteData">删除</view>
         </view>
       </view>
     </view>

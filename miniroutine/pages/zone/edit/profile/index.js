@@ -122,8 +122,13 @@ Page({
     let uniqueKey = wx.getStorageSync(constants.UNIQUE_KEY);
     let form = this.data.form;
     let avatar = "";
-    remote.getOriginWxInfo(uniqueKey).then(res => {
+
+    // 从本地取企业编号然后在接口里传值
+    let merchantSysNo = wx.getStorageSync(constants.MerchantSysNo)//在129引用
+
+    remote.getOriginWxInfo(uniqueKey, merchantSysNo).then(res => {
       let wxUserInfo = res.data;
+      console.log(wxUserInfo , uniqueKey)
       if (noCard) {
         avatar = this.data.avatar;
         form = {
@@ -216,8 +221,17 @@ Page({
       let noCard = this.data.noCard;
       if (noCard) {
         let uniqueKey = this.data.uniqueKey;
-        this.createCard(uniqueKey, this.data.avatar, params.name, params.phone).then(res => {
-          remote.getCardInfo(uniqueKey).then(res => {
+
+        // 从本地取企业编号然后在登录接口里传值
+        let merchantSysNo = wx.getStorageSync(constants.MerchantSysNo)//在224引用
+
+        this.createCard(uniqueKey, this.data.avatar, params.name, params.phone,merchantSysNo).then(res => {
+
+          // 从本地取企业编号然后再登录接口里传值
+          let merchantSysNo = wx.getStorageSync(constants.MerchantSysNo)
+
+          // remote.getCardInfo(uniqueKey).then(res => {
+          remote.getCardInfo(uniqueKey, merchantSysNo).then(res => {
             wx.setStorageSync(constants.USERINFO, res.data);
             wx.showToast({
               title: '名片已创建',
@@ -237,13 +251,14 @@ Page({
       }
     })
   },
-  createCard(uniqueKey, avatar, name, phone) {
+  createCard(uniqueKey, avatar, name, phone, merchantSysNo) {
     return remote.createBusinessCard({
       HeadPortrait: avatar,
       BusinessCardName: name,
       Telephone: phone,
       SysNo: uniqueKey,
-      CompanyName: ''
+      CompanyName: '',
+      MerchantSysNo: merchantSysNo//新加的
     });
   },
   updateInfo: function(form) {
@@ -258,12 +273,18 @@ Page({
     wxUserInfo.Email = form.email;
     let noCard = this.data.noCard;
     let uniqueKey = wx.getStorageSync(constants.UNIQUE_KEY);
+
+    // 从本地取企业编号然后再登录接口里传值
+    let merchantSysNo = wx.getStorageSync(constants.MerchantSysNo)//在278引用
+
     if (this.data.actionImage) {
       uploadFiles(uniqueKey, 1, [{ path: this.data.avatar }]).then(res => {
         wxUserInfo.HeadPortraitUrl = res[0].path;
         remote.updateWxUser(wxUserInfo).then(res => {
           wx.setStorageSync(constants.WX_USER_INFO, wxUserInfo);
-          remote.getCardInfo(uniqueKey).then(res => {
+
+          // remote.getCardInfo(uniqueKey).then(res => {
+          remote.getCardInfo(uniqueKey, merchantSysNo).then(res => {
             wx.setStorageSync(constants.USERINFO, res.data);
             wx.showToast({
               title: '保存成功',
@@ -287,7 +308,11 @@ Page({
       })
     } else {
       remote.updateWxUser(wxUserInfo).then(res => {
-        remote.getCardInfo(this.data.uniqueKey).then(res => {
+        // 从本地取企业编号然后再登录接口里传值
+        let merchantSysNo = wx.getStorageSync(constants.MerchantSysNo)
+
+        // remote.getCardInfo(this.data.uniqueKey).then(res => {
+        remote.getCardInfo(this.data.uniqueKey, merchantSysNo).then(res => {
           wx.setStorageSync(constants.USERINFO, res.data);
           wx.showToast({
             title: '保存成功',
@@ -323,7 +348,11 @@ Page({
     if (res.detail.errMsg.split(':')[1] == 'ok') {
       that.checkSession(sessionData).then(res => {
         let uniqueKey = wx.getStorageSync(constants.UNIQUE_KEY);
-        remote.getPhone(res.encryptedData, res.iV, uniqueKey).then(res => {
+
+        // 从本地取企业编号然后在接口里传值
+        let merchantSysNo = wx.getStorageSync(constants.MerchantSysNo)//在144引用
+
+        remote.getPhone(res.encryptedData, res.iV, uniqueKey, merchantSysNo).then(res => {
           let phone = JSON.parse(res.data).purePhoneNumber;
           let form = that.data.form;
           form.phone = phone;
@@ -351,7 +380,17 @@ Page({
           })
         },
         fail: function () {
+          // 这是以前的代码
+          // let userInfo = that.data.wxUserInfo
+          // login(userInfo).then(res => {
+          //   remote.login(res).then(res => {
+          //     resolve(res.data)
+          //   })
+          // })
           let userInfo = that.data.wxUserInfo
+          // 从本地取企业编号然后再登录接口里传值
+          let merchantSysNo = wx.getStorageSync(constants.MerchantSysNo)
+          userInfo.MerchantSysNo = merchantSysNo
           login(userInfo).then(res => {
             remote.login(res).then(res => {
               resolve(res.data)

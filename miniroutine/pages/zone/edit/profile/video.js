@@ -84,7 +84,11 @@ Url: "https://www.xintui.xin:8058/xintui/156/myimage/2536227d-0.jpg"
     })
     let uniqueKey = wx.getStorageSync(constants.UNIQUE_KEY);
     if (uniqueKey) {
-      remote.getMedia(uniqueKey, 4).then(res => {
+
+      // 从本地取企业编号然后在接口里传值
+      let merchantSysNo = wx.getStorageSync(constants.MerchantSysNo)//在144引用
+
+      remote.getMedia(uniqueKey, 4, merchantSysNo).then(res => {
         let cur = res.data;
         that.sort(cur);
         let temp = [];
@@ -123,7 +127,11 @@ Url: "https://www.xintui.xin:8058/xintui/156/myimage/2536227d-0.jpg"
   },
   checkPicCountAvalibale(id) {
     let that = this;
-    remote.getUserPackage(id).then(res => {
+
+    // 从本地取企业编号然后在接口里传值
+    let merchantSysNo = wx.getStorageSync(constants.MerchantSysNo)
+
+    remote.getUserPackage(id, merchantSysNo).then(res => {
       that.setData({
         imageAvalible: res.data.VideoNumber - that.data.picList.length > 0 ? res.data.VideoNumber - that.data.picList.length : 0
       })
@@ -300,6 +308,11 @@ Url: "/xintui/156/myimage/a17e79d1-a.jpg"
       if (temp[0].length > 0) {
         // 上传图片
         uploadFiles(uniqueKey, 4, temp[0]).then(res => {
+
+          // 从本地取企业编号然后在接口里传值
+          let merchantSysNo = wx.getStorageSync(constants.MerchantSysNo)
+          temp[0][0].MerchantSysNo = merchantSysNo
+
           remote.createImages(temp[0]).then(res => {
             resolve(() => {
               wx.showToast({
@@ -378,13 +391,18 @@ Url: "/xintui/156/myimage/a17e79d1-a.jpg"
       return false
     }
     let that = this;
+
+    // 从本地取企业编号然后在接口里传值
+    let merchantSysNo = wx.getStorageSync(constants.MerchantSysNo)
+
     remote.insertRelationship({
       Name: params.username,
       UserTelPhone: params.userTelephone,
       Status: 0,
       Type: 2,
       VipTelPhone: "",
-      InUserSysNo: uniqueKey
+      InUserSysNo: uniqueKey,
+      MerchantSysNo: merchantSysNo
     }).then(res => {
       if (res.success) {
         wx.showToast({

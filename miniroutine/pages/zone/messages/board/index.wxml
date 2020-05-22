@@ -4,7 +4,7 @@
     <view class="text-center">
       <image src="../../../../static/icon/board-card.png" style="width: 45rpx; height: 45rpx;"></image>
     </view>
-    <view class="text-sm __items-text text-center" style="margin-top: -5rpx;">返回名片</view>
+    <view class="text-sm __items-text text-center" style="margin-top: -5rpx;">查看名片</view>
   </view>
   <view class="__items" bindtap="call">
     <view class="text-center">
@@ -52,7 +52,7 @@
         <view wx:if="{{ item.flow == 'out' }}" class="action text-bold text-grey">
           {{ item.payload.second }}"
         </view>
-        <view class="content {{ item.flow == 'in' ? 'bg-white' : 'bg-green' }}" data-sound="{{ item.payload.url }}" bindtap="playSound" data-index="{{ index }}">
+        <view class="content {{ item.flow == 'in' ? 'bg-white' : 'bg-green' }}" data-sound="{{ item.payload.url }}" bindtap="playSound" data-index="{{ index }}" style=" width:{{  item.payload.second <= '5' ? '150rpx' : '120px'}}">
           <text class="cuIcon-{{ currentIndex == index ? 'stop' : 'sound' }} text-xxl {{ item.flow == 'in' ? 'padding-left-xl' : 'padding-right-xl' }}"></text>
         </view>
         <view wx:if="{{ item.flow == 'in' }}" class="action text-bold text-grey">

@@ -12,7 +12,8 @@
           {{ mainTitle || '新推名片' }}
         </view>
         <view class="__position text-black">
-          {{ positionTitle || '新零售，用心推' }}
+          <!-- {{ positionTitle || '新零售，用心推' }} -->
+          {{ positionTitle || '' }}
         </view>
       </view>
       <view class="erys-footer__content-box">

@@ -66,6 +66,7 @@
 .__close {
   position: absolute;
   right: 0rpx;
-  top: -14rpx;
+  top: -0rpx;
   font-size: 32rpx;
+  color: red;
 }

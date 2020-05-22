@@ -1,6 +1,14 @@
 import constants from '../../../common/constants.js';
-import { messageList, addblockList, removeConversation, setMessageRead } from '../../../utils/imUtils.js';
-import { parseTime } from '../../../utils/util.js';
+import {
+  messageList,
+  addblockList,
+  removeConversation,
+  setMessageRead
+} from '../../../utils/imUtils.js';
+import {
+  parseTime
+} from '../../../utils/util.js';
+import remote from '../../../service/remote.js';
 const app = getApp();
 
 Page({
@@ -10,18 +18,65 @@ Page({
     listTouchDirection: null,
     messageList: []
   },
-  onLoad: function (options) {
+  onLoad: function(options) {
     app.watch('messageList', this.feedback);
     let uniqueKey = wx.getStorageSync(constants.UNIQUE_KEY);
+    let merchantSysNo = wx.getStorageSync(constants.MerchantSysNo)
     let that = this;
+    let list = []
     messageList().then(res => {
       that.setData({
         messageList: res.messageList
       })
+      list = this.data.messageList
+      for (let i = 0; i < this.data.messageList.length; i++) {
+        remote.getUserInformation(list[i].userProfile.userID, merchantSysNo).then(res => {
+          let headUrl = res.data.HeadPortraitUrl
+          let name = res.data.Name
+          // console.log(res.data)    
+          list[i].userProfile.avatar = headUrl
+          list[i].userProfile.nick = name
+          let url = list[i].userProfile.avatar
+          // console.log(url)
+          let imgUrl = url.substr(0, 1)
+          if (imgUrl == '/') {
+            // console.log(url)
+            imgUrl = 'https://www.xintui.xin:8058' + url
+            // console.log(imgUrl)
+            url = imgUrl
+            list[i].userProfile.avatar = imgUrl
+          
+          }
+        })  
+        let url = list[i].userProfile.avatar
+        let imgUrl = url.substr(0, 1)
+        if (imgUrl == '/') {
+          imgUrl = 'https://www.xintui.xin:8058' + url
+          url = imgUrl
+          list[i].userProfile.avatar = url
+        } 
+      }
+      that.setData({
+        messageList: list
+      })
+      
     })
+
     this.setData({
       uniqueKey: uniqueKey
     })
+  },
+  onShow:function(){
+    if (this.data.messageList.length ==0 ){
+      let msgSet = setTimeout((callback) => {
+        this.setData({
+          messageList: this.data.messageList
+        })
+      }, 1000, () => {
+        clearTimeout(msgSet);
+      })
+    }
+
   },
   feedback(list) {
     for (let i = 0; i < list.length; i++) {
@@ -76,9 +131,8 @@ Page({
     let messageList = this.data.messageList;
     let item = messageList[target];
     if (item.unreadCount > 0) {
-      app.globalData.unreadcount = app.globalData.unreadcount - item.unreadCount;
-      setMessageRead(item.conversationID).then(res => {
-      })
+      app.globalData.unreadcount = app.globalData.unreadcount - item.unreadCount; //这是以前的代码
+      setMessageRead(item.conversationID).then(res => {})
     }
     wx.navigateTo({
       url: `./board/index?conversation=${JSON.stringify(item)}`,

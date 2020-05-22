@@ -34,7 +34,7 @@
   <view class="text-shadow text-sm text-grey margin-top">添加体现业务能力的照片，可提升咨询量</view>
   <view class="text-shadow text-sm text-orange margin-top">tips: 所有操作要保存后才能生效哦</view>
 </view>
-<view class="bg-gray __padding">
+<view class="bg-gray __padding" style="margin-bottom:120rpx">
   <block wx:for="{{ picList }}" wx:key="index">
     <view class="text-gray text-shadow margin-bottom __padding-item bg-white" wx:if="{{ !item.deleted }}">
       <view class="text-center text-lg" bindtap="actiontapClick" data-index="{{ index }}">
@@ -50,21 +50,21 @@
         <image src="{{ item.Url }}" mode="widthFix" class="common-pic-widthfixed" bindload="loadImage" binderror="loadImage"></image>
       </view>
       <view class="margin-top">
-        <input class="text-orange text-sm" placeholder="点击添加照片描述,限20字" placeholder-class="text-gray text-sm" maxlength="20" value="{{ item.Description }}" data-index="{{ index }}" bindinput="inputDescription"></input>
+        <input class="text-orange text-sm" placeholder="点击添加照片描述,限25字" placeholder-class="text-gray text-sm" maxlength="25" value="{{ item.Description }}" data-index="{{ index }}" bindinput="inputDescription"></input>
       </view>
     </view>
   </block>
   <view class="padding-sm text-gray text-shadow bg-white">
     <view class="text-lg flex flex-row align-center justify-center" bindtap="actiontapClick" data-index="-1">
       <icon class="cuIcon-add text-blue text-xl addImg"></icon>
-        添加更多图片111
+        添加更多图片
     </view>
   </view>
 </view>
-<view class="common-padding bg-gray">
+<view class="common-padding bg-gray" style="margin-bottom:180rpx">
   <view class="text-shadow text-sm text-red" bindtap="showRegister" wx:if="{{ imageAvalible == 0 }}">点我申请更多图片数量</view>
 </view>
-<view class="bg-white shadow padding-xl">
+<view class="bg-white shadow padding-xl keep">
   <button class="cu-btn bg-blue text-xl" style="width: 100%; height: 100rpx;" bindtap="submit">保存</button>
 </view>
 

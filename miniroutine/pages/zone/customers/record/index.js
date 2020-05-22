@@ -24,10 +24,15 @@ Page({
   },
   save() {
     let that = this;
+
+    // 从本地取企业编号然后在接口里传值
+    let merchantSysNo = wx.getStorageSync(constants.MerchantSysNo)//在35引用
+
     remote.insertRecord({
       CustomSysNo: this.data.targetUserId,
       Description: this.data.text,
-      InUserSysNo: this.data.uniqueKey
+      InUserSysNo: this.data.uniqueKey,
+      MerchantSysNo: merchantSysNo
     }).then(res => {
       if (res.success) {
         wx.showToast({

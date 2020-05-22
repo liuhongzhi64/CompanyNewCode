@@ -14,3 +14,8 @@
   top: -24rpx;
   font-size: 32rpx;
 }
+.keep{
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+}

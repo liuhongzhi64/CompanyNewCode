@@ -3,7 +3,8 @@
   <view class="padding-sm erys-card-b__border">
     <view class="flex flex-row justify-start align-end">
       <view class="text-white text-bold text-xl margin-right text-cut" style="max-width: 300rpx;">{{ mainTitle || '新推名片' }}</view>
-      <view class="text-white text-sm text-cut" style="max-width: 260rpx">{{ positionTitle || '新零售，用心推' }}</view>
+      <!-- <view class="text-white text-sm text-cut" style="max-width: 260rpx">{{ positionTitle || '新零售，用心推' }}</view> -->
+      <view class="text-white text-sm text-cut" style="max-width: 260rpx">{{ positionTitle || '' }}</view>
     </view>
     <view wx:if="{{ phone || email }}" class="flex flex-row justify-between align-center" style="width: 580rpx;margin-top: 8rpx;">
       <view wx:if="{{ phone }}" class="flex flex-row justify-center align-center">

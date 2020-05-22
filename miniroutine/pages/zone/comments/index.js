@@ -104,7 +104,11 @@ Page({
     let listData = this.data.listData;
     let that =this;
     let page = this.data.page;
-      remote.getComments(this.data.uniqueKey, this.data.status, page).then(res => {
+
+    // 从本地取企业编号然后在接口里传值
+    let merchantSysNo = wx.getStorageSync(constants.MerchantSysNo)//在111引用
+
+    remote.getComments(this.data.uniqueKey, this.data.status, page, merchantSysNo).then(res => {
       let cur = res.data;
         for (let j = 0; j < cur.length; j++) {
           for (let k = j; k > 0 && k < cur.length; k--) {

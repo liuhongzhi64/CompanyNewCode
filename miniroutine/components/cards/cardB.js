@@ -47,6 +47,13 @@ Component({
   methods: {
     checkImage() {
       let img = this.data.avatar
+      let newImg = img.substring(0, img.lastIndexOf('132'))
+      if (newImg){
+        img = newImg + '0'
+      }
+      // img = newImg + '0'
+      console.log(newImg)
+      console.log(img)
       let imgs = []
       imgs[0] = img
       if (img) {

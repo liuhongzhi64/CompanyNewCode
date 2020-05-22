@@ -2,8 +2,10 @@
 <form class="common-padding" bindsubmit="formSubmit">	
     <view class="cu-form-group margin-top padding" bindtap="showAction">
       <view class="title">头像</view>
-      <view class="cu-avatar round bg-gray lg" catchtap="showLgAvatar">
-        <image src="{{ avatar }}" style="width: 96rpx; height: 96rpx; border-radius: 50%;"></image>
+      <!-- 不给图片绑定放大的效果，只显示为上传图片的功能 -->
+      <!-- <view class="cu-avatar round bg-gray lg" catchtap="showLgAvatar" > -->
+      <view class="cu-avatar round bg-gray lg">
+        <image src="{{ avatar }}" style="width: 96rpx; height: 96rpx; border-radius: 50%;" ></image>
         <view class="badge cuIcon-camera bg-orange cu-tag"></view>
       </view>
 	</view>

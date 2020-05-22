@@ -1,6 +1,7 @@
-const dev = "http://app-svc.lixiantuce.com:8054";
-const pro = "https://www.xintui.xin:8058";
-const envParams = "dev";
+const dev = "http://app-svc.lixiantuce.com:8054";//这是测试服
+const pro = "https://www.xintui.xin:8058";//线上
+const envParams = "dev";//测试用dev线上用pro
+// 每次上线的时候都要去common下面的constant.js中去修改版本号，一定要和线上的版本号一致才行，比如现在线上版本是1.0.8，那么在下次上传代码的时候就将是VERSION: '1.0.9',
 Promise.prototype.finally = function (callback) {
   let P = this.constructor;
   return this.then(
