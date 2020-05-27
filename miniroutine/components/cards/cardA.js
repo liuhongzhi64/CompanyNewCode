@@ -49,7 +49,7 @@ Component({
       let img = this.data.avatar
       console.log(img.substring(img.length - 3))
       let newImg = img.substring(0, img.lastIndexOf('132'))
-      console.log(newImg)
+      // console.log(newImg)
       if (newImg) {
         img = newImg + '0'
       }

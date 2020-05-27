@@ -20,7 +20,10 @@
     <view class="cu-avatar round lg" style="background-image: url({{ userInfo.HeadPortraitUrl }})" bindtap="deleteSomeone"></view>
     <view class="basis-xl">
       <view class="flex flex-row justify-between align-center">
-        <view class="text-black text-lg text-bold">{{ userInfo.Name }}</view>
+        <view class="text-black text-lg text-bold">
+        <view>{{ userInfo.Name }}</view>
+        <view catchtap="callPhone" class="text-blue" data-phone="{{ userInfo.TelePhone  }}" style="margin-top:10rpx">{{ userInfo.TelePhone }}</view>         
+        </view>
         <view class="text-grey text-df" bindtap="navigateToInfo">查看信息</view>
       </view>
       <view wx:if="{{ userInfo.InDateStr }}" class="text-grey text-sm margin-top-xs">{{ userInfo.InDateStr + '添加为客户' }}</view>

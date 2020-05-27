@@ -2,6 +2,7 @@
 import remote from '../../service/remote.js';
 import { image } from '../../request/index.js';
 import {userSetting } from '../../common/version.js';
+import constants from '../../common/constants.js';
 import Card from '../../utils/productPainter.js';
 Page({
 
@@ -14,7 +15,8 @@ Page({
     _animation: {},
     details: {},
     imagePath: '',
-    template: {}
+    template: {},
+    url:''
   },
 
   /**
@@ -30,6 +32,15 @@ Page({
         details: JSON.parse(info)
       })
     }
+    console.log(this.data.details)
+    let merchantSysNo = wx.getStorageSync(constants.MerchantSysNo)
+    remote.getCardInfo(this.data.details.uniqueKey, merchantSysNo).then(res => {
+      this.setData({
+        url: res.data.HeadPortraitUrl
+      })
+      console.log(this.data.url)
+    })
+
     this._rotate = wx.createAnimation({
       duration: this.data.duration,
       timingFunction: this.data.timingFunction
@@ -50,9 +61,10 @@ Page({
   },
   onImgOK(event) {
     let that = this;
+    console.log(event)
     let imagePath = event.detail.path;
     this.setData({
-      imagePath: imagePath
+      imagePath: imagePath 
     }, () => {
       wx.hideLoading();
       that.startRotate();
@@ -160,10 +172,10 @@ Page({
   // }
   preview() {
     let temp  = [];
-    temp[0] = this.data.imagePath;
+    temp[0] = this.data.imagePath ;
     wx.previewImage({
       urls: temp,
-      current: this.data.imagePath
+      current: this.data.imagePath 
     })
   }
 })

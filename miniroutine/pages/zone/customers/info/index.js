@@ -154,6 +154,13 @@ Page({
       let currentDate = getCurrentDate();
     })
   },
+  callPhone(e){
+    wx.makePhoneCall({
+      phoneNumber: e.currentTarget.dataset.phone,
+      fail() {
+      }
+    })
+  },
   back() {
     wx.navigateBack({});
   },

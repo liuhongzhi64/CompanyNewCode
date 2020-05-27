@@ -188,7 +188,7 @@ Page({
     let maxSize = this.data.maxSize;
     let that = this;
     wx.chooseVideo({
-      // maxDuration: "120",//以前的代码
+      // maxDuration: "120",//以前的代码超过60，IOS无法选择视频
       maxDuration: 60,
       success(res) {
         if (res.size > maxSize) {

@@ -118,7 +118,9 @@ Page({
         EditUserSysNo: this.data.uniqueKey,
         LevelName: level,
         Priority: 10 - selected, // 有意向10 已成交 9 无意向 8 未分类8
-        UsersysNo: this.data.userInfo.CustomerSysNo
+        UsersysNo: this.data.userInfo.CustomerSysNo,
+        MerchantSysNo: merchantSysNo,
+        InUserSysNo: this.data.uniqueKey
       })
     } else {
       if (level) {

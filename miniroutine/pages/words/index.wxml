@@ -23,11 +23,11 @@
   </view>
   <view style="height: 150rpx;"></view>
 </view>
-<view class="bg-white shadow padding-sm __position-box" style="bottom: {{ bottomHeight }}px;">
+<view class="bg-white shadow padding-sm __position-box keep" style="bottom: {{ bottomHeight }}px;">
   <form bindsubmit="formSubmit">
-    <view class="__text-align-row" style="align-items: center;justify-content: space-between;">
+    <view class="__text-align-row" style="align-items: center;justify-content: space-between;background-color:#eee; border-radius: 30rpx;padding-right: 20rpx">
       <!-- <input name="text" class="text-sm text-shadow text-black basis-xl" placeholder="点这里马上给我留言" bindfocus="showButton" value="{{ text }}" bindblur="loseFocus" adjust-position="{{ false }}" maxlength="30"></input> -->
-      <textarea name="text" class="text-sm text-shadow text-black basis-xl" placeholder="点这里马上给我留言" bindfocus="showButton" style="height: 100rpx;" value="{{ text }}" bindblur="loseFocus" adjust-position="{{ false }}" maxlength="100"></textarea>
+      <textarea name="text" class="text-sm text-shadow text-black basis-xl" placeholder="点这里马上给我留言" bindfocus="showButton" style="height: 100rpx;padding-top: 24rpx;padding-left: 20rpx;" value="{{ text }}" bindblur="loseFocus" adjust-position="{{ false }}" maxlength="100" ></textarea>
       <button hidden="{{ show }}" class="cu-btn round bg-blue" form-type="submit">确定</button>
     </view>
   </form>

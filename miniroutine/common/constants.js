@@ -1,5 +1,5 @@
 const constants = {
-  VERSION: '1.0.13',
+  VERSION: '1.0.14',
   UNIQUE_KEY: 'uniqueKey',
   USERINFO: 'userInfo',
   SERVICE_PHONE: '15700620062',

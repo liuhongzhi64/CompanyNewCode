@@ -52,8 +52,8 @@ Component({
         img = newImg + '0'
       }
       // img = newImg + '0'
-      console.log(newImg)
-      console.log(img)
+      // console.log(newImg)
+      // console.log(img)
       let imgs = []
       imgs[0] = img
       if (img) {

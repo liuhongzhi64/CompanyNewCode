@@ -457,21 +457,17 @@ Page({
             AName: res.data.Name,
           })
         })
-        // console.log(res.encryptedData)
-        // console.log(res.iV)
-        // console.log(that.data.uniqueKey)
         // , that.data.merchantSysNo是新加的商品编号
         remote.getPhone(res.encryptedData, res.iV, that.data.uniqueKey, that.data.merchantSysNo).then(res => {
-          // console.log(res)
           wx.addPhoneContact({
             firstName: userInfo.Name,
             mobilePhoneNumber: userInfo.Telephone,
             organization: userInfo.CompanyName || "",
-            title: userInfo.PositionName,
-            workAddressState: userInfo.ProvinceName,
-            workAddressCity: userInfo.CityName,
-            workAddressStreet: userInfo.DistrictName,
-            email: userInfo.Email
+            title: userInfo.PositionName || "",
+            workAddressState: userInfo.ProvinceName || "",
+            workAddressCity: userInfo.CityName || "",
+            workAddressStreet: userInfo.DistrictName || "",
+            email: userInfo.Email || ""
           })
           that.setData({
             userPhone: JSON.parse(res.data).purePhoneNumber,
@@ -853,9 +849,7 @@ Page({
       uniqueKey: this.data.targetUserId
     }
 
-    console.log(userInfo)
     console.log(params)
-
     params = JSON.stringify(params)
     wx.navigateTo({
       url: `./share/share?details=${ params }`,
@@ -879,7 +873,6 @@ Page({
               doAppreciate: true, // true 不能点赞 false 可以点赞
               userInfo: userInfo
             }, () => {
-
               // 这是后面加的获取用户的信息的查询
               // remote.getUserInformation(that.data.uniqueKey).then(res => {
               remote.getUserInformation(that.data.uniqueKey, that.data.merchantSysNo).then(res => {
@@ -887,7 +880,7 @@ Page({
                 that.setData({
                   AName: res.data.Name
                 })
-                // console.log(that.data.AName)
+                // console.log(this.data.userInfo)
               })
 
               let desc = `${that.data.myInfo.Name || that.data.myInfo.WX || that.data.AName}给您的名片点了赞，快去瞧瞧吧！`;
@@ -913,7 +906,6 @@ Page({
     if (result == -1) {
       if (this.data.uniqueKey != this.data.targetUserId && !this.data.doCollecte) {
         let userInfo = this.data.userInfo;
-        console.log(this.data.merchantSysNo)
         remote.doCollecteCard({
           UserSysNo: this.data.targetUserId,
           InUserSysNo: this.data.uniqueKey,
