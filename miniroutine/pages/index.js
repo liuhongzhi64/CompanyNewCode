@@ -34,6 +34,7 @@ Page({
     buttonOpenTypeDefaultShow:false,
     // merchantSysNo:1431,//配置企业编号线上
     merchantSysNo:1394,//配置企业编号测试
+    visitorialID:''//访问者的ID
   },
   onLoad: function (options) {
     wx.showLoading({
@@ -49,16 +50,18 @@ Page({
     let targetUserId = options.targetKey
     let key = wx.getStorageSync(constants.UNIQUE_KEY);//这是用户自己的ID
     let Info = wx.getStorageSync(constants.USERINFO);//用户的基本信息表
-    console.log(targetUserId)//undefined
+    console.log("被访问的ID"+targetUserId)//undefined
     // console.log(Info)
     if (targetUserId) {
       this.setData({
         targetUserId: targetUserId,
+        visitorialID: targetUserId
       })
     }
     
     // 这是后面新加的判定，如果自己有账号，并且自己的资料已经完善，进来的时候就直接进入自己的界面
     else{
+      console.log('自己有账号', key)
       if (Info){
         this.setData({
           targetUserId: key,
@@ -72,12 +75,13 @@ Page({
     let myInfo = wx.getStorageSync(constants.USERINFO);
     // wx.setStorageSync(constants.UNIQUE_KEY, 307);
     let uniqueKey = wx.getStorageSync(constants.UNIQUE_KEY);
-
+    console.log(uniqueKey+"在78行")
     // 这是后面加的获取用户的信息的查询
     if (uniqueKey != ''){
       // remote.getUserInformation(uniqueKey).then(res => {
-      remote.getUserInformation(uniqueKey, this.data.merchantSysNo).then(res => {
-        // console.log(res.data.HeadPortraitUrl)
+      remote.getUserInformation(uniqueKey, this.data.merchantSysNo).then(res => {//接口是微信表，是应该在名片表查询
+      // remote.getCardInfo(uniqueKey, this.data.merchantSysNo).then(res => {
+        console.log(res)
         let leftPortrait = res.data.HeadPortraitUrl
         leftPortrait = leftPortrait.split('//')[1]
         if (leftPortrait){
@@ -96,8 +100,8 @@ Page({
         this.setData({
           AName: res.data.Name,                    
         })
-
         // 新加的判定新用户在初次授权后的头像是否和默认创建名片的头像一致，不一致就是已经授权，然后改变按钮为获取电话号码
+        console.log(constants.defaultLogo)
         if (this.data.avatar != constants.defaultLogo && res.data.TelePhone != null ) {
           // console.log(333333)
           this.setData({
@@ -292,7 +296,7 @@ Page({
         userSetting('scope.userInfo', true).then(res => {
           // 微信登录
           login(res.userInfo).then(res => {
-            console.log("微信登录", res)
+            console.log("微信登录295", res)
             // 新加的企业编号
             res.MerchantSysNo = that.data.merchantSysNo //新加需求，要添加企业编号
             wx.setStorageSync(constants.MerchantSysNo, res.MerchantSysNo)//新加需求，要添加企业编号,将企业编号存在本地存储中
@@ -300,18 +304,16 @@ Page({
             let avatar = res.HeadPortraitUrl,
                   name = res.WX;
             // 后台登录
+            
             remote.login(res).then(res => {
-              console.log("后台登录", res)
+              console.log("后台登录304", res)
               wx.setStorageSync(constants.UNIQUE_KEY, res.data);
               let uniqueKey = res.data
               let app = getApp();
               app.globalData.uniqueKey = uniqueKey;
-
-
               // 验证用户是否有名片
               let merchantSysNo = that.data.merchantSysNo //新加需求，要添加企业编号
-
-
+              let targetId = that.data.visitorialID
               remote.checkCard(res.data, merchantSysNo).then(res => {
                 if (res.success) {
                   // 查询成功有名片就让按钮直接变为默认情况，可以直接触发事件
@@ -322,10 +324,12 @@ Page({
                 } 
                 else {
                   // 如果查询到没有名片，就改变按钮为获取电话号码类型，让用户在操作其他的时候就创建默认名片
+                  console.log("传过去的ID" + targetId)
                   wx.navigateTo({
 
                     // url: `./zone/edit/profile/index?noCard=true&avatar=${avatar}&name=${name}`,//这个是跳转到创建名片页（这是以前的路由导航）                
-                    url: `./index?avatar=${avatar}?targetId=${that.data.targetId}`,
+                    // url: `./index?avatar=${avatar}&targetId=${targetId}`,
+                    url: `./index?targetKey=${targetId}`
 
                   })
                   // that.createCard(uniqueKey, avatar, name).then(res => {
@@ -347,7 +351,6 @@ Page({
     return -1;
   },
   navgateToZone(res) { 
-    // console.log(res)
     let result = this.getUserInfo(res);
     if (result == -1) {
       let uniqueKey = this.data.uniqueKey;
@@ -372,6 +375,7 @@ Page({
         this.setData({
           targetUserId: uniqueKey
         });
+        console.log(!this.data.myInfo)
         if (!this.data.myInfo) {
           // remote.getOriginWxInfo(this.data.uniqueKey).then(res => {
           remote.getOriginWxInfo(this.data.uniqueKey,this.data.merchantSysNo).then(res => {
@@ -385,10 +389,22 @@ Page({
         // console.log(uniqueKey)
       }
       else{
-        wx.navigateTo({
-          url: './zone/index',
+        console.log(1111)
+        remote.getUserInformation(uniqueKey, this.data.merchantSysNo).then(res => {
+          console.log(res.data.TelePhone)
+          if (res.data.TelePhone != '') {
+            wx.navigateTo({
+              url: './zone/index',
+            })
+          } else {           
+            wx.navigateTo({
+              url: `./zone/edit/profile/index?noCard=true&avatar=${res.data.HeadPortraitUrl}&name=${res.data.WX}`,
+            })
+          }
         })
       }
+    }else{
+      return
     }
   },
   // 浏览历史名片
@@ -423,7 +439,6 @@ Page({
     if (result == -1) {
       // // 在用户只授权了获取自己的头像和微信名的时候点击分享名片要先进行一次获取电话号码的权限，用来创建初始化名片
       that.storagePhone(res)
-      console.log(that.data.buttonOpenTypeGetPhoneNumberShow)
       if (!that.data.buttonOpenTypeGetPhoneNumberShow){
         this.setData({
           showAction: true
@@ -447,7 +462,6 @@ Page({
     let sessionData = res
     let that = this
     let userInfo = that.data.userInfo
-    // console.log(userInfo, sessionData, that.data.uniqueKey, that.data.userPhone)
     if (res.detail.errMsg.split(':')[1] == 'ok') {
       that.checkSession(sessionData).then(res => {
          // 这是后面加的获取用户的信息的查询
@@ -475,21 +489,18 @@ Page({
           // console.log(that.data.userPhone, that.data.targetUserId)
           // 这是后面加的把电话存入到后台
           this.createCard(that.data.uniqueKey, this.data.avatar, this.data.AName, that.data.userPhone, that.data.merchantSysNo).then(res => {
-            // console.log(res)
             if (res.message == '名片已经存在！'){
-              // console.log(9999999)
               that.setData({
                 buttonOpenTypeGetPhoneNumberShow: false,
                 buttonOpenTypeGetUserInfoShow: false,
                 buttonOpenTypeDefaultShow: true,
               })
             }
-            // remote.getCardInfo(that.data.uniqueKey).then(res => {
             remote.getCardInfo(that.data.uniqueKey, that.data.merchantSysNo).then(res => {
               wx.setStorageSync(constants.USERINFO, res.data);
               console.log(that.data.targetUserId)
               wx.navigateTo({
-                url: `./index?targetUserId=${that.data.targetUserId}`,
+                url: `./index?targetKey=${that.data.targetUserId}`,
               })
               // wx.showToast({
               //   success: function (res) {
@@ -516,7 +527,6 @@ Page({
   },
   // 有名片存入通讯录
   addSavePhone(res){
-    // console.log(res)
     this.loading()
     let sessionData = res
     let that = this
@@ -532,12 +542,8 @@ Page({
         workAddressStreet: userInfo.DistrictName,
         email: userInfo.Email
       })
-      // 这里要在本地缓存中找到用户自己的电话号码，不然就会出现没有电话号码的情况
-      // console.log(wx.getStorageSync(constants.USERINFO))
-      // console.log(that.data.myInfo.Telephone)
       let myPhone = that.data.myInfo.Telephone;
       let desc = `${that.data.myInfo.Name || that.data.myInfo.WX || that.data.AName}保存了您的号码，他的电话是--->${myPhone}<,快回拨过去，促成交易!`;
-      // that.addRecords(today(), 9, desc, 1);
       that.addRecords(today(), 9, desc, 1, that.data.merchantSysNo);
       that.loading()
     })
@@ -586,20 +592,16 @@ Page({
   storagePhone(res){
     let sessionData = res
     let that = this
-    // console.log(sessionData)
     if (res.detail.errMsg.split(':')[1] == 'ok') {
       that.checkSession(sessionData).then(res => {
         // 这是后面加的获取用户的信息的查询
-        // remote.getUserInformation(that.data.uniqueKey).then(res => {
         remote.getUserInformation(that.data.uniqueKey, that.data.merchantSysNo).then(res => {
           that.setData({
             AName: res.data.Name,
           })
         })
-
         // that.data.merchantSysNo是新加的商品编号
         remote.getPhone(res.encryptedData, res.iV, that.data.uniqueKey, that.data.merchantSysNo).then(res => {
-          // console.log(res)
           if (res.message == "获取成功！"){
             that.setData({
               userPhone: JSON.parse(res.data).purePhoneNumber,
@@ -608,17 +610,16 @@ Page({
               buttonOpenTypeGetUserInfoShow: false,
             })
           }
-          // console.log(that.data.userPhone)
           // 这是后面加的把电话存入到后台
-          // this.createCard(that.data.uniqueKey, this.data.avatar, this.data.AName, that.data.userPhone).then(res => {
           this.createCard(that.data.uniqueKey, this.data.avatar, this.data.AName, that.data.userPhone, that.data.merchantSysNo).then(res => {
             // console.log(res)
             remote.getCardInfo(that.data.uniqueKey, that.data.merchantSysNo).then(res => {
               wx.setStorageSync(constants.USERINFO, res.data);
-              this.refresh()//刷新页面
-              // wx.navigateTo({
-              //   url: `./index?targetId=${that.data.targetId}`,
-              // })
+              // this.refresh()//刷新页面
+              let targetId = that.data.visitorialID
+              wx.navigateTo({
+                url: `./index?targetKey=${targetId}`,
+              })
             })
           })
         })
@@ -849,7 +850,6 @@ Page({
       uniqueKey: this.data.targetUserId
     }
 
-    console.log(params)
     params = JSON.stringify(params)
     wx.navigateTo({
       url: `./share/share?details=${ params }`,

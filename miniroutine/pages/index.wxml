@@ -111,7 +111,7 @@
           open-type="getUserInfo"
           bindgetuserinfo="shareCard"
           wx:if="{{ buttonOpenTypeGetUserInfoShow }}">
-        分享名片
+        分享名片1
         </button>
       <!-- 授权没有名片分享名片 -->
         <button 
@@ -121,7 +121,7 @@
           open-type="{{ 'getPhoneNumber' }}"
           bindgetphonenumber="shareCard"
           wx:if="{{ buttonOpenTypeGetPhoneNumberShow  }}">
-        分享名片
+        分享名片2
         </button>
       <!-- 有名片分享名片 -->
         <button 
@@ -129,7 +129,7 @@
           hover-class="erys-index-share__button-text-left-hover"
           bindtap="shareCards"
           wx:if="{{ buttonOpenTypeDefaultShow  }}">
-        分享名片
+        分享名片3
         </button>
 
     <!-- 存入通讯录按钮 -->

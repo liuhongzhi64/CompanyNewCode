@@ -56,6 +56,7 @@ Page({
     let defaultLineWidth = getSystem.getPx(678);
     let defaultLineHeight = getSystem.getPx(300);
     let uniqueKey = wx.getStorageSync(constants.UNIQUE_KEY);
+    console.log(screenHeight)
     this.setData({
       targetId: targetId,
       uniqueKey: uniqueKey,

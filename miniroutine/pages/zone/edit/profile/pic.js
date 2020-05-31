@@ -272,6 +272,19 @@ Url: "/xintui/156/myimage/a17e79d1-a.jpg"
       imageAvalible: imagecount + 1
     })
   },
+  // 置顶
+  stick(event){
+    let index = event.currentTarget.dataset.index;
+    let picList = this.data.picList;
+    let temp = picList[index];
+    picList[index] = picList[index - 1 ];
+    picList[1] = picList[0];
+    picList[0] = temp;
+    this.setData({
+      picList: this.setArr(picList)
+    })
+  },
+  // 上移
   upperPosition(event) {
     let index = event.currentTarget.dataset.index;
     let picList = this.data.picList;
@@ -282,6 +295,7 @@ Url: "/xintui/156/myimage/a17e79d1-a.jpg"
       picList: picList
     })
   },
+  // 下移
   lowerPosition(event) {
     let index = event.currentTarget.dataset.index;
     let picList = this.data.picList;
@@ -292,6 +306,25 @@ Url: "/xintui/156/myimage/a17e79d1-a.jpg"
       picList: picList
     })
   },
+  // 置底
+  lowerBottom(event){
+    let index = event.currentTarget.dataset.index;
+    let picList = this.data.picList;
+    let temp = picList[index];
+    let num = picList.length
+    picList[index] = picList[index + 1];
+    picList[num] = temp;
+    this.setData({
+      picList: this.setArr(picList)
+    })
+  },
+  // 数组去重
+
+  setArr(arr) {
+    //Set数据结构，它类似于数组，其成员的值都是唯一的
+    return Array.from(new Set(arr)) // 利用Array.from将Set结构转换成数组
+  },
+
   submit() {
     let picList = this.data.picList;
     let uniqueKey = this.data.uniqueKey;
@@ -307,7 +340,6 @@ Url: "/xintui/156/myimage/a17e79d1-a.jpg"
       temp[0][i].MerchantSysNo = merchantSysNo
     }
     // temp[0][0].MerchantSysNo = merchantSysNo
-    console.log(temp[0])
     new Promise((resolve, reject) => {
       if (temp[0].length > 0) {
         // 上传图片

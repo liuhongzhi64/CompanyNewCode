@@ -42,8 +42,14 @@
         添加更多图片
       </view>
       <view class="text-right erys-pic__items common-padding-top-bottom">
+      <!-- 新加的置顶 -->
+        <view class="cuIcon-fold margin-right text-black" wx:if="{{ index != 0 }}" data-index="{{ index }}" bindtap="stick">置顶</view>
+      <!--新加的 置底 -->
+        <view class="cuIcon-unfold margin-right text-black" wx:if="{{ index != picList.length - 1 }}" data-index="{{ index }}" bindtap="lowerBottom">置底</view>
+        
         <view class="cuIcon-fold margin-right text-black" wx:if="{{ index != 0 }}" data-index="{{ index }}" bindtap="upperPosition">上移</view>
         <view class="cuIcon-unfold margin-right text-black" wx:if="{{ index != picList.length - 1 }}" data-index="{{ index }}" bindtap="lowerPosition">下移</view>
+
         <view class="cuIcon-close text-black" data-index="{{ index }}" bindtap="deleteIndexImage">删除</view>
       </view>
       <view class="bg-white">
