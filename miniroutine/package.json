@@ -4,7 +4,7 @@
   "description": "",
   "main": "app.js",
   "dependencies": {
-    "cos-wx-sdk-v5": "^0.7.9",
+    "cos-wx-sdk-v5": "^1.4.3",
     "miniprograms-navigation-bar": "^2.0.2",
     "tim-wx-sdk": "^2.4.2",
     "fundcharts": "^0.9.5"
