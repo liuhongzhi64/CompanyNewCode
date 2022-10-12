@@ -2,12 +2,23 @@
 # yarn lockfile v1
 
 
-cos-wx-sdk-v5@^0.7.9:
-  version "0.7.9"
-  resolved "https://registry.npm.taobao.org/cos-wx-sdk-v5/download/cos-wx-sdk-v5-0.7.9.tgz#03d1953c1d6f79ca0b871c8d2569d047c8f8a20b"
-  integrity sha1-A9GVPB1vecoLhxyNJWnQR8j4ogs=
+"@xmldom/xmldom@^0.8.2":
+  version "0.8.3"
+  resolved "https://registry.yarnpkg.com/@xmldom/xmldom/-/xmldom-0.8.3.tgz#beaf980612532aa9a3004aff7e428943aeaa0711"
+  integrity sha512-Lv2vySXypg4nfa51LY1nU8yDAGo/5YwF+EY/rUZgIbfvwVARcd67ttCM8SMsTeJy51YhHYavEq+FS6R0hW9PFQ==
+
+cos-wx-sdk-v5@^1.4.3:
+  version "1.4.3"
+  resolved "https://registry.yarnpkg.com/cos-wx-sdk-v5/-/cos-wx-sdk-v5-1.4.3.tgz#87ca3c6d399c0ca2836b7555a630291e29f5f5cf"
+  integrity sha512-QvWOIDzqaom2ajMqBdfgEIZfcAeep3HuR5q6ckR8tFFSI3mJT6IHUv48rS++HQoCs7PBxN24k3OJB0QjA+xZlg==
   dependencies:
-    xmldom "^0.1.27"
+    "@xmldom/xmldom" "^0.8.2"
+    mime "^2.4.6"
+
+mime@^2.4.6:
+  version "2.6.0"
+  resolved "https://registry.yarnpkg.com/mime/-/mime-2.6.0.tgz#a2a682a95cd4d0cb1d6257e28f83da7e35800367"
+  integrity sha512-USPkMeET31rOMiarsBNIHZKLGgvKc/LrjofAnBlOttf5ajRvqiRA8QsenbcooctK6d6Ts6aqZXBA+XbkKthiQg==
 
 miniprograms-navigation-bar@^2.0.2:
   version "2.0.2"
@@ -18,8 +29,3 @@ tim-wx-sdk@^2.4.2:
   version "2.5.0"
   resolved "https://registry.npm.taobao.org/tim-wx-sdk/download/tim-wx-sdk-2.5.0.tgz#85286fdafa22c04e993e855f149083cb07b72e8f"
   integrity sha1-hShv2voiwE6ZPoVfFJCDywe3Lo8=
-
-xmldom@^0.1.27:
-  version "0.1.31"
-  resolved "https://registry.npm.taobao.org/xmldom/download/xmldom-0.1.31.tgz#b76c9a1bd9f0a9737e5a72dc37231cf38375e2ff"
-  integrity sha1-t2yaG9nwqXN+WnLcNyMc84N14v8=
